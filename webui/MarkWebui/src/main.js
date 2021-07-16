@@ -28,6 +28,10 @@ import VueSession from 'vue-session'
 
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 
+
+import RouterTab from 'vue-router-tab'
+import 'vue-router-tab/dist/lib/vue-router-tab.css'
+
 Vue.component('full-calendar', fullCalendar)
 Vue.prototype.$echarts = echarts
 Vue.prototype.$ = JQuery
@@ -40,6 +44,8 @@ Vue.use(preview)
 Vue.use(VueSession)
 
 Vue.use(VueAwesomeSwiper)
+
+Vue.use(RouterTab)
 
 import 'swiper/dist/css/swiper.css'
 

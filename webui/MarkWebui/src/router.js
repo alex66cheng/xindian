@@ -7,6 +7,14 @@ import Router from 'vue-router'
 //import ChangePasswordComponent from './components/ChangePassword.vue'
 import Mark from './views/Mark.vue'
 import MarkHome from './views/MarkHome.vue'
+import Dashboard from './components/Dashboard.vue'
+
+
+import DeviceStatus from './components/DeviceStatus.vue'
+import Problem from './components/Problem.vue'
+import SolvedProblem from './components/SolvedProblem.vue'
+import UnsolvedProblem from './components/UnsolvedProblem.vue'
+
 Vue.use(Router)
 
 export default new Router({
@@ -36,24 +44,43 @@ export default new Router({
     },
     {
       path: '/markHome',
-      name: 'markHome',
+      
       component: MarkHome,
       children:[
        
         {
           path: 'Dashboard',  
           //name:'main', 
-          components: {
-            default: Dashboard,
-            aside: AsideMenu 
-          }
+          component: Dashboard
+            
         },
         {
           path: 'deviceStatus',
-          components: {
-            default: DeviceStatus,
-            aside: AsideMenu2
-          }
+          component: DeviceStatus,
+            
+        },
+        {
+          path: 'problem',
+          component: Problem,
+            
+          
+          
+          children: [
+            {
+              path: 'solved',
+              component:SolvedProblem,
+              meta:{
+                title: 'solvedProblem'
+              }           
+            },
+            {
+              path: 'unsolved',
+              component: UnsolvedProblem,
+              meta:{
+                title: 'unsolvedProblem'
+              }
+            }
+          ]
         },
         {
           path: '',

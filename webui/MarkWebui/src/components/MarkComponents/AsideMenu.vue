@@ -8,14 +8,10 @@
             width="59px" height="33px">
           </div>
         </a>
-      </nav>
-      <el-submenu index="1">
-        <template slot="title"><i class="el-icon-document"></i>Navigator One</template>
-        <el-menu-item-group title="Group 1">
-          <el-menu-item index="/markHome/dashboard">dashboard</el-menu-item>
-        </el-menu-item-group>
-      </el-submenu>
-      <el-menu-item index="/markHome/deviceStatus">Device Status</el-menu-item>       
+      </nav>      
+      <el-menu-item index="/markHome/dashboard">{{ $t("Dashboard_Title") }}</el-menu-item>
+      <el-menu-item index="/markHome/deviceStatus">Device Status</el-menu-item>
+      <el-menu-item index="/markHome/problem/solved">{{ $t("problem")}}</el-menu-item>       
     </el-menu>
   </el-container>       
 </template>

@@ -2,7 +2,7 @@
   <el-container style="height: 100%; border: 1px solid #eee">
     <!-- left side menu for different pages-->
     <el-aside width="15%" style="background-color: rgb(238, 241, 246) ">
-      <router-view name="aside"/>
+      <AsideMenu/>
     </el-aside>
     <!--header containing different tag and main-->
     <el-container style = "height: 100%">
@@ -73,7 +73,7 @@
 
 
 <script>
-
+  import AsideMenu from '../components/MarkComponents/AsideMenu.vue'
   export default {
     name : 'markHome',
     data() {
@@ -81,7 +81,7 @@
       }
     },
     components: {
-  
+      AsideMenu
     },
     
   }
