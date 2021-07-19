@@ -1,5 +1,5 @@
 <template>
-  <router-link to='/markHome/problem/unsolved' tag="button">
+  <router-link to='/monitor/problem/unsolved' tag="button">
   unsolved
   </router-link>
 </template>

@@ -4,18 +4,16 @@
       <nav id="app" style = "padding: 12px" >
         <a href="/" >
           <div style="width: 100%">  
-            <img src="../../assets/img/logo.png" 
+            <img src="../assets/img/logo.png" 
             width="59px" height="33px">
           </div>
         </a>
-      </nav>
-      <el-submenu index="1">
-        <template slot="title"><i class="el-icon-document"></i>Navigator One2</template>
-        <el-menu-item-group title="Group 1">
-          <el-menu-item index="/markHome/dashboard">dashboard2</el-menu-item>
-        </el-menu-item-group>
-      </el-submenu>
-      <el-menu-item index="/markHome/deviceStatus">Device Status2</el-menu-item>       
+      </nav>      
+      <el-menu-item index="/monitor/dashboard">{{ $t("Dashboard_Title") }}</el-menu-item>
+      <el-menu-item index="/monitor/deviceStatus">Device Status</el-menu-item>
+      <el-menu-item index="/monitor/gatewayCommand">{{ $t("Gateway_Command")}}</el-menu-item>
+      <el-menu-item index="/monitor/problem/solved">{{ $t("problem")}}</el-menu-item>
+             
     </el-menu>
   </el-container>       
 </template>

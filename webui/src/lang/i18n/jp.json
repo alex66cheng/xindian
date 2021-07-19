@@ -1,6 +1,7 @@
 {
   "Dashboard_Title":"ダッシュボード",
   "problem":"問題",
+  "Gateway_Command":"ゲートウェイコマンド",
   "city_temperaturei_Label":"温度",
   "green_house_outdoor_label":"室外",
   "green_house_indoor_label":"室内",

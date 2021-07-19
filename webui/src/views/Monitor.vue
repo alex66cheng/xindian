@@ -1,4 +1,4 @@
- <template> 
+<template> 
   <el-container style="height: 100%; border: 1px solid #eee">
     <!-- left side menu for different pages-->
     <el-aside width="15%" style="background-color: rgb(238, 241, 246) ">
@@ -50,15 +50,8 @@
       <!--main pages-->
       <el-main>
         
-        <el-row>
-          <el-col :span="24" class="content">
-            <el-col :xs="23" :sm="23" :md="23" :lg="23" :xl="23" :span="23" class="left-message">
-              <!-- Dashboard画面 -->
-              <router-view/>
-            </el-col>
-          </el-col>
-        </el-row>
         
+        <router-view/>
         
       </el-main>
       
@@ -73,9 +66,9 @@
 
 
 <script>
-  import AsideMenu from '../components/MarkComponents/AsideMenu.vue'
+  import AsideMenu from '../components/AsideMenu.vue'
   export default {
-    name : 'markHome',
+    name : 'monitor',
     data() {
       return {
       }

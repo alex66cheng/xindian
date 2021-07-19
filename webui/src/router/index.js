@@ -1,19 +1,26 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-//import Home from './views/Home.vue'
-//import LoginLayout from './views/LoginLayout.vue'
+import Home from '../views/Home.vue'
+import Login from '../views/Login.vue'
 //import LoginComponent from './components/Login.vue'
 //import ForgetPasswordComponent from './components/ForgetPassword.vue'
 //import ChangePasswordComponent from './components/ChangePassword.vue'
-import Mark from './views/Mark.vue'
-import MarkHome from './views/MarkHome.vue'
-import Dashboard from './components/Dashboard.vue'
+
+import Monitor from '../views/Monitor.vue'
 
 
-import DeviceStatus from './components/DeviceStatus.vue'
-import Problem from './components/Problem.vue'
-import SolvedProblem from './components/SolvedProblem.vue'
-import UnsolvedProblem from './components/UnsolvedProblem.vue'
+
+import DeviceStatus from '../components/DeviceStatus.vue'
+
+import GatewayFrame from '../components/frames/GatewayFrame.vue'
+import GatewayCommand from '../components/GatewayCommand.vue'
+
+import ProblemFrame from '../components/frames/ProblemFrame.vue'
+import SolvedProblem from '../components/SolvedProblem.vue'
+import UnsolvedProblem from '../components/UnsolvedProblem.vue'
+import i18n from '../lang/lang.js'
+
+import DashboardPath from './DashboardPath.js'
 
 Vue.use(Router)
 
@@ -31,40 +38,46 @@ export default new Router({
           {path:'/forgetpassword' , name:'forgetpassword' ,component:ForgetPasswordComponent},
           {path:'/changepassword' , name:'changepassword' ,component:ChangePasswordComponent}
       ]
-    },
+    },*/
     {
       path: '/home',
       name: 'home',
       component: Home,
-    },*/
-    {
-      path: '/mark',
-      name: 'mark',
-      component: Mark,
     },
     {
-      path: '/markHome',
+      path: '/login',
+      name:'login',
+      component: Login
+    },
+   
+    {
+      path: '/monitor',
       
-      component: MarkHome,
+      component: Monitor,
       children:[
        
+        ...DashboardPath,
         {
-          path: 'Dashboard',  
-          //name:'main', 
-          component: Dashboard
-            
+          path: 'gatewayCommand',
+          component: GatewayFrame,
+          children:[
+            {
+              path: '',
+              component: GatewayCommand,
+              meta:{title: i18n.messages[i18n.locale]['Gateway_Command']}
+            }
+          ]
         },
         {
           path: 'deviceStatus',
           component: DeviceStatus,
             
         },
+       
         {
           path: 'problem',
-          component: Problem,
-            
-          
-          
+          component: ProblemFrame,
+
           children: [
             {
               path: 'solved',
