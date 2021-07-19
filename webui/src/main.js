@@ -16,8 +16,6 @@ import 'element-ui/lib/theme-chalk/index.css'
 import './assets/css/font.css'
 import axios from 'axios'
 
-import VueMqtt from 'vue-mqtt'
-
 import fullCalendar from 'vue-fullcalendar'
 //import 'fullcalendar/dist/fullcalendar.css'
 
@@ -29,6 +27,10 @@ import 'fullcalendar/dist/locale/ja.js'
 import VueSession from 'vue-session'
 
 import VueAwesomeSwiper from 'vue-awesome-swiper'
+
+
+import RouterTab from 'vue-router-tab'
+import 'vue-router-tab/dist/lib/vue-router-tab.css'
 
 Vue.component('full-calendar', fullCalendar)
 Vue.prototype.$echarts = echarts
@@ -43,7 +45,7 @@ Vue.use(VueSession)
 
 Vue.use(VueAwesomeSwiper)
 
-Vue.use(VueMqtt, 'ws://40.78.123.28', {clientId: 'TEST123ABC' + parseInt(Math.random() * 100000), port:80 })
+Vue.use(RouterTab)
 
 import 'swiper/dist/css/swiper.css'
 

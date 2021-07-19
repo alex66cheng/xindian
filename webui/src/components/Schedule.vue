@@ -277,7 +277,6 @@
           :visible.sync="addConditionsVisible"
           class="addConditions"
           :close-on-click-modal="false"
-          @opened="openedDialog"
         >
           <el-form ref="dialogForm" :model="dialogForm" class="check-list">
             <div class="padding-border-bottom">
@@ -305,22 +304,8 @@
                 <div class="width-left">
                   <span>{{ $t("New_Schedle_Effective_Date_Label") }}</span>
                 </div>
-                <div class="width-right history-message" style="display:inline-flex">
-                  <div class="input-date">
-                   <div class="input-append date form_datetime">
-                     <input class="input-time" size="16" type="text" :placeholder="schedule_start_time" id="startTimeDate" :value="startTimeDate" :style="{width:unaddEndTimeDate,'padding-left':'9px'}">
-                     <span class="add-on"> <i class="icon-calendar"></i> </span>
-                   </div>
-                  </div>
-                  <span class="input-time-line" :style="{'line-height':'36px'}">-</span>
-                  <div class="input-date" >
-                   <div class="input-append date form_datetime">
-                     <input class="input-time " size="16" type="text" :placeholder="schedule_end_time"  id="stopTimeDate"  :value="stopTimeDate" :style="{width:unaddEndTimeDate,'padding-left':'9px'}">
-                     <span class="add-on"> <i class="icon-calendar"></i> </span>
-                   </div>
-                  </div>  
-                  <!-- 2019-03-04 時間の変更-->
-                  <!-- <el-date-picker
+                <div class="width-right history-message">
+                  <el-date-picker
                     :style="{width:unaddEndTimeDate}"
                     v-model="startTimeDate"
                     type="date"
@@ -333,7 +318,7 @@
                     v-model="stopTimeDate"
                     type="date"
                     :placeholder="schedule_end_time"
-                  ></el-date-picker> -->
+                  ></el-date-picker>
                 </div>
               </el-form-item>
               <el-form-item class="inputMessage">
@@ -397,58 +382,47 @@
                 <div class="width-left">
                   <span>{{ $t("New_Schedle_Effective_Time_Label") }}</span>
                 </div>
-                <div class="width-right ">  
-                <el-checkbox
-                    v-model="endDay"
-                    :style="{margin:'8px 0',width:'15%'}"
-                    @change="addEndTime"
-                  >{{ $t("New_Schedle_End_Date_Label") }}
-                </el-checkbox>
-                </div>
-                <div class="width-left">&nbsp;&nbsp;</div>
-                <div class="width-right history-message" >  
-                <ul>
-                    <li v-for="(titem, index) in titems" :key="titem.idx">
-                      <span>{{ titem.idx }}</span>
-                      
-                   <div  style="display: inline-flex;">
-                   <div class="input-date" >
-                     <div class="input-append input-group clockpicker"  data-autoclose="true" style="display:flex">
-                       <input type="text" class="input-time form-control"  :id="'titemStart-'+index"  :value="titems[index].start" :placeholder="schedule_start_time_Point" :style="{width:unaddEndTime,display:unaddEndTimeDateShow,margin:addEndTimeDateLeft,'padding-left':'9px'}">
-                        <span class="input-group-addon"> <i class="icon-time"></i> </span>
-                     </div>
-                   </div>
-                   <span class="input-time-line" :style="{'line-height':'36px'}">-</span>
-                  <div class="input-date">
-                     <div class="input-append input-group clockpicker"  data-autoclose="true" style="display:flex">
-                       <input type="text" class="input-time form-control"  :id="'titemStop-'+index" :value="titems[index].end" :placeholder="schedule_end_time_Point" :style="{width:unaddEndTime,display:unaddEndTimeDateShow,margin:addEndTimeDateLeft,'padding-left':'9px'}">
-                        <span class="input-group-addon"> <i class="icon-time"></i> </span>
-                     </div>
-                  </div>
-                </div>
-                <!-- 2019-03-04 時間の変更-->
-                  <!-- <el-time-picker format="HH:mm"
-                    v-model="titems[index].start"
+                <div class="width-right history-message">
+                  <el-time-picker
+                    v-model="startTime"
                     :picker-options="{selectableRange: selectStartTime}"
                     :placeholder="schedule_start_time_Point"
                     :style="{width:unaddEndTime,display:unaddEndTimeDateShow,margin:addEndTimeDateLeft}"
                   ></el-time-picker>
                   <span class="input-time-line">-</span>
-                  <el-time-picker format="HH:mm"
-                    v-model="titems[index].end"
+                  <el-time-picker
+                    v-model="stopTime"
                     :picker-options="{selectableRange: selectStopTime}"
                     :placeholder="schedule_end_time_Point"
                     :style="{width:unaddEndTime,display:unaddEndTimeDateShow,margin:addEndTimeDateLeft}"
-                  ></el-time-picker> -->
-                  <el-button class="item" @click="addTimeRow(index)">{{ titem.btn }}</el-button>
-                 
-                 </li>
-               </ul>
-               
-               </div>
-                
+                  ></el-time-picker>
+                  <el-checkbox
+                    v-model="endDay"
+                    :style="{margin:'8px 0',width:'15%'}"
+                    @change="addEndTime"
+                  >{{ $t("New_Schedle_End_Date_Label") }}</el-checkbox>
+                </div>
               </el-form-item>
-             
+              <el-form-item class="inputMessage">
+                <div class="width-left">&nbsp;&nbsp;</div>
+                <div class="width-right selectList">
+                  <el-select
+                    class="effective-date"
+                    v-model="endList2"
+                    :style="{width: '85%'}"
+                    @change="customContent2"
+                  >
+                    <el-option
+                      v-for="endItem in endItems2"
+                      :key="endItem.class"
+                      :label="endItem.name"
+                      :value="endItem.idx"
+                    >
+                      <span>{{endItem.name}}</span>
+                    </el-option>
+                  </el-select>
+                </div>
+              </el-form-item>
               <!-- カスタムの繰り返し -->
               <el-form-item
                 class="inputMessage"
@@ -507,57 +481,56 @@
                 </div>
               </el-form-item>
             </div>
-            
-           <div class="padding-border-bottom">
+            <div class="padding-border-bottom">
               <el-form-item class="inputMessage">
                 <div class="width-left">
                   <span>{{ $t("New_Schedle_Device_List_Label") }}</span>
                 </div>
+
                 <div class="width-right selectList">
-                
-                <ul>
-                <li v-for="(item, index) in items" :key="item.idx">
-                 <span>{{ item.idx }}</span>  
-                <el-select v-model="items[index].device" @change="onSelectDevice" :placeholder="schedule_select_device" size="medium">
-                    <el-option
-                      v-for="deviceListItem in deviceListItems"
-                      :key="deviceListItem.class"
-                      :label="deviceListItem.name" 
-                      :value="deviceListItem.param" 
-                    >
-                    <span>{{deviceListItem.name}}</span>
-                    </el-option>
-                  </el-select>
-                  
-                  <el-select v-model="items[index].op" :class="items[index].hide1" placeholder="オープン" size="medium">
-                    <el-option
-                      v-for="opListItem in opListItems"
-                      :key="opListItem.class"
-                     :label="opListItem.name" 
-                      :value="opListItem.idx" 
-                    >
-                    <span>{{opListItem.name}}</span>
-                    </el-option>
-                  </el-select>
-                  
-                  <el-select v-model="items[index].op2" @change="onForceClose" :class="items[index].hide2" style="width:150px;" placeholder="オープン" size="medium">
-                    <el-option
-                      v-for="opListItem2 in opListItems2"
-                      :key="opListItem2.class"
-                     :label="opListItem2.name" 
-                      :value="opListItem2.idx" 
-                    >
-                    <span>{{opListItem2.name}}</span>
-                    </el-option>
-                  </el-select>
-                  
-                  <el-input v-model="items[index].value" :class="items[index].hide3" style="width:80px;" :placeholder="value"></el-input>
-                  <span :class="items[index].hide3" >%</span>
-                  
-                  <el-button class="item" @click="addDeviceRow(index)">{{ item.btn }}</el-button>
-                   </li>
+                  <ul>
+                    <li v-for="(item, index) in items" :key="item.idx">
+                      <span>{{ item.idx }}</span>
+
+                      <el-select
+                        v-model="items[index].device"
+                        :placeholder="schedule_select_device"
+                        size="medium"
+                      >
+                        <el-option
+                          v-for="deviceListItem in deviceListItems"
+                          :key="deviceListItem.class"
+                          :label="deviceListItem.name"
+                          :value="deviceListItem.param"
+                        >
+                          <span>{{deviceListItem.name}}</span>
+                        </el-option>
+                      </el-select>
+
+                      <el-select v-model="items[index].op" placeholder="open" size="medium">
+                        <el-option
+                          v-for="opListItem in opListItems"
+                          :key="opListItem.class"
+                          :label="opListItem.name"
+                          :value="opListItem.idx"
+                        >
+                          <span>{{opListItem.name}}</span>
+                        </el-option>
+                      </el-select>
+
+                      <el-select v-model="items[index].value" placeholder="80%" size="medium">
+                        <el-option
+                          v-for="valueListItem in valueListItems"
+                          :key="valueListItem.class"
+                          :label="valueListItem.name"
+                          :value="valueListItem.period"
+                        >
+                          <span>{{valueListItem.name}}</span>
+                        </el-option>
+                      </el-select>
+                      <el-button class="item" @click="addDeviceRow(index)">{{ item.btn }}</el-button>
+                    </li>
                   </ul>
-                  
                 </div>
               </el-form-item>
             </div>
@@ -593,9 +566,6 @@
 
 <script>
 import _$ from 'jquery'
-import '../../public/static/datePicker/css/bootstrap.min.css'
-import '../../public/static/datePicker/css/bootstrap-clockpicker.css'
-import '../../public/static/datePicker/js/bootstrap-clockpicker.js'
 var demoEvents = [
   {
     title: 'Fan Turn on 10 mins',
@@ -624,14 +594,9 @@ export default {
   name: 'schedule',
   data() {
     return {
-      loginUser: '',
       calendarData: [],
 
-      items: [
-        { idx: 1, btn:'+', device: '', op: '',op2: '', value: '', hide1:'show_div', hide2:'hide_div', hide3:'hide_div' },
-      ],
-      
-      titems: [{ idx: 1, btn: '+', start: '', end: '' }],
+      items: [{ idx: 1, btn: '+', device: '', op: '', value: '', period: '' }],
 
       device123: [],
       dialog_title: this.$t('Schedule_Dialog_Title_Label_New'),
@@ -741,7 +706,7 @@ export default {
       unshowSelectSchedule2: 'none',
       unshowMonthMessage: 'none',
       unshowWeekMessage: 'none',
-      endDay: false,
+      endDay: '',
       endList: '',
       endList2: '',
       endItems: [
@@ -889,31 +854,22 @@ export default {
           class: 'deviceSSWD',
         },
       ],
-       opListItems2:[
+      opListItems: [
         {
-          name: 'オープン',
+          name: 'Open',
           idx: '1',
           class: 'opOpen',
         },
         {
-          name: '強制クローズ',
+          name: 'Close',
           idx: '2',
           class: 'opClose',
         },
-       
-      ],
-       opListItems:[
         {
-          name: 'オープン',
-          idx: '1',
-          class: 'opOpen',
+          name: 'Move',
+          idx: '3',
+          class: 'opMove',
         },
-        {
-          name: 'クローズ',
-          idx: '2',
-          class: 'opClose',
-        },
-        
       ],
       valueListItems: [
         {
@@ -1036,7 +992,7 @@ export default {
       header: {
         left: 'prev,next today',
         center: 'title',
-        right: 'month,basicWeek,basicDay',
+        right: 'month,agendaDay',
       },
       navLinks: true,
       editable: true, //引きずりと調整
@@ -1044,113 +1000,51 @@ export default {
       events: this.calendarData,
       eventClick: this.scheduleCalendarEventClick, //イベントをクリック
       dayClick: this.scheduleCalendarDayClick, //日付事件をクリック
-      timeFormat: 'H:mm',//時間のフォーマット
-			// axisFormat: 'H:mm',
     })
   },
   created() {
-    this.loginUser = this.$session.get('loginUser')
     this.getScheduleData()
   },
   methods: {
-    // ページ時間の呼び出しを開く
-    openedDialog(){
-      this.timeDefault()
-      this.dateDefault()
-    },
-     //時間表示スタイル
-    dateDefault() {
-      let that = this
-      $('.form_datetime').datetimepicker({
-        language: 'jp',
-        format: 'yyyy-mm-dd',
-        todayBtn: true, 
-        autoclose: true, 
-        showMeridian: 1, //時間表示スタイル
-        pickerPosition: 'bottom-left',
-        minView: 2,
-      }).on('change',function date(event){
-        var eventTarget=event.target
-        //idはstartTimeDateかどうか判断する
-        if(eventTarget.id=='startTimeDate'){
-          that.startTimeDate=eventTarget.value
-        }else if(eventTarget.id=='stopTimeDate'){
-          that.stopTimeDate=eventTarget.value
-        }
-       that.YYYYMMchangeHandler(that.startTimeDate)
-      })
-      //this.YYYYMMchangeHandler(that.startTimeDate)
-    },
-    timeDefault() {
-      var that = this
-     $('.clockpicker').clockpicker()
-     .find('input').change(function(events){
-       var eventsTarget=events.target
-       // idを文字列に分割する
-       var str = eventsTarget.id.split('-')
-       //idは/^titemStart-[0-100]+$/かどうか判断を形式
-        if(/^titemStart-[0-9]+$/.test(eventsTarget.id)){
-          that.titems[parseInt(str[1])].start = eventsTarget.value
-        }else if(/^titemStop-[0-9]+$/.test(eventsTarget.id)){
-          that.titems[parseInt(str[1])].end=eventsTarget.value
-        }
-    })
-    },
     dodel(event) {
       var targetId = event.currentTarget.id
+      console.log(targetId)
+
       var myscid = parseInt(targetId.substr(3))
+      console.log(myscid)
       this.scid = myscid
       this.doDelete()
     },
 
     doedit(event) {
       var targetId = event.currentTarget.id
+      console.log(targetId)
       var myscid = parseInt(targetId.substr(4))
+      console.log(myscid)
       this.edit_schedule(myscid)
       this.addConditionsVisible = true
     },
-    //時間の追加
-    addTimeRow(index) {
-    if (index == this.titems.length - 1) {
+    addDeviceRow(index) {
+      // console.log(this.items[0].device)
+      //   this.items[0].device = '天窓西南'
+      console.log(index)
+
+      if (index == this.items.length - 1) {
         var newitem = {}
-        newitem.idx = this.titems.length + 1
+        newitem.idx = this.items.length + 1
         newitem.btn = '+'
-        newitem.start = ''
-        newitem.end = ''
-        this.titems[this.titems.length - 1].btn = '-'
-        this.titems.push(newitem)
+        newitem.device = ''
+        newitem.op = ''
+        newitem.value = ''
+        this.items[this.items.length - 1].btn = '-'
+        this.items.push(newitem)
       } else {
-        this.titems.splice(index, 1)
-        for (var j = 0; j < this.titems.length; j++) {
-          this.titems[j].idx = j + 1
+        this.items.splice(index, 1)
+        console.log(this.items.length)
+        for (var j = 0; j < this.items.length; j++) {
+          this.items[j].idx = j + 1
         }
       }
-      this.$nextTick(() => {
-        this.timeDefault()
-      })
-      
-    },
-    // デバイスの追加
-    addDeviceRow(index) {
-      console.log(this.items[0].device)
-       if( index ==  this.items.length - 1 ) { 
-         var newitem = {}
-         newitem.idx = this.items.length + 1
-         newitem.btn = '+'
-         newitem.device = ''
-         newitem.op = ''
-         newitem.value = ''
-         newitem.hide1 = 'show_sel1'
-         newitem.hide2 = 'hide_div'
-         newitem.hide3 = 'hide_div'
-         this.items[this.items.length-1].btn = '-'
-         this.items.push(newitem)
-       } else {
-         this.items.splice(index, 1 )
-         for( var j = 0; j < this.items.length ; j++ ) {
-           this.items[j].idx = j+1
-         }
-       }
     },
    
     findDeviceOp(param) {
@@ -1179,16 +1073,17 @@ export default {
       return deviceName
     },
      //新規スケジュール
-    new_schedule() {
+    new_schedule(date) {
       this.clearDialog()
       this.scid = '0'
       this.dialog_title = this.$t('Schedule_Dialog_Title_Label_New')
       this.addConditionsVisible = true
-   //   this.startTimeDate=date
-//      this.stopTimeDate=date
+      this.startTimeDate=date
+      this.stopTimeDate=date
     },
     //Editスケジュールの情報
     edit_schedule(myscid) {
+      console.log(myscid, 'myscid  ')
       this.clearDialog()
       
       this.scid = myscid
@@ -1211,89 +1106,31 @@ export default {
           this.formSelect = this.schedules[i].priority
 
           var todayDay = new Date()
-          // 2019-03-06 時間の変更
-          // if (this.schedules[i].sdate) this.startTimeDate = new Date(this.schedules[i].sdate)
-          // if (this.schedules[i].edate) this.stopTimeDate = new Date(this.schedules[i].edate)
-          // 開始時間
-          if (this.schedules[i].sdate) this.startTimeDate = this.schedules[i].sdate
-          // 終了時間
-          if (this.schedules[i].edate) this.stopTimeDate = this.schedules[i].edate
+
           //dmode
+          if (this.schedules[i].sdate) this.startTimeDate = new Date(this.schedules[i].sdate)
+          if (this.schedules[i].edate) this.stopTimeDate = new Date(this.schedules[i].edate)
           this.endList = this.schedules[i].dmode
 
-        //  if (this.schedules[i].stime) this.startTime = new Date(this.makeDateStr(todayDay) + ' ' + this.schedules[i].stime)
-        //  if (this.schedules[i].etime) this.stopTime = new Date(this.makeDateStr(todayDay) + ' ' + this.schedules[i].etime)
-        //  this.endList2 = this.schedules[i].tmode
-        
-        this.examTextarea = this.schedules[i].text 
-        
-          this.endDay = this.schedules[i].allday
-          
-          if( !this.endDay) {
+          if (this.schedules[i].stime) this.startTime = new Date(this.makeDateStr(todayDay) + ' ' + this.schedules[i].stime)
+          if (this.schedules[i].etime) this.stopTime = new Date(this.makeDateStr(todayDay) + ' ' + this.schedules[i].etime)
+          this.endList2 = this.schedules[i].tmode
 
-         if (this.schedules[i].times) {
-            
-            while (this.titems.length > 0) {
-              this.titems.pop()
-            }
-            
-            for (var p = 0; p < this.schedules[i].times.length; p++) {
-              var mytitem = {}
-              mytitem.idx = p + 1
-              mytitem.btn = '-'
-              if (p == this.schedules[i].times.length - 1) mytitem.btn = '+'
-              // 2019-03-06 時間の変更
-              // mytitem.start = new Date(this.makeDateStr(todayDay) + ' ' + this.schedules[i].times[p].start)
-              // mytitem.end = new Date(this.makeDateStr(todayDay) + ' ' + this.schedules[i].times[p].end)
-              var startDate=new Date((this.makeDateStr(todayDay) + ' ' + this.schedules[i].times[p].start).replace(/-/g,'/'))
-              var stopDate=new Date((this.makeDateStr(todayDay) + ' ' + this.schedules[i].times[p].end).replace(/-/g,'/'))
-              mytitem.start = (startDate.getHours()<10? '0'+(startDate.getHours()): startDate.getHours())+':' +(startDate.getMinutes()<10? '0'+(startDate.getMinutes()): startDate.getMinutes())
-              mytitem.end = (stopDate.getHours()<10? '0'+(stopDate.getHours()): stopDate.getHours())+':' +(stopDate.getMinutes()<10? '0'+(stopDate.getMinutes()): stopDate.getMinutes())
-              // mytitem.start =  this.schedules[i].times[p].start
-              // mytitem.end = this.schedules[i].times[p].end
-              this.titems.push(mytitem)
-            }
-            
-          }
-         }
-            
           if (this.schedules[i].actions) {
             while (this.items.length > 0) {
               this.items.pop()
             }
 
-           for( var k = 0; k< this.schedules[i].actions.length; k++ ) {
-                   var myitem = {}
-                    myitem.idx = k+1
-                    myitem.btn = '-'
-                    if( k == this.schedules[i].actions.length-1 ) myitem.btn = '+'
-                    myitem.device = this.schedules[i].actions[k].param
-                    
-                    if( myitem.device == 'NNSF' || myitem.device == 'SESF' || myitem.device == 'SWSF' || myitem.device == 'NSWN' || myitem.device == 'SSWN') {
-                       if( this.schedules[i].actions[k].value == '999' ) {
-                          myitem.op2 = '2'
-                         myitem.hide1 = 'hide_div'
-                         myitem.hide2 = 'show_sel2'
-                         myitem.hide3 = 'hide_div'
-                       
-                       } else {
-                         myitem.value = this.schedules[i].actions[k].value
-                         myitem.op2 = '1'
-                         myitem.hide1 = 'hide_div'
-                         myitem.hide2 = 'show_sel2'
-                         myitem.hide3 = 'show_sel3'
-                       }
-                       
-                    } else {
-                      myitem.op = this.schedules[i].actions[k].value
-                      myitem.hide1 = 'show_sel1'
-                      myitem.hide2 = 'hide_div'
-                      myitem.hide3 = 'hide_div'
-                    }
-                    
-                    
-                    this.items.push(myitem)
-                 }
+            for (var k = 0; k < this.schedules[i].actions.length; k++) {
+              var myitem = {}
+              myitem.idx = k + 1
+              myitem.btn = '-'
+              if (k == this.schedules[i].actions.length - 1) myitem.btn = '-'
+              myitem.device = this.schedules[i].actions[k].param
+              myitem.op = this.schedules[i].actions[k].value
+              myitem.value = this.schedules[i].actions[k].period
+              this.items.push(myitem)
+            }
           }
         }
       }
@@ -1327,49 +1164,6 @@ export default {
 
       return hhstr + ':' + minstr + ':' + secstr
     },
-    onForceClose(iidx) {
-  console.log(iidx)
-    if( iidx == '1' ) {
-      for( y = 0; y<this.items.length; y++ ) {
-            console.log(this.items[y].op2)
-            if( this.items[y].op2 == iidx ) {
-               this.items[y].hide3 = 'show_sel3'
-            }
-         }
-    }
-     if( iidx == '2' ) {
-      for( var y = 0; y<this.items.length; y++ ) {
-            console.log(this.items[y].op2)
-            if( this.items[y].op2 == iidx ) {
-               this.items[y].hide3 = 'hide_div'
-            }
-         }
-    }
-    
-    },
-    onSelectDevice(indexx) {
-      console.log(indexx)
-      if( indexx == 'NNSF' || indexx == 'SESF' || indexx == 'SWSF' || indexx == 'NSWN' || indexx == 'SSWN' ) {
-         for( var y = 0; y<this.items.length; y++ ) {
-            console.log(this.items[y].device)
-            if( this.items[y].device == indexx ) {
-               this.items[y].hide1 = 'hide_div'
-               this.items[y].hide2 = 'show_sel2'
-               this.items[y].hide3 = 'show_sel3'
-            }
-         }
-      }
-      
-      if( indexx == 'FAN' || indexx == 'LIGHT' || indexx == 'WATER') {
-         for( y = 0; y<this.items.length; y++ ) {
-            if( this.items[y].device == indexx ) {
-               this.items[y].hide1 = 'show_sel1'
-               this.items[y].hide2 = 'hide_div'
-               this.items[y].hide3 = 'hide_div'
-            }
-         }
-      }
-    },
 
     clearDialog() {
       this.name = ''
@@ -1380,7 +1174,6 @@ export default {
       this.textContent = ''
       this.formSelect = ''
       this.dialogForm.enable = false
-      this.endDay = false
       this.numDate = ''
       this.numDate2 = ''
       this.intervalList = ''
@@ -1389,28 +1182,14 @@ export default {
       while (this.items.length > 0) {
         this.items.pop()
       }
-      
-       while (this.titems.length > 0) {
-        this.titems.pop()
-      }
-      
-       var newitem = {}
-       newitem.idx = 1
-       newitem.btn = '+'
-       newitem.device = ''
-       newitem.op = ''
-       newitem.value = ''
-       newitem.hide1 = 'show_sel1'
-       newitem.hide2 = 'hide_div'
-       newitem.hide3 = 'hide_div'
-       this.items.push(newitem)
-      
-      var newtitem = {}
-      newtitem.idx = 1
-      newtitem.btn = '+'
-      newtitem.start = ''
-      newtitem.end = ''
-      this.titems.push(newitem)
+
+      var newitem = {}
+      newitem.idx = 1
+      newitem.btn = '+'
+      newitem.device = ''
+      newitem.op = ''
+      newitem.value = ''
+      this.items.push(newitem)
     },
 
     doDelete() {
@@ -1431,20 +1210,25 @@ export default {
 
       this.$ajax({
         method: 'GET',
-        url: 'http://www.iot-fitone.com/schdel?gwid=' + this.loginUser + '&scid=' + this.scid,
+        url: 'http://47.74.5.223:7542/schdel?gwid=KASO03HM&scid=' + this.scid,
       })
-      .then(res=>{
-        // スケジュールデータを取得
-        this.getScheduleData()
-      })
-      .catch(error => {
-            console.log(error)
-        })
-      //this.clearCalendarData()
-     //this.getCalendarData()
+
+      this.getScheduleData()
     },
     //  Editスケジュールの確定ボタン
     doConfirm() {
+      console.log(this.dialogForm.enable)
+      console.log(this.endList)
+      console.log(this.endList2)
+      console.log(this.startTime)
+      console.log(this.stopTime)
+
+      console.log(this.numDate)
+      console.log(this.intervalList)
+
+      console.log(this.numDate2)
+      console.log(this.intervalList2)
+
       var scheduleobj = {}
       scheduleobj.scid = this.scid
       scheduleobj.name = this.name
@@ -1453,12 +1237,9 @@ export default {
       else scheduleobj.enable = '0'
 
       scheduleobj.priority = this.formSelect
-      // 2019-03-06 時間の変更
-      // scheduleobj.sdate = this.makeDateStr(this.startTimeDate)
-      // scheduleobj.edate = this.makeDateStr(this.stopTimeDate)
-      scheduleobj.sdate = this.startTimeDate
-      scheduleobj.edate = this.stopTimeDate
-      // dmode
+
+      scheduleobj.sdate = this.makeDateStr(this.startTimeDate)
+      scheduleobj.edate = this.makeDateStr(this.stopTimeDate)
       scheduleobj.dmode = this.endList
       scheduleobj.drepeat = {}
 
@@ -1468,95 +1249,35 @@ export default {
         ddrpt.duration = this.intervalList
         scheduleobj.drepeat = ddrpt
       }
-      
-      scheduleobj.allday = this.endDay
-      
-      var ttimes = []
-      
-      if( this.endDay ) {
-        var ttime2 = {}
-        ttime2.start = '00:00:01'
-        ttime2.end = '23:59:59'
-        ttimes.push(ttime2)
-         
-      }else {
-      
-       for (var p = 0; p < this.titems.length; p++) {
-         var ttime = {}
-         try{
-          // 2019-03-06 時間の変更
-          //  ttime.start = this.makeTimeStr(this.titems[p].start)
-          //  ttime.end = this.makeTimeStr(this.titems[p].end)
 
-          //開始時間が存在するかどうかを判断する
-          if(this.titems[p].start=='undefined'|| this.titems[p].start== '' ||this.titems[p].start==null){
-            ttime.start='00:00:01'
-          }else{
-            ttime.start = this.titems[p].start
-          }
-          //終了時間が存在するかどうかを判断する
-         if(this.titems[p].end=='undefined'|| this.titems[p].end== '' ||this.titems[p].end==null){
-            ttime.end = '23:59:59'
-         }else{
-            ttime.end = this.titems[p].end
-         }
-           
-         }catch(err) {
-           ttime.start = '00:00:01'
-           ttime.end = '23:59:59'
-         }
-         
-         ttimes.push(ttime)
-        }
-       }
-       
-       scheduleobj.times = ttimes
-       
-//      scheduleobj.stime = this.makeTimeStr(this.startTime)
-//      scheduleobj.etime = this.makeTimeStr(this.stopTime)
+      scheduleobj.stime = this.makeTimeStr(this.startTime)
+      scheduleobj.etime = this.makeTimeStr(this.stopTime)
 
-//      scheduleobj.tmode = this.endList2
-//      scheduleobj.trepeat = {}
+      scheduleobj.tmode = this.endList2
+      scheduleobj.trepeat = {}
 
-//      if (scheduleobj.tmode == '9') {
-//        var ttrpt = {}
-//        ttrpt.rtimes = this.numDate2
-//        ttrpt.duration = this.intervalList2
-//        scheduleobj.trepeat = ttrpt
-//      }
+      if (scheduleobj.tmode == '9') {
+        var ttrpt = {}
+        ttrpt.rtimes = this.numDate2
+        ttrpt.duration = this.intervalList2
+        scheduleobj.trepeat = ttrpt
+      }
 
-      console.log(this.examTextarea)
       scheduleobj.text = this.examTextarea
-//      scheduleobj.email = []
+      scheduleobj.email = []
 
       var actions = []
-       
-       for( var k = 0; k< this.items.length; k++ ){
-         var action = {}
-         
-         var devName = this.items[k].device
-         
-         if( devName == 'NNSF' || devName == 'SESF' || devName == 'SWSF' || devName == 'NSWN' || devName == 'SSWN') {
-         
-         action.param = this.items[k].device
-         if( this.items[k].op2 == '2' ) {
-           action.value = '999'        
-         } else {
-           action.value = this.items[k].value
-         }
-         
-         } else {
-         action.param = this.items[k].device
-         action.value = this.items[k].op
-         }
-         
-         
-        
-       //  action.param = this.items[k].device
-        // action.value = this.items[k].op
-         
-         actions.push(action)
-       }
+
+      for (var q = 0; q < this.items.length; q++) {
+        var action = {}
+        action.param = this.items[q].device
+        action.value = this.items[q].op
+        action.period = this.items[q].value
+        console.log(this.items[q], 'this.items[q]')
+        if (action.param == 'FAN' || action.param == 'LIGHT' || action.param == 'WATER') action.value2 = '2'
+        else action.value2 = '0'
+        actions.push(action)
+      }
 
       scheduleobj.actions = actions
 
@@ -1579,20 +1300,14 @@ export default {
 
       this.$ajax({
         method: 'GET',
-        url: 'http://www.iot-fitone.com/updateschedule?gwid=' + this.loginUser + '&scheduleobj=' + JSON.stringify(scheduleobj),
+        url: 'http://47.74.5.223:7542/updateschedule?gwid=KASO03HM&scheduleobj=' + JSON.stringify(scheduleobj),
       })
-      .then(res => {
-        // スケジュールデータを取得
-        this.getScheduleData()
-      })
-      .catch(error => {
-            console.log(error)
-        })
-  
-       
+
+      this.getScheduleData()
     },
 
     YYYYMMchangeHandler(value) {
+      console.log('value', value)
       var selDate = new Date(value)
       var selWekDate = selDate.getDay()
       var selDayDate = selDate.getDate()
@@ -1631,6 +1346,8 @@ export default {
     },
 
     resolveToCalendar() {
+      console.log('resolveToCalendar')
+
       for (var kk = 1; kk < 12; kk++) {
         var divstr2 = 'show_div' + kk
         this[divstr2] = 'hide_div'
@@ -1659,24 +1376,36 @@ export default {
         }
       }
 
-    //  while (demoEvents.length > 0) {
-    //    demoEvents.pop()
-    //  }
+      while (demoEvents.length > 0) {
+        demoEvents.pop()
+      }
 
       for (var i = 0; i < this.schedules.length; i++) {
         var schobj = this.schedules[i]
 
         var strTitle = schobj.name
-        
 
-   //     if (schobj.actions) {
-    //      strTitle += schobj.actions[0].param + ' On ' + schobj.actions[0].period + ' secs'
-    //    }
-        
-        
+        if (schobj.actions) {
+          strTitle += schobj.actions[0].param + ' On ' + schobj.actions[0].period + ' secs'
+        }
+
+        if (schobj.appointed) {
+          for (var k = 0; k < schobj.appointed.length; k++) {
+            var new_event = {}
+            new_event.title = strTitle
+
+            new_event.start = schobj.appointed[k]
+            new_event.end = schobj.appointed[k]
+
+            var newdata2 = {}
+            newdata2.scid = schobj.scid
+            new_event.data = newdata2
+
+            demoEvents.push(new_event)
+          }
+        }
 
         if (schobj.sdate && schobj.edate) {
-        
           var new_event2 = {}
 
           new_event2.title = strTitle
@@ -1687,25 +1416,13 @@ export default {
           newdata3.scid = schobj.scid
           new_event2.data = newdata3
 
-          //console.log(new_event2)
           demoEvents.push(new_event2)
         }
       }
     },
-    //清空calendarData
-    clearCalendarData() {
-     while (this.calendarData.length > 0) {
-        this.calendarData.pop()
-      }
-      _$('#scheduleCalendar').fullCalendar('removeEventSources')
-     
-    },
 
     //カレンダーデータ表示
     getCalendarData() {
-     
-      this.clearCalendarData()
-      
       //schObjを定義する
       var schObj
 
@@ -1717,148 +1434,57 @@ export default {
 
         // title
         if (schObj.actions) {
-      //    strTitle += schObj.actions[0].param + ' On ' + schObj.actions[0].period + ' secs'
+          strTitle += schObj.actions[0].param + ' On ' + schObj.actions[0].period + ' secs'
         }
-        
-        var thisday = schObj.sdate
-        
-        var startpoint = new Date( thisday)
-        var endpoint = new Date( schObj.edate )
-        var days = 1
-        var months = 1
-        var years = 1
-        
-        if( schObj.dmode == '0' ) {
-          days = 1
-          endpoint = new Date( schObj.sdate)
-        }
-        
-        if( schObj.dmode == '1' ) days = 1
-        if( schObj.dmode == '2' ) days = 7
-        if( schObj.dmode == '3' ) months = 1
-        if( schObj.dmode == '4' ) years = 1
-        if( schObj.dmode == '5' ) days = 1
-        if( schObj.dmode == '9' ) days = 1
-        
-        
-        while( startpoint < endpoint) {
-        
-        thisday = this.makeDateStr(startpoint)
-        
-        // repeat mode
-        if( schObj.dmode == '0' || schObj.dmode == '1' || schObj.dmode == '2' ) {
-          startpoint.setTime( startpoint.getTime() + days * 86400000 )
-        } else if( schObj.dmode == '3' ) {
-        
-          startpoint.setMonth(startpoint.getMonth() + months )
-          
-        } else if( schObj.dmode == '4' ) {
-        
-          startpoint.setFullYear(startpoint.getFullYear() + years)
-          // console.log(startpoint)
-          
-        } else if( schObj.dmode == '5' ) {
-        
-          
-          var wday = startpoint.getDay()
-          startpoint.setTime( startpoint.getTime() + days * 86400000 )
-          if( wday == 0 || wday == 6 ) continue
-          
-        } else if( schObj.dmode == '9' ) {
-        
-          var perio = schObj.drepeat.rtimes
-          var durati = schObj.drepeat.duration
-          
-          if( durati == 0 ) {
-              days = perio
-              startpoint.setTime( startpoint.getTime() + days * 86400000 )
-          }
-          
-          if( durati == 1 ) {
-              days = perio*7
-              startpoint.setTime( startpoint.getTime() + days * 86400000 )
-          }
-          
-          if( durati == 2 ) {
-             months = perio
-             startpoint.setMonth(startpoint.getMonth() + months )
-          }
-          
-          if( durati == 3 ) {
-             years = perio
-             startpoint.setFullYear(startpoint.getFullYear() + years)
-          }
-          
-        } else {
-          startpoint.setTime( startpoint.getTime() + days * 86400000 )
-        }
-        
-        
+
         //start、end
         if (schObj.times) {
           var timeObj
-          
-         
+
           for (var j = 0; j < schObj.times.length; j++) {
             //times数組の循環
             timeObj = schObj.times[j]
 
-
             //開始時間のフォーマット
-            // var startStyle = new Date(thisday + ' ' + timeObj.start)
+            var startStyle = new Date(timeObj.start)
             //終了時間のフォーマット
-            // var stopStyle = new Date(thisday + ' ' + timeObj.end)
+            var stopStyle = new Date(timeObj.stop)
 
             //新築の数組
             var new_time = {}
             // scid
             new_time.scid = schObj.scid
-           
             // title
             new_time.title = strTitle
             // 開始時間
-            new_time.start = thisday + ' ' + timeObj.start
-            // var startStyle = thisday + ' ' + timeObj.start
-            // new_time.start =
-            //   startStyle.getFullYear() +
-            //   '-' +
-            //   ((startStyle.getMonth() + 1)>10?(startStyle.getMonth() + 1):'0'+(startStyle.getMonth() + 1))+
-            //   '-' +
-            //   (startStyle.getDate()<10? '0'+(startStyle.getDate()): startStyle.getDate())+
-            //   ' ' +
-            //    (startStyle.getHours()<10? '0'+(startStyle.getHours()): startStyle.getHours())+
-            //   ':' +
-            //   (startStyle.getMinutes()<10? '0'+(startStyle.getMinutes()): startStyle.getMinutes())+
-            //   ':' +
-            //   (startStyle.getSeconds()<10? '0'+(startStyle.getSeconds()): startStyle.getSeconds())
-            // 終了時間
-            new_time.end = thisday + ' ' + timeObj.end
-            //  new_time.end =
-            //   stopStyle.getFullYear() +
-            //   '-' +
-            //    ((stopStyle.getMonth() + 1)>10?(stopStyle.getMonth() + 1):'0'+(stopStyle.getMonth() + 1))+
-            //   '-' +
-            //   (stopStyle.getDate()<10? '0'+(stopStyle.getDate()): stopStyle.getDate())+
-            //   ' ' +
-            //    (stopStyle.getHours()<10? '0'+(stopStyle.getHours()): stopStyle.getHours())+
-            //   ':' +
-            //    (stopStyle.getMinutes()<10? '0'+(stopStyle.getMinutes()): stopStyle.getMinutes())+
-            //   ':' +
-            //   (stopStyle.getSeconds()<10? '0'+(stopStyle.getSeconds()): stopStyle.getSeconds())
-             
-             
-            // rgbのランダム
-            var r=parseInt(Math.random()*256)
-            var g=parseInt(Math.random()*256)
-            var b=parseInt(Math.random()*256)
-            // backgroundColor
-            new_time.backgroundColor='rgb('+r+','+g+','+b+')'
-            // borderColor
-            new_time.borderColor='rgb('+r+','+g+','+b+')'
-             // 数組を追加する
+            new_time.start =
+              startStyle.getFullYear() +
+              '-' +
+              ((startStyle.getMonth() + 1)>10?(startStyle.getMonth() + 1):'0'+(startStyle.getMonth() + 1))+
+              '-' +
+              (startStyle.getDate()<10? '0'+(startStyle.getDate()): startStyle.getDate())+
+              ' ' +
+               (startStyle.getHours()<10? '0'+(startStyle.getHours()): startStyle.getHours())+
+              ':' +
+              (startStyle.getMinutes()<10? '0'+(startStyle.getMinutes()): startStyle.getMinutes())+
+              ':' +
+              (startStyle.getSeconds()<10? '0'+(startStyle.getSeconds()): startStyle.getSeconds())
+              // 終了時間
+             new_time.end =
+              stopStyle.getFullYear() +
+              '-' +
+               ((stopStyle.getMonth() + 1)>10?(stopStyle.getMonth() + 1):'0'+(stopStyle.getMonth() + 1))+
+              '-' +
+              (stopStyle.getDate()<10? '0'+(stopStyle.getDate()): stopStyle.getDate())+
+              ' ' +
+               (stopStyle.getHours()<10? '0'+(stopStyle.getHours()): stopStyle.getHours())+
+              ':' +
+               (stopStyle.getMinutes()<10? '0'+(stopStyle.getMinutes()): stopStyle.getMinutes())+
+              ':' +
+              (stopStyle.getSeconds()<10? '0'+(stopStyle.getSeconds()): stopStyle.getSeconds())
+              // 数組を追加する
               this.calendarData.push(new_time)
           }
-        }
         }
         
       }
@@ -1867,25 +1493,20 @@ export default {
     },
     //スケジュールデータを取得
     getScheduleData() {
-      
       this.$ajax({
         method: 'GET',
-        url: 'http://www.iot-fitone.com/query3?gwid=' + this.loginUser,
+        url: 'http://47.74.5.223:7542/query3?gwid=KASO03HM',
       }).then(res => {
         var objstr = JSON.stringify(res.data)
 
         var objres = JSON.parse(objstr)
         this.schedules = objres.schedules
-        if( !this.schedules) this.schedules = []
 
         this.resolveToCalendar()
         //カレンダーデータ表示
         this.getCalendarData()
       })
     
-     .catch(error => {
-            console.log(error)
-        })
     },
 
     changeMonth(start, end, current) {
@@ -2030,34 +1651,12 @@ export default {
   background-color: orange;
 }
 
-
-.show_div{
-  display:inline-block;
+.show_div {
+  display: inline;
 }
 
-.hide_div{
-  display:none;
-}
-
-.show_sel1{
-  display:inline-block;
-  width: 120px;
-}
-
-.show_sel2{
-  display:inline-block;
-  
-}
-
-.show_sel3{
-  display:inline-block;
-  
-}
-
-
-ul {
-    margin: 0; 
-    padding: 0; 
+.hide_div {
+  display: none;
 }
 </style>
 

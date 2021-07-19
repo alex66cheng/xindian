@@ -1,13 +1,12 @@
 <template>
-  <div class="bg-write history environmentalHistory">
+  <div class="bg-write history">
     <div
       class="second-title"
       :style="{margin:'0 0 16px',padding: '26px 31px 0'}"
     >{{$t("History_Enviroment_Label")}}</div>
-    <el-form ref="form" label-width="80px" class="history-message text-align-left">
-      <div class="block text-align-left" :style="{display:'inline-flex'}">
-        <!-- 2019-03-04 時間の変更 -->
-        <!-- <el-date-picker format="yyyy-MM-dd HH:mm"
+    <el-form ref="form" label-width="80px" class="history-message">
+      <div class="block text-align-left">
+        <el-date-picker
           v-model="historyStartTime"
           type="datetime"
           :placeholder="history_start_time_paceholder"
@@ -16,27 +15,14 @@
           @change="dataTimeChange"
         ></el-date-picker>
         <span class="input-time-line">-</span>
-        <el-date-picker format="yyyy-MM-dd HH:mm"
+        <el-date-picker
           v-model="historyStopTime"
           type="datetime"
           :placeholder="history_end_time_paceholder"
           prefix-icon="el-icon-date"
           style="width:200px"
           @change="dataTimeChange"
-        ></el-date-picker> -->
-         <div class="input-date" >
-          <div class="input-append date form_datetime">
-            <input class="input-time" size="16" type="text" :placeholder="history_start_time_paceholder" id="historyStartTime" :style="{width:'200px','padding-left':'9px'}">
-            <span class="add-on"> <i class="icon-calendar"></i> </span>
-          </div>
-         </div>
-         <span class="input-time-line" :style="{'padding':'5px 15px'}">-</span>
-         <div class="input-date" >
-          <div class="input-append date form_datetime">
-            <input class="input-time" size="16" type="text" :placeholder="history_end_time_paceholder" id="historyStopTime" :style="{width:'200px','padding-left':'9px'}">
-            <span class="add-on"> <i class="icon-calendar"></i> </span>
-         </div>
-        </div>
+        ></el-date-picker>
       </div>
       <div id="day-error-msg" style="margin-top:10px;" :style="{display:isDayErrorMsg}">
         <el-alert title="開始時刻と終了時刻を選んでください" type="error"></el-alert>
@@ -77,24 +63,17 @@
       <div class="second-title">
         <span>{{between}}</span>
       </div>
-      <div  v-loading="loading" id="environmentalHistoryChart" :style="{width:'100%', height: '500px','margin-bottom':'30px'}"></div>
-      
+      <div id="environmentalHistoryChart" :style="{width:'100%', height: '500px','margin-bottom':'30px'}"></div>
     </div>
   </div>
 </template>
 <script>
-import _$ from 'jquery'
-import '../../public/static/datePicker/css/bootstrap.min.css'
-import '../../public/static/datePicker/css/bootstrap-datetimepicker.min.css'
-import '../../public/static/datePicker/js/bootstrap-datetimepicker.js'
 const sensorFlag = false
 export default {
   sensorFlag,
   name: 'EnvironmentalHistory',
   data() {
     return {
-      loginUser: '',
-      loading: false,
       checkList: {
         historyData: [],
         typeTotal: [],
@@ -115,39 +94,38 @@ export default {
           type: 1,
           disabled: false,
           checked: false,
-          dataStr: 'TEMP',
+          dataStr: 'LTMP',
         },
         {
           id: '2',
           label: this.$t('History_Param2_Label'),
-          type: 2,
+          type: 1,
           disabled: false,
           checked: false,
-          dataStr: 'HUM',
+          dataStr: 'OTMP',
         },
         {
           id: '3',
           label: this.$t('History_Param3_Label'),
-          type: 7,
+          type: 2,
           disabled: false,
           checked: false,
-          dataStr: 'CO2',
+          dataStr: 'LHM',
         },
         {
           id: '4',
           label: this.$t('History_Param4_Label'),
-          type: 6,
+          type: 2,
           disabled: false,
           checked: false,
-          dataStr: 'LUM',
+          dataStr: 'OHM',
         },
         {
           id: '5',
           label: this.$t('History_Param5_Label'),
           type: 3,
-          // style: { width: '150px' },
+          style: { width: '150px' },
           disabled: false,
-          style : 'display:none',
           checked: false,
           dataStr: 'WDIR',
         },
@@ -156,7 +134,6 @@ export default {
           label: this.$t('History_Param6_Label'),
           type: 4,
           disabled: false,
-          style : 'display:none',
           checked: false,
           dataStr: 'WIND',
         },
@@ -165,7 +142,6 @@ export default {
           label: this.$t('History_Param7_Label'),
           type: 4,
           disabled: false,
-          style : 'display:none',
           checked: false,
           dataStr: 'QWIND',
         },
@@ -174,7 +150,6 @@ export default {
           label: this.$t('History_Param8_Label'),
           type: 5,
           disabled: false,
-          style : 'display:none',
           checked: false,
           dataStr: 'UVI',
         },
@@ -183,7 +158,6 @@ export default {
           label: this.$t('History_Param9_Label'),
           type: 5,
           disabled: false,
-          style : 'display:none',
           checked: false,
           dataStr: 'RAIN1',
         },
@@ -192,7 +166,6 @@ export default {
           label: this.$t('History_Param10_Label'),
           type: 6,
           disabled: false,
-          style : 'display:none',
           checked: false,
           dataStr: 'RAIN2',
         },
@@ -201,7 +174,6 @@ export default {
           label: this.$t('History_Param11_Label'),
           type: 7,
           disabled: false,
-          style : 'display:none',
           checked: false,
           dataStr: 'LIGHT',
         },
@@ -209,9 +181,8 @@ export default {
           id: '12',
           label: this.$t('History_Param12_Label'),
           type: 7,
-          // style: { width: '150px' },
+          style: { width: '150px' },
           disabled: false,
-          style : 'display:none',
           checked: false,
           dataStr: 'LIGHT10',
         },
@@ -220,7 +191,6 @@ export default {
           label: this.$t('History_Param13_Label'),
           type: 7,
           disabled: false,
-          style : 'display:none',
           checked: false,
           dataStr: 'LIGHT2',
         },
@@ -229,52 +199,21 @@ export default {
           label: this.$t('History_Param14_Label'),
           type: 2,
           disabled: false,
-          style : 'display:none',
           checked: false,
           dataStr: 'STMP',
         },
       ],
-      // 2019-03-04 時間の変更
-      // historyStartTime: '',
-      // historyStopTime: '',
+      historyStartTime: '',
+      historyStopTime: '',
       history_start_time_paceholder: this.$t('History_Start_Time_PlaceHolder'),
       history_end_time_paceholder: this.$t('History_End_Time_PlaceHolder'),
-      history_param_1: this.$t('History_Param1_Label'),
-      history_param_2: this.$t('History_Param2_Label'),
-      history_param_3: this.$t('History_Param3_Label'),
-      history_param_4: this.$t('History_Param4_Label'),
-      history_param_5: this.$t('History_Param5_Label'),
-      history_param_6: this.$t('History_Param6_Label'),
-      history_param_7: this.$t('History_Param7_Label'),
-      history_param_8: this.$t('History_Param8_Label'),
-      history_param_9: this.$t('History_Param9_Label'),
-      history_param_10: this.$t('History_Param10_Label'),
-      history_param_11: this.$t('History_Param11_Label'),
-      history_param_12: this.$t('History_Param12_Label'),
-      history_param_13: this.$t('History_Param13_Label'),
-      history_param_14: this.$t('History_Param14_Label'),
       between: '',
       isDayErrorMsg: 'none',
       isSensorErrorMsg: 'none',
     }
   },
- created() {
-    
-    this.loginUser = this.$session.get('loginUser')
-   
-  },
+
   methods: {
-    //時間表示スタイル
-    dateDefault() {
-      $('.form_datetime').datetimepicker({
-        language: 'jp',
-        format: 'yyyy-mm-dd hh:ii',
-        todayBtn: true, 
-        autoclose: true, 
-        showMeridian: 1, //時間表示スタイル
-        pickerPosition: 'bottom-right',
-      })
-    },
     historyDataChange(item) {
       var arr = this.checkList.typeTotal
       item.checked = !item.checked
@@ -325,14 +264,8 @@ export default {
       this.isDayErrorMsg = 'none'
     },
     environmentalHistoryCVS() {
-      //2019-03-04 時間の変更
-      // var startiso = this.historyStartTime.toISOString()
-      // var endiso = this.historyStopTime.toISOString()
-
-      var startdt=new Date(_$('#historyStartTime').val().replace(/-/g,'/'))
-      var enddt=new Date(_$('#historyStopTime').val().replace(/-/g,'/'))
-      var startiso = startdt.toISOString()
-      var endiso = enddt.toISOString()
+      var startiso = this.historyStartTime.toISOString()
+      var endiso = this.historyStopTime.toISOString()
 
       this.between = ''
 
@@ -356,7 +289,7 @@ export default {
         if (this.checkList.historyData[i] == this.history_param_14) filedstr += '-STMP'
       }
 
-      window.open('http://www.iot-fitone.com/sensordata?gwid=' + this.loginUser + '&table=' + filedstr + '&start=' + startiso + '&end=' + endiso + '&csv=1')
+      window.open('http://47.74.5.223:7542/sensordata?gwid=KASO03HM&table=' + filedstr + '&start=' + startiso + '&end=' + endiso + '&csv=1')
     },
     getChartsYaxis() {
       var arr = this.arrUnique(this.checkList.typeTotal)
@@ -366,7 +299,7 @@ export default {
           case 1:
             yAxis.push({
               type: 'value',
-              name: '溫度 °C',
+              name: '温度 °C',
               custype: 1,
               scale: true,
             })
@@ -409,7 +342,7 @@ export default {
           case 6:
             yAxis.push({
               type: 'value',
-              name: '照度(lux)',
+              name: '紫外線(μw/cm²)',
               custype: 6,
               scale: true,
             })
@@ -418,7 +351,7 @@ export default {
             yAxis.push({
               type: 'value',
               custype: 7,
-              name: 'Co2(ppm)',
+              name: '照度(lux)',
               scale: true,
             })
             break
@@ -429,23 +362,18 @@ export default {
     },
     
     sensorDayData() {
-      var historyStart=_$('#historyStartTime').val()
-      var historyEnd=_$('#historyStopTime').val()
       //判断时刻是否选择時刻を判断するかどうかを判断する
       if (
-        //2019-03-04 時間の変更
-        // this.historyStartTime == null ||
-        // this.historyStartTime == undefined ||
-        // this.historyStartTime == '' ||
-        // this.historyStopTime == null ||
-        // this.historyStopTime == undefined ||
-        // this.historyStopTime == ''
-         historyStart == null || historyStart == undefined || historyStart== '' || historyEnd == null ||historyEnd == undefined ||historyEnd == ''
+        this.historyStartTime == null ||
+        this.historyStartTime == undefined ||
+        this.historyStartTime == '' ||
+        this.historyStopTime == null ||
+        this.historyStopTime == undefined ||
+        this.historyStopTime == ''
       ) {
         this.isDayErrorMsg = 'block'
         this.sensorFlag = false
       } else {
-        this.isDayErrorMsg = 'none'
         this.sensorFlag = true
       }
      
@@ -466,27 +394,19 @@ export default {
       this.sensorFlagData()
     },
     environmentalHistoryCurve2() {
-      
       this.sensorData()
       if (this.sensorFlag == false) {
         return
       }
-    
-      //2019-03-04 時間の変更
-      // var startiso = this.historyStartTime.toISOString()
-      // var endiso = this.historyStopTime.toISOString()
 
-      var startdt=new Date(_$('#historyStartTime').val().replace(/-/g,'/'))
-      var enddt=new Date(_$('#historyStopTime').val().replace(/-/g,'/'))
-      var startiso = startdt.toISOString()
-      var endiso = enddt.toISOString()
-
-      var urlstr = 'http://www.iot-fitone.com/sensordata?gwid=' + this.loginUser + '&table=LTMP&start=' + startiso + '&end=' + endiso
-      this.loading=true
+      var startiso = this.historyStartTime.toISOString()
+      var endiso = this.historyStopTime.toISOString()
+      var urlstr = 'http://47.74.5.223:7542/sensordata?gwid=KASO03HM&table=LTMP&start=' + startiso + '&end=' + endiso
       this.$ajax({
         method: 'GET',
         url: urlstr,
-      }).then(res => {
+      })
+        .then(res => {
           var dataZoom=[{
             show:true,
           }]
@@ -524,11 +444,9 @@ export default {
                   arr.indexOf(this.checkboxs[m])
                   xAxis[0].data = []
                   for (var i = 0; i < resData.length; i++) {
-                   // xAxis[0].data.push(resData[i].showdate)
-                    xAxis[0].data.push(resData[i].showtime)
+                    xAxis[0].data.push(resData[i].showdate)
                     seriesJosn.name = hisData[j]
-                    seriesJosn.data.push(resData[i].values[this.checkboxs[m].dataStr] || 0)
-                   //seriesJosn.data.push(resData[i].values.CO2)
+                    seriesJosn.data.push(resData[i][this.checkboxs[m].dataStr] || 0)
                   }
                   series.push(seriesJosn)
                 }
@@ -536,7 +454,6 @@ export default {
             }
           }
           let myChart = this.$echarts.init(document.getElementById('environmentalHistoryChart'))
-         
           var option = {}
 
           option.xAxis = xAxis
@@ -551,11 +468,9 @@ export default {
 
           myChart.clear()
           myChart.setOption(option)
-          this.loading = false
         })
         .catch(error => {
           console.log(error)
-          this.loading = false
         })
     },
   },

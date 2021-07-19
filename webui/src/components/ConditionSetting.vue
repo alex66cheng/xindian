@@ -177,7 +177,6 @@
           :visible.sync="addConditionsVisible"
           class="addConditions"
           :close-on-click-modal="false"
-          @opened="openedDialog"
         >
           <el-form ref="dialogForm" :model="dialogForm" class="check-list">
             <div class="padding-border-bottom">
@@ -202,25 +201,12 @@
                 <div class="width-left">
                   <span>{{ $t("New_Schedle_Effective_Date_Label") }}</span>
                 </div>
-                <div class="width-right history-message" style="display: inline-flex;">
-                   <div class="input-date">
-                   <div class="input-append date form_datetime">
-                     <input class="input-time  " size="16" type="text" placeholder="..."  id="startTimeDate" :value="startTimeDateValue" :style="{width:unaddEndTimeDate,'padding-left':'9px'}" >
-                     <span class="add-on"> <i class="icon-calendar"></i> </span>
-                   </div>
-                  </div>
-                  <span class="input-time-line" :style="{'line-height':'36px'}">-</span>
-                  <div class="input-date" >
-                   <div class="input-append date form_datetime">
-                     <input class="input-time " size="16" type="text" :placeholder="schedule_end_time"  id="stopTimeDate"  :value="stopTimeDateValue" :style="{width:unaddEndTimeDate,'padding-left':'9px'}">
-                     <span class="add-on"> <i class="icon-calendar"></i> </span>
-                   </div>
-                  </div>  
-                  <!-- 2019-03-04 時間の変更-->
-                  <!-- <el-date-picker
+                <div class="width-right history-message">
+                  <el-date-picker
                     :style="{width:unaddEndTimeDate}"
                     v-model="startTimeDate"
                     type="date"
+                    @change="(value) => YYYYMMchangeHandler(value)"
                     placeholder="..."
                   ></el-date-picker>
                   <span class="input-time-line">-</span>
@@ -229,7 +215,7 @@
                     v-model="stopTimeDate"
                     type="date"
                     :placeholder="schedule_end_time"
-                  ></el-date-picker>   -->
+                  ></el-date-picker>
                 </div>
               </el-form-item>
               <el-form-item class="inputMessage">
@@ -237,23 +223,7 @@
                   <span>{{ $t("New_Schedle_Effective_Time_Label") }}</span>
                 </div>
                 <div class="width-right history-message">
-                  <div  style="display: inline-flex;position:absolute;left:160px">
-                   <div class="input-date" :class="alldayyesno">
-                     <div class="input-append input-group clockpicker"  data-autoclose="true" style="display:flex">
-                       <input type="text" class="input-time form-control"  id="startTime" :value="startTime" placeholder="..." :style="{width:unaddEndTime,margin:addEndTimeDateLeft,'padding-left':'9px'}">
-                        <span class="input-group-addon"> <i class="icon-time"></i> </span>
-                     </div>
-                   </div>
-                  <span class="input-time-line" :class="alldayyesno" :style="{'line-height':'36px'}">-</span>
-                  <div class="input-date" :class="alldayyesno">
-                     <div class="input-append input-group clockpicker"  data-autoclose="true" style="display:flex">
-                       <input type="text" class="input-time form-control"  id="stopTime" :value="stopTime" :placeholder="schedule_end_time_Point" :style="{width:unaddEndTime,margin:addEndTimeDateLeft,'padding-left':'9px'}">
-                        <span class="input-group-addon"> <i class="icon-time"></i> </span>
-                     </div>
-                  </div>
-                </div>
-                  <!-- 2019-03-05 時間の変更-->
-                  <!-- <el-time-picker format="HH:mm"
+                  <el-time-picker
                     v-model="startTime"
                     :picker-options="{selectableRange: selectStartTime}"
                     placeholder="..."
@@ -261,13 +231,13 @@
                     :class="alldayyesno"
                   ></el-time-picker>
                   <span :class="alldayyesno" >-</span>
-                  <el-time-picker format="HH:mm"
+                  <el-time-picker
                     v-model="stopTime"
                     :picker-options="{selectableRange: selectStopTime}"
                     :placeholder="schedule_end_time_Point"
                     :style="{width:unaddEndTime,margin:addEndTimeDateLeft}"
                     :class="alldayyesno"
-                  ></el-time-picker> -->
+                  ></el-time-picker>
                   <el-checkbox
                     v-model="endDay"
                     :style="{margin:'8px 0',width:'15%'}"
@@ -459,21 +429,16 @@
 </template>
 <script>
 // const weekOptions = ['週一', '週二', '週三', '週四', '週五', '週六', '週日']
-import _$ from 'jquery'
-import '../../public/static/datePicker/css/bootstrap.min.css'
-import '../../public/static/datePicker/css/bootstrap-clockpicker.css'
-import '../../public/static/datePicker/js/bootstrap-clockpicker.js'
-
 export default {
   name: 'ConditionSetting',
   data() {
     return {
-      loginUser : '',
+      
       condition_mailbox : this.$t('Schedule_mailbox_placeholder'),
       condition_comment : this.$t('Schedule_comment_placeholder'),
       
       items: [
-        { idx: 1, btn:'+', device: '', op: '',op2: '', value: '', hide1:'hide3', hide2:'hide_div', hide3:'hide_div' },
+        { idx: 1, btn:'+', device: '', op: '',op2: '', value: '', hide1:'show_div', hide2:'hide_div', hide3:'hide_div' },
       ],
       items2: [
         { idx: 1, btn:'+', sensor: '', op: '', value: '', next : '', blacket :'', blacket2 :'' },
@@ -560,11 +525,9 @@ export default {
       name: '',
       startTime: '',
       stopTime: '',
-      // 2019-03-04 時間の変更
-      // startTimeDate: '',
-      // stopTimeDate: '',
-      startTimeDateValue:'',
-      stopTimeDateValue:'',
+      startTimeDate: '',
+      stopTimeDate: '',
+      
       rules:[],
 
       textContent: '',
@@ -976,56 +939,17 @@ export default {
       // checkedWeeks: [''],
       // weeks: weekOptions,
       // isIndeterminate: true,
-      schedule_end_time: this.$t('Schedule_end_Time_Label'),
-      schedule_end_time_Point: this.$t('Schedule_end_Time_Point_Label'),
-      schedule_select_device: this.$t('Schedule_select_device_placeholder'),
+      
+      
     }
   },
   created() {
     // this.getDivision()
-    this.loginUser = this.$session.get('loginUser')
     this.getRulesData()
     var ip = location.host
+    console.log(ip)
   },
   methods: {
-    // ページ時間の呼び出しを開く
-    openedDialog(){
-      this.timeDefault()
-      this.dateDefault()
-    },
-    //時間表示スタイル
-    dateDefault() {
-      let that = this
-      $('.form_datetime').datetimepicker({
-        language: 'jp',
-        format: 'yyyy-mm-dd',
-        todayBtn: true, 
-        autoclose: true, 
-        showMeridian: 1, //時間表示スタイル
-        pickerPosition: 'bottom-left',
-        minView: 2,
-      }).on('change',function date(event){
-        var eventTarget=event.target
-        if(eventTarget.id=='startTimeDate'){
-          that.startTimeDateValue=eventTarget.value
-        }else if(eventTarget.id=='stopTimeDate'){
-          that.stopTimeDateValue=eventTarget.value
-        }
-      })
-     
-    },
-    timeDefault() {
-      let that = this
-     $('.clockpicker').clockpicker()
-     .find('input').change(function(events){
-       var eventsTarget=events.target
-        if(eventsTarget.id=='startTime'){
-          that.startTime=eventsTarget.value
-        }else if(eventsTarget.id=='stopTime'){
-          that.stopTime=eventsTarget.value
-        }
-    })
-    },
     onForceClose(iidx) {
   console.log(iidx)
     if( iidx == '1' ) {
@@ -1070,10 +994,17 @@ export default {
       }
     },
     dodel(event){
+    
      var targetId = event.currentTarget.id
+     console.log(targetId)
+     
      var myrid = parseInt(targetId.substr(3))
+     console.log(myrid)
+     
      this.rrid = myrid
+    
      this.doDelete() 
+      
     },
     
    new_rule() {
@@ -1137,39 +1068,29 @@ export default {
             var edit = 'edit' + rid
             if( edit == targetId ){
                this.rrid = rid
+               console.log(this.rrid)
                this.name = this.rules[j].name
                
-               this.emailAddress = this.rules[j].mail
-               this.examTextarea = this.rules[j].text
-               
-             if( this.rules[j].enable == '1' ) this.dialogForm.enable = true
+               if( this.rules[j].enable == '1' ) this.dialogForm.enable = true
              else this.dialogForm.enable = false
              this.formSelect =  this.rules[j].priority
-               // 2019-03-04 時間の変更
-              //  var todayDay = new Date()
                
-              // 2019-03-04 時間の変更
-              // if( this.rules[j].sdate ) this.startTimeDate = new Date( this.rules[j].sdate )
-              // if( this.rules[j].edate ) this.stopTimeDate = new Date( this.rules[j].edate )
-              //アレイの中に開始時間を得る
-              if( this.rules[j].sdate ) this.startTimeDateValue  =  this.rules[j].sdate 
-              //アレイの中に終了時刻を得る
-              if( this.rules[j].edate ) this.stopTimeDateValue =  this.rules[j].edate 
-
+               var todayDay = new Date()
+               
+               console.log(this.rules[j].sdate)
+               console.log(this.rules[j].edate)
+               
+               if( this.rules[j].sdate ) this.startTimeDate = new Date( this.rules[j].sdate )
+               if( this.rules[j].edate ) this.stopTimeDate = new Date( this.rules[j].edate )
+               
                if( this.rules[j].allday ) {
                   this.endDay = true
                   this.alldayyesno = 'hide_div'
                } else {
                   this.endDay = false
                   this.alldayyesno = 'show_sel3'
-              // 2019-03-04 時間の変更
-              // if( this.rules[j].stime ) this.startTime = new Date(this.makeDateStr(todayDay) + ' ' + this.rules[j].stime)
-              // if( this.rules[j].etime ) this.stopTime = new Date(this.makeDateStr(todayDay) + ' ' + this.rules[j].etime)
-
-              //アレイの中に開始時間を得る(time)
-              if( this.rules[j].stime ) this.startTime = this.rules[j].stime
-              //アレイの中に終了時刻を得る(time)
-              if( this.rules[j].etime ) this.stopTime = this.rules[j].etime
+                if( this.rules[j].stime ) this.startTime = new Date(this.makeDateStr(todayDay) + ' ' + this.rules[j].stime)
+               if( this.rules[j].etime ) this.stopTime = new Date(this.makeDateStr(todayDay) + ' ' + this.rules[j].etime)
                }
                
                
@@ -1242,23 +1163,16 @@ export default {
     }
     
     this.addConditionsVisible = true
-    //時間表示スタイル
-    // this.dateDefault()
-    // this.timeDefault()
+    
   },
    clearDialog() {
       this.name = '' 
       this.startTime = ''
       this.stopTime = ''
-      // 2019-03-05 時間の変更
-      // this.startTimeDate = ''
-      // this.stopTimeDate = ''
-      this.startTimeDateValue='',
-      this.stopTimeDateValue=''
+      this.startTimeDate = ''
+      this.stopTimeDate = ''
       this.textContent = ''
       this.formSelect = ''
-      this.emailAddress = ''
-      this.examTextarea = ''
       
       while(this.items.length > 0) {
         this.items.pop()
@@ -1380,15 +1294,10 @@ export default {
      
      this.$ajax({
          method: 'GET',
-         url: 'http://www.iot-fitone.com/condel?gwid=' + this.loginUser + '&rid=' + this.rrid
+         url: 'http://47.74.5.223:7542/condel?gwid=KASO03HM&rid=' + this.rrid
        })
-       .then(res=>{
-          this.getRulesData()
-       })
-        .catch(error => {
-            console.log(error)
-        })
        
+       this.getRulesData()
      },
      
      doConfirm() {
@@ -1402,19 +1311,18 @@ export default {
        else ruleeobj.enable = '0'
        
        ruleeobj.priority = this.formSelect
-      // 2019-03-04 時間の変更
-      // ruleeobj.sdate = this.makeDateStr(this.startTimeDate)
-      // ruleeobj.edate = this.makeDateStr(this.stopTimeDate)
-       ruleeobj.sdate = this.startTimeDateValue
-       ruleeobj.edate = this.stopTimeDateValue
+       
+       ruleeobj.sdate = this.makeDateStr(this.startTimeDate)
+       ruleeobj.edate = this.makeDateStr(this.stopTimeDate)
+       
        if( this.endDay ) {
+       
          ruleeobj.allday = '1'
+       
        } else {
-        // 2019-03-04 時間の変更
-        // ruleeobj.stime = this.makeTimeStr(this.startTime)
-        // ruleeobj.etime = this.makeTimeStr(this.stopTime) 
-        ruleeobj.stime = this.startTime
-        ruleeobj.etime = this.stopTime
+       
+         ruleeobj.stime = this.makeTimeStr(this.startTime)
+         ruleeobj.etime = this.makeTimeStr(this.stopTime) 
        }
        
        var conditions = []
@@ -1469,11 +1377,10 @@ export default {
          
          actions.push(action)
        }
-
+       
        ruleeobj.actions = actions
        
-       ruleeobj.mail = this.emailAddress
-       ruleeobj.text = this.examTextarea
+       console.log( JSON.stringify(ruleeobj))
        
        if( this.rrid != '0' ) {
          for( var x = 0; x<this.rules.length; x++ ) {
@@ -1494,14 +1401,11 @@ export default {
      
      this.$ajax({
          method: 'GET',
-         url: 'http://www.iot-fitone.com/updaterule?gwid=' + this.loginUser + '&ruleobj=' + JSON.stringify(ruleeobj)
+         url: 'http://47.74.5.223:7542/updaterule?gwid=KASO03HM&ruleobj=' + JSON.stringify(ruleeobj)
        })
-       .then(res=>{
-         this.getRulesData()
-       })
-       .catch(error => {
-            console.log(error)
-        })
+       
+       this.getRulesData()
+     
      },
      
      resolveToCalendar() {
@@ -1541,18 +1445,18 @@ export default {
     getRulesData() {
        this.$ajax({
          method: 'GET',
-         url: 'http://www.iot-fitone.com/query2?gwid=' + this.loginUser
+         url: 'http://47.74.5.223:7542/query2?gwid=KASO03HM'
        })
        .then( res => {
           var objstr = JSON.stringify(res.data)
+          console.log(objstr)
           var objres = JSON.parse(objstr)
-
+          
           this.rules = objres.rules
+          
+          
           this.resolveToCalendar()
           
-        })
-         .catch(error => {
-            console.log(error)
         })
     },
     /**
@@ -1568,6 +1472,7 @@ export default {
      */
      addEndTime(checked) {
       if (checked === true) {
+        console.log('all day')
         this.alldayyesno = 'hide_div'
       //  this.unaddEndTimeDateShow = 'inline-block'
     //    this.unaddEndTimeDate = '125px'
@@ -1611,6 +1516,7 @@ export default {
     },
     // なし
     noneMessage(endLabel) {
+      console.log(endLabel)
       if (endLabel === 1) {
         this.isEndInputMessageDisabled = true
         this.isEndInputReturnDisabled = true
@@ -1666,9 +1572,8 @@ export default {
 }
 
 .show_sel3{
-  //2019-03-05
   display:inline-block;
- // display: block;
+  
 }
 
 

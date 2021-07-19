@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-  <fullscreen ref="fullscreen" @change="fullscreenChange">
+  <!--<fullscreen ref="fullscreen" @change="fullscreenChange">-->
     <router-view/>
-  </fullscreen>
-  <button type="button" @click="toggle" >Fullscreen</button>
+  <!--</fullscreen>-->
+  <!--<button type="button" @click="toggle" >Fullscreen</button>-->
   </div>
 </template>
 
@@ -584,100 +584,7 @@ $success-color: #00cc99;
   }
 }
 
-.full-calendar-body .dates .dates-events .events-week .events-day {
-  min-height: 100px !important;
+.full-calendar-body .dates .dates-events .events-week .events-day{
+  min-height: 100px!important;
 }
-// 温室名の様式
-#greenhouse {
-  .greenhouseTable {
-    .el-table__header-wrapper {
-      .el-table__header {
-        thead {
-          tr {
-            td,
-            th.is-leaf {
-              padding: 15px 0;
-              text-align: center;
-              font-size: 17px;
-              color: #333;
-              background-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#eee));
-            }
-          }
-        }
-      }
-    }
-
-    .el-table__body-wrapper {
-      .el-table__body {
-        tbody {
-          .el-table__row {
-            td,
-            th.is-leaf {
-              padding: 0;
-              border-bottom: 1px solid #ebeef5;
-              .cell {
-                padding: 0;
-                i {
-                  padding: 13px 10px;
-                  color: #29cb97;
-                }
-                button {
-                  float: right;
-                  width: 92%;
-                  padding: 12px 15px 12px 0;
-                  text-align: left;
-                  color: #9c9c9c;
-                  font-size: 14px;
-                }
-              }
-              &:hover {
-                background-color: #29cb97;
-                i {
-                  color: #fff;
-                }
-                button {
-                  font-weight: bold;
-                  color: #fff;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-.input-date{
-position: relative;
-    font-size: 14px;
-    display: inline-block;
-.input-append{
-  .input-time, .add-on{
-    background: #ffffff;
-    border: 1px solid #dcdfe6;
-    height: 36px;
-    font-family: PingFangSC-Regular;
-    font-size: 14px;
-    color: #333;
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-    border-radius: 0;
-  }
-  .input-time{
-    width: 100px;
-    border-right: 1px solid transparent;
-    box-shadow: none;
-    &::-webkit-input-placeholder{
-      font-family: PingFangSC-Regular;
-      color: #cccccc;
-      font-weight: normal;
-    }
-  }
-  .add-on{
-    border-radius:0!important;
-    padding: 10px 5px;
-     box-shadow: none;
-  }
-}
-}
-
 </style>
