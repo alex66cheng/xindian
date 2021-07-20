@@ -1,6 +1,6 @@
 <template>
   <el-container style="height: 100%; border : 1px ">
-    <el-menu  :router="true" style="width: 100%">
+    <el-menu  :router="true" style="width: 100%" :default-openeds="['dashboard']">
       <nav id="app" style = "padding: 12px" >
         <a href="/" >
           <div style="width: 100%">  
