@@ -97,7 +97,7 @@ export default new Router({
         },
         {
           path: '',
-          redirect: 'Dashboard'
+          redirect: 'dashboard/gateway1'
         }
       ]
     },

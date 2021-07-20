@@ -2,8 +2,11 @@
 import DashboardFrame from '../components/frames/DashboardFrame.vue'
 import Dashboard from '../components/Dashboard.vue'
 import i18n from '../lang/lang.js'
+import Dashboard601 from '../components/gatewayRoom/Dashboard601'
+import Dashboard602 from '../components/gatewayRoom/Dashboard602'
+import Dashboard603 from '../components/gatewayRoom/Dashboard603'
 const routes = {
-  path: 'Dashboard',  
+  path: 'dashboard',  
   
   component: DashboardFrame,
   children:[
@@ -12,17 +15,34 @@ const routes = {
       component: Dashboard,
       meta:{
         title: i18n.messages[i18n.locale]['Dashboard_Title']//只要改 Dashboard_title
+        
+        
+        
       }
     },
-    /*
+    
     {
-      path:'自己命名',
-      component: 你的component,//記得import
+      path:'gateway601',
+      component: Dashboard601,//記得import
       meta:{
-        title: i18n.messages[i18n.locale][lang裡的i18n裡的jp的key, 沒有的話自己加]
+        title: '601'
       }
     },
-    */  
+    {
+      path:'gateway602',
+      component: Dashboard602,//記得import
+      meta:{
+        title: '602'
+      }
+    },
+    {
+      path:'gateway603',
+      component: Dashboard603,//記得import
+      meta:{
+        title: '603'
+      }
+    }
+    
   ]   
 }
 

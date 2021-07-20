@@ -1,8 +1,12 @@
 {
   "Dashboard_Title":"ダッシュボード",
+  "room":"ルーム",
   "problem":"問題",
   "Gateway_Command":"ゲートウェイコマンド",
   "city_temperaturei_Label":"温度",
+  "people_count":"人々の数",
+  "time":"時間",
+  "humidity":"湿度",
   "green_house_outdoor_label":"室外",
   "green_house_indoor_label":"室内",
   "green_house_temperature_label":"温度",
