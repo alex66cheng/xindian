@@ -58,8 +58,8 @@ export default {
           this.area = objres.area[1].name
           this.datetime = objres.datetime
           this.peoplecount = objres.area[1].peoplecount
-          this.temperature = objres.area[0].temperature + ' °C'
-          this.humidity = objres.area[0].humidity
+          this.temperature = objres.area[1].temperature + ' °C'
+          this.humidity = objres.area[1].humidity
           
           
 
