@@ -102,29 +102,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-  .text {
-    font-size: 28px;
-  }
-
-  .item {
-    margin: 18px;
-  }
-
-  .clearfix:before,
-  .clearfix:after {
-    display: table;
-    content: "";
-  }
-  .clearfix:after {
-    clear: both
-  }
-
-  .box-card {
-    width: 60%;
-    margin: 5% 20% 5% 20%;
-  }
-
-</style>

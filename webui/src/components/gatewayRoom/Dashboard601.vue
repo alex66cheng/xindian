@@ -121,7 +121,7 @@ export default {
   }
 
   .item {
-    margin: 18px;
+    margin: 5vh;
   }
 
   .clearfix:before,
@@ -135,7 +135,7 @@ export default {
 
   .box-card {
     width: 60%;
-    margin: 5% 20% 5% 20%;
+    margin: 5% 20% 15% 20%;
   }
 
 </style>
