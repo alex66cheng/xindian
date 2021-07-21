@@ -10,6 +10,7 @@
   "dependencies": {
     "@vue/composition-api": "^1.0.0-rc.9",
     "axios": "^0.18.0",
+    "crc": "^3.8.0",
     "echarts": "^4.2.0-rc.2",
     "element-ui": "^2.4.11",
     "font-awesome-sass": "^4.7.0",
