@@ -13,7 +13,7 @@
             <span>{{$t("city_temperaturei_Label")}}</span>
             <el-button style="float: right; padding: 3px 0" type="text">詳細資料</el-button>
           </div>
-          <div class="text item">
+          <div class="text item" id="temperature">
             {{temperature}}
           </div>
         </el-card>
@@ -58,7 +58,6 @@ export default {
       pm25: '0',
       datetime: ''
 
-      
     }
   },
   created() {
@@ -69,7 +68,6 @@ export default {
     
   },
   methods: {
-    
     
     getSensorsData() {
        this.$ajax({
@@ -86,19 +84,18 @@ export default {
           this.peoplecount = objres.area[2].peoplecount
           this.temperature = objres.area[2].temperature + ' °C'
           this.humidity = objres.area[2].humidity
-          
-          
 
-          
-          //var date = new Date()
-          //this.upload_time = date.toString()
-          
-         
+          // 改變溫度顏色
+          if(parseFloat(this.temperature) >= 25){
+            console.log('temperature is too high')
+            document.getElementById('temperature').style.color = 'red'
+          }else{
+            document.getElementById('temperature').style.color = 'black'
+          }
        })
        .catch( error => {
           console.log(error)
        })
-
        // this.outdoor_tempature = '19.5°'
     }
   }
