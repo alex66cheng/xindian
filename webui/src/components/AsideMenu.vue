@@ -2,7 +2,7 @@
   <el-container style="height: 100%; border : 1px ">
     <el-menu  :router="true" style="height: 100%; width: 100%" :default-openeds="['dashboard']">
 
-      <img href="/" src="../assets/img/logo.png" height="60px" style="margin: 10%"> 
+      <img href="/" src="../assets/img/logo.jpg" height="60px" style="margin: 10%"> 
       
       <el-submenu index="dashboard">
         <template slot="title">
