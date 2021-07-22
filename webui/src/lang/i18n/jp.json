@@ -9,6 +9,7 @@
   "humidity":"湿度",
   "send":"送り出す",
   "confirm":"確認",
+  "target":"目標",
   "green_house_outdoor_label":"室外",
   "green_house_indoor_label":"室内",
   "green_house_temperature_label":"温度",
