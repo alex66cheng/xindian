@@ -112,7 +112,7 @@
     },
     watch:{
       modbusCommand:{
-        handler: function (val, oldVal) {
+        handler: function () {
           
           this.addressVal = parseInt(this.modbusCommand.startAddress, 16)
           this.dataLengthVal = parseInt(this.modbusCommand.dataLength, 16)

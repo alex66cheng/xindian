@@ -1,7 +1,5 @@
 <template>
-    <div>
-      <router-tab :i18n="i18n"/>
-    </div>
+  <router-tab :i18n="i18n" style="height: 100%"/>
 </template>
 
 <script>
@@ -15,3 +13,29 @@
     }
   }
 </script>
+
+<style>
+
+  .text {
+    font-size: 28px;
+  }
+
+  .item {
+    margin: 5vh;
+  }
+
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+  .clearfix:after {
+    clear: both
+  }
+
+  .box-card {
+    width: 60%;
+    margin: 5% 20% 15% 20%;
+  }
+
+</style>

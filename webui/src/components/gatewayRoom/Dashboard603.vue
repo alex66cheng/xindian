@@ -4,19 +4,45 @@
       <el-col :span="24">
         <div>{{area}} </div>
         <div>{{$t("time")}}: {{datetime}}</div>
-
       </el-col>  
     </el-row>
     <el-row>
-      <el-col :span="12"><div>{{$t("city_temperaturei_Label")}}: {{temperature}}</div></el-col>
-      <el-col :span="12"><div>{{$t("people_count")}}: {{peoplecount}}</div></el-col>
+      <el-col :span="12">
+        <el-card class="box-card">
+          <div slot="header" class="clearfix">
+            <span>{{$t("city_temperaturei_Label")}}</span>
+            <el-button style="float: right; padding: 3px 0" type="text">詳細資料</el-button>
+          </div>
+          <div class="text item" id="temperature">
+            {{temperature}}
+          </div>
+        </el-card>
+      </el-col>
+      <el-col :span="12">
+        <el-card class="box-card">
+          <div slot="header" class="clearfix">
+            <span>{{$t("people_count")}}</span>
+            <el-button style="float: right; padding: 3px 0" type="text">詳細資料</el-button>
+          </div>
+          <div class="text item">
+            {{peoplecount}}
+          </div>
+        </el-card>
+      </el-col>
     </el-row>
     <el-row>
-      <el-col :span="12"><div>{{$t("humidity")}}: {{humidity}}</div></el-col>
+      <el-col :span="12">
+        <el-card class="box-card">
+          <div slot="header" class="clearfix">
+            <span>{{$t("humidity")}}</span>
+            <el-button style="float: right; padding: 3px 0" type="text">詳細資料</el-button>
+          </div>
+          <div class="text item">
+            {{humidity}}
+          </div>
+        </el-card>
+      </el-col>
     </el-row>
-
-    
-    
   </div>
 </template>
 <script>
@@ -32,7 +58,6 @@ export default {
       pm25: '0',
       datetime: ''
 
-      
     }
   },
   created() {
@@ -43,7 +68,6 @@ export default {
     
   },
   methods: {
-    
     
     getSensorsData() {
        this.$ajax({
@@ -60,24 +84,20 @@ export default {
           this.peoplecount = objres.area[2].peoplecount
           this.temperature = objres.area[2].temperature + ' °C'
           this.humidity = objres.area[2].humidity
-          
-          
 
-          
-          //var date = new Date()
-          //this.upload_time = date.toString()
-          
-         
+          // 改變溫度顏色
+          if(parseFloat(this.temperature) >= 25){
+            console.log('temperature is too high')
+            document.getElementById('temperature').style.color = 'red'
+          }else{
+            document.getElementById('temperature').style.color = 'black'
+          }
        })
        .catch( error => {
           console.log(error)
        })
-
        // this.outdoor_tempature = '19.5°'
     }
   }
 }
 </script>
-
-<style>
-</style>
