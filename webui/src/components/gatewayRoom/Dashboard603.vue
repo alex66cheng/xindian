@@ -13,7 +13,7 @@
             <span>{{$t("city_temperaturei_Label")}}</span>
             <el-button style="float: right; padding: 3px 0" type="text">詳細資料</el-button>
           </div>
-          <div class="text item" id="temperature">
+          <div class="text item" id="temperature603">
             {{temperature}}
           </div>
         </el-card>
@@ -86,17 +86,31 @@ export default {
           this.humidity = objres.area[2].humidity
 
           // 改變溫度顏色
-          if(parseFloat(this.temperature) >= 25){
+          /*if(parseFloat(this.temperature) >= 25){
             console.log('temperature is too high')
             document.getElementById('temperature').style.color = 'red'
           }else{
             document.getElementById('temperature').style.color = 'black'
-          }
+          }*/
        })
        .catch( error => {
           console.log(error)
        })
        // this.outdoor_tempature = '19.5°'
+    }
+  },
+  watch:{
+    temperature: {
+      handler: function() {
+        if(parseFloat(this.temperature) > 25){
+          console.log(this.temperature)
+          document.getElementById('temperature603').style.color = 'red'
+        }else{
+          document.getElementById('temperature603').style.color = 'black'
+        }
+        
+        
+      }
     }
   }
 }
