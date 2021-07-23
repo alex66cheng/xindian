@@ -60,7 +60,7 @@ const router = new Router({
     },
    
     {
-      path: '/monitor',
+      path: '/',
       meta:{
         requiresAuth: true
       },
