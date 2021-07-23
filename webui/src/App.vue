@@ -34,14 +34,8 @@ export default {
 </script>
 
 <style lang="scss">
-router-tab{
-  float: right;
-}
 
-html,body,#app{
-  height: 100%;
-}
-
+// Jack 部分開始
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -52,6 +46,48 @@ html,body,#app{
 body {
   margin: auto;
 }
+
+router-tab{ 
+  border: 2px gray;
+}
+
+.drop-shadow{ // 可用於幫物體加上 shadow
+  filter: drop-shadow(1px 1px 12px rgba(0, 0, 0, 0.1));
+}
+
+html,body,#app{
+  height: 100%;
+}
+
+// 此三個用在 login 跟 register
+.middle-input-card{
+    height: 500px;
+    max-width: 600px;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
+    margin-bottom: auto;
+    border-radius: 10px;
+  }
+
+.middle-input-form{
+  min-width: 250px;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.middle-input-box{
+  margin-bottom: 20px;
+}
+
+.error{
+  color: red;
+  font-size:18px;
+}
+// Jack 部分結束
+
 //==login===
 .inputMessage {
   &.el-form-item {
