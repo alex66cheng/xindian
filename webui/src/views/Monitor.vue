@@ -1,7 +1,7 @@
 <template> 
   <el-container style="height: 100%; border: 1px solid #eee">
     <!-- left side menu for different pages-->
-    <el-aside width="15%" style="background-color: rgb(238, 241, 246) ">
+    <el-aside class="drop-shadow" width="15%" style="background-color: rgb(238, 241, 246) ">
       <AsideMenu/>
     </el-aside>
     <!--header containing different tag and main-->
@@ -12,8 +12,7 @@
       </el-header>
       <!--main pages-->
       <el-main>
-        
-        
+
         <router-view/>
         
       </el-main>
