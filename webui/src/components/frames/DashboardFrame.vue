@@ -1,5 +1,7 @@
 <template>
-  <router-tab :i18n="i18n" style="height: 100%"/>
+<div>
+  <router-tab :i18n="i18n" style="height: 100%" class="drop-shadow"/>
+</div>
 </template>
 
 <script>
@@ -33,9 +35,13 @@
     clear: both
   }
 
-  .box-card {
+  .dashboard_data {
     width: 60%;
     margin: 5% 20% 15% 20%;
+  }
+
+  .router-tab__nav{
+    float: left;
   }
 
 </style>
