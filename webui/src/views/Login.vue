@@ -1,17 +1,16 @@
 <template>
-  <div>
-    login
-    <form @submit.prevent="pressed">
-      <div>
-        <input type="email" placeholder="email" v-model="email">    
-      </div>
-      <div>
-        <input type="password" placeholder="password" v-model="password">
-      </div>
-      <button type="submit">Login</button>
-    </form>
-    <div class="error" v-if="error">{{error.message}}</div>
-    <span>Need an account? Click here to <router-link to="/register">register</router-link></span>
+  <div style="height: 100%; background-color: #f5f7fa">
+      <el-page-header @back="goBack" content="Login" style="background-color: white"></el-page-header>
+      <el-card class="middle-input-card box-card">
+        <h1 style="margin-top: 100px;">Login</h1>
+        <form class="middle-input-form" @submit.prevent="pressed">
+          <el-input class="middle-input-box" placeholder="Email" v-model="email"></el-input>
+          <el-input class="middle-input-box" placeholder="Password" v-model="password" show-password></el-input>
+          <el-button style="margin-bottom: 20px;" type="primary" @click="onSubmit">Login</el-button>
+        </form>
+        <div class="error" v-if="error">{{error.message}}</div>
+        <span>Need an account? Click here to <router-link to="/register">register</router-link></span>
+      </el-card>
   </div>
 </template>
 
@@ -28,7 +27,7 @@ export default {
     }
   },
   methods: {
-    async pressed(){
+    async onSubmit(){
       try{
         const val = await firebase.auth().signInWithEmailAndPassword(this.email, this.password)
         console.log(val)
@@ -37,6 +36,11 @@ export default {
         console.log(err)
       }
       
+    },
+    
+    goBack() {
+      console.log('go back');
+      window.location.href = "/"
     }
   }
 }

@@ -1,17 +1,16 @@
 <template>
-  <div>
-    
-    <div vif="error" class="error">{{error.message}}</div>
-    <form @submit.prevent="pressed">
-      Register 
-      <div class = "email">
-        <input type="email" v-model="email" placeholder="email">
-      </div>
-      <div class="password">
-        <input type="password" v-model="password" placeholder="password">
-      </div>
-      <button type="submit">Register</button>
-    </form>
+  <div style="height: 100%; background-color: #f5f7fa">
+      <el-page-header @back="goBack" content="Register" style="background-color: white"></el-page-header>
+      <el-card class="middle-input-card box-card">
+        <h1 style="margin-top: 100px;">Register</h1>
+        <form class="middle-input-form" @submit.prevent="pressed">
+          <el-input class="middle-input-box" placeholder="Email" v-model="email"></el-input>
+          <el-input class="middle-input-box" placeholder="Password" v-model="password" show-password></el-input>
+          <el-input class="middle-input-box" placeholder="checkPassword" v-model="check_password" show-password></el-input>
+          <el-button style="margin-bottom: 20px;" type="primary" @click="onSubmit">Register</el-button>
+        </form>
+        <div class="error" v-if="error">{{error.message}}</div>
+      </el-card>
   </div>
 </template>
 
@@ -27,7 +26,7 @@ export default {
     }
   },
   methods:{
-    async pressed(){
+    async onSubmit(){
       try{
         const user = firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
         console.log(user)
@@ -38,6 +37,11 @@ export default {
       }
       
       alert('submitted')
+    },
+
+    goBack() {
+      console.log('go back');
+      window.location.href = "/"
     }
   }
 }
@@ -45,22 +49,5 @@ export default {
 </script>
 
 <style scoped>
-.error{
-  color: red;
-  font-size:18px;
-}
 
-input {
-  width: 400px;
-  padding: 30px;
-  margin: 20px;
-  font-size: 21px;
-
-}
-
-button{
-  width: 400px;
-  height:75px;
-  font-size: 100%
-}
 </style>
