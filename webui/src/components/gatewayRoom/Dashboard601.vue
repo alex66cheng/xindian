@@ -8,7 +8,7 @@
     </el-row>
     <el-row>
       <el-col :span="12">
-        <el-card class="box-card">
+        <el-card class="box-card dashboard_data">
           <div slot="header" class="clearfix">
             <span>{{$t("city_temperaturei_Label")}}</span>
             <el-button style="float: right; padding: 3px 0" type="text">詳細資料</el-button>
@@ -19,7 +19,7 @@
         </el-card>
       </el-col>
       <el-col :span="12">
-        <el-card class="box-card">
+        <el-card class="box-card dashboard_data">
           <div slot="header" class="clearfix">
             <span>{{$t("people_count")}}</span>
             <el-button style="float: right; padding: 3px 0" type="text">詳細資料</el-button>
@@ -32,7 +32,7 @@
     </el-row>
     <el-row>
       <el-col :span="12">
-        <el-card class="box-card">
+        <el-card class="box-card dashboard_data">
           <div slot="header" class="clearfix">
             <span>{{$t("humidity")}}</span>
             <el-button style="float: right; padding: 3px 0" type="text">詳細資料</el-button>
@@ -43,7 +43,7 @@
         </el-card>
       </el-col>
       <el-col :span="12">
-        <el-card class="box-card">
+        <el-card class="box-card dashboard_data">
           <div slot="header" class="clearfix">
             <span>PM2.5</span>
             <el-button style="float: right; padding: 3px 0" type="text">詳細資料</el-button>
@@ -125,24 +125,3 @@ export default {
   }
 }
 </script>
-
-<style>
-  .text {
-    font-size: 28px;
-  }
-  .item {
-    margin: 5vh;
-  }
-  .clearfix:before,
-  .clearfix:after {
-    display: table;
-    content: "";
-  }
-  .clearfix:after {
-    clear: both
-  }
-  .box-card {
-    width: 60%;
-    margin: 5% 20% 15% 20%;
-  }
-</style>
