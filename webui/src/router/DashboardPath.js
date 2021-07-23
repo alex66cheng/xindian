@@ -16,29 +16,27 @@ const routes = {
       meta:{
         title: i18n.messages[i18n.locale]['Dashboard_Title']//只要改 Dashboard_title
         
-        
-        
       }
     },
     
     {
       path:'gateway601',
       name:'gateway601',
-      component: Dashboard601,//記得import
+      component: Dashboard601,
       meta:{
         title: '601'
       }
     },
     {
       path:'gateway602',
-      component: Dashboard602,//記得import
+      component: Dashboard602,
       meta:{
         title: '602'
       }
     },
     {
       path:'gateway603',
-      component: Dashboard603,//記得import
+      component: Dashboard603,
       meta:{
         title: '603'
       }
@@ -48,8 +46,6 @@ const routes = {
 }
 
 const dashboardPath = [routes]
-
-
 
 
 export default dashboardPath

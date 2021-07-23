@@ -44,7 +44,7 @@ const router = new Router({
       ]
     },*/
     {
-      path: '/home',
+      path: '/',
       name: 'home',
       component: Home,
     },
@@ -60,7 +60,7 @@ const router = new Router({
     },
    
     {
-      path: '/',
+      path: '/monitor',
       meta:{
         requiresAuth: true
       },
