@@ -8,7 +8,7 @@
     text-color="#fff"
     active-text-color="#ffd04b"
     text-align="left"
-    style = "width: 100%">
+    style = "height:60px; width: 100%; padding-left: 20px;padding-right: 20px; border-bottom:0px;">
     <el-menu-item index="1" >Processing Center</el-menu-item>
     <el-submenu index="2">
       <template slot="title">Workspace</template>
@@ -29,9 +29,9 @@
     <div v-if="loggedIn" style="float: right; color: white">loggedIn</div>
     <el-dropdown background-color="#545c64"
       text-color="#fff" @command="handleCommand">
-      <i class="el-icon-setting" style="margin-right: 15px; font-size: 30px; color: white"></i>
+      <i class="el-icon-setting" style="margin: 15px; font-size: 30px; color: white"></i>
       <el-dropdown-menu slot="dropdown" :router="true">
-        <el-dropdown-item command="signOut">logout</el-dropdown-item>
+        <el-dropdown-item command="login">login</el-dropdown-item>
         <el-dropdown-item>Add</el-dropdown-item>
         <el-dropdown-item>Delete</el-dropdown-item>
       </el-dropdown-menu>
@@ -60,8 +60,8 @@ export default {
   methods: {
     handleCommand(command) {
       
-      if(command == 'signOut'){
-        console.log('signOut')
+      if(command == 'login'){
+        console.log('login')
         try{
            const data =  firebase.auth().signOut()
            console.log(data)
