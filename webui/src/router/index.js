@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
+import Register from '../views/Register.vue'
 //import LoginComponent from './components/Login.vue'
 //import ForgetPasswordComponent from './components/ForgetPassword.vue'
 //import ChangePasswordComponent from './components/ChangePassword.vue'
@@ -22,9 +23,12 @@ import i18n from '../lang/lang.js'
 
 import DashboardPath from './DashboardPath.js'
 
+import firebase from 'firebase/app'
+import 'firebase/auth'
+
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   //mode: 'hash',
   base: process.env.BASE_URL,
@@ -49,9 +53,17 @@ export default new Router({
       name:'login',
       component: Login
     },
+    {
+      path: '/register',
+      name:'register',
+      component: Register
+    },
    
     {
       path: '/monitor',
+      meta:{
+        requiresAuth: true
+      },
       
       component: Monitor,
       children:[
@@ -104,3 +116,15 @@ export default new Router({
    
   ]
 })
+
+/*router.beforeEach((to, from, next)=>{
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+  const isAuthenticated = firebase.auth().currentUser
+  if(requiresAuth && !isAuthenticated){
+    next('/login')
+  }else{
+    next()
+  }
+})*/
+
+export default router

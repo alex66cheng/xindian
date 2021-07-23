@@ -23,6 +23,7 @@ const routes = {
     
     {
       path:'gateway601',
+      name:'gateway601',
       component: Dashboard601,//記得import
       meta:{
         title: '601'

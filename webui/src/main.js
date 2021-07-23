@@ -32,6 +32,13 @@ import VueAwesomeSwiper from 'vue-awesome-swiper'
 import RouterTab from 'vue-router-tab'
 import 'vue-router-tab/dist/lib/vue-router-tab.css'
 
+
+import firebase from 'firebase/app'
+
+
+
+
+
 Vue.component('full-calendar', fullCalendar)
 Vue.prototype.$echarts = echarts
 Vue.prototype.$ = JQuery
@@ -49,6 +56,16 @@ Vue.use(RouterTab)
 
 import 'swiper/dist/css/swiper.css'
 
+var firebaseConfig = {
+  apiKey: 'AIzaSyCvwHfqX0FHhsz9uqauU54SObeH8dyqk94',
+  authDomain: 'xindian-f463a.firebaseapp.com',
+  projectId: 'xindian-f463a',
+  storageBucket: 'xindian-f463a.appspot.com',
+  messagingSenderId: '227141088272',
+  appId: '1:227141088272:web:91c3bed3aa609683068695'
+}
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig)
 
 new Vue({
   router,
