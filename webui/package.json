@@ -45,5 +45,9 @@
     "vue-template-compiler": "^2.5.17",
     "webpack": "^4.27.1",
     "webpack-dev-server": "^3.1.10"
-  }
+  },
+  "description": "```\r npm install\r ```",
+  "main": ".eslintrc.js",
+  "author": "",
+  "license": "ISC"
 }
