@@ -24,11 +24,14 @@
     </el-submenu>
     <el-menu-item index="3" disabled>Info</el-menu-item>
     <el-menu-item index="4"><a href="https://www.ele.me" target="_blank">Orders</a></el-menu-item>
+    
+    
+    <div v-if="loggedIn" style="float: right; color: white">loggedIn</div>
     <el-dropdown background-color="#545c64"
       text-color="#fff" @command="handleCommand">
       <i class="el-icon-setting" style="margin-right: 15px; font-size: 30px; color: white"></i>
       <el-dropdown-menu slot="dropdown" :router="true">
-        <el-dropdown-item command="/login">login</el-dropdown-item>
+        <el-dropdown-item command="signOut">logout</el-dropdown-item>
         <el-dropdown-item>Add</el-dropdown-item>
         <el-dropdown-item>Delete</el-dropdown-item>
       </el-dropdown-menu>
@@ -37,17 +40,39 @@
 </template> 
 
 <script>
-
+import firebase from 'firebase/app'
+import 'firebase/auth'
 
 export default {
-
+  
+  data(){
+    return{
+      loggedIn: false
+    }
+  },
+  created(){
+    firebase.auth().onAuthStateChanged(user=>{
+      
+      this.loggedIn = !!user
+      
+    })
+  },
   methods: {
     handleCommand(command) {
-      this.$router.push({
-        path: command
-      })
-      console.log('goto')
-    }
+      
+      if(command == 'signOut'){
+        console.log('signOut')
+        try{
+           const data =  firebase.auth().signOut()
+           console.log(data)
+           this.$router.replace({name: 'login'})
+        }catch(err){
+          console.log(err)
+        }
+      }
+    },
+    
+    
   }
 }
 </script>
