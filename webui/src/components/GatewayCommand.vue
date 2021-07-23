@@ -1,10 +1,23 @@
 <template>
-  <div>
-    <el-row>
+  <div class="page">
+    <el-row class="send-title">
       <el-col :span="24">{{$t("send")}}:</el-col>
     </el-row>
-    
-    <el-row>
+    <div class="target">
+      <el-row >
+        <el-col :span="6"> <div class="target-title">{{$t("target")}}: </div></el-col>
+        <el-col :span="18">
+          <div >  
+            <el-input
+              placeholder="target"
+              v-model="modbusCommand.target"
+              clearable>
+            </el-input>
+          </div>  
+        </el-col>
+      </el-row>
+    </div>
+    <el-row class="confirm-input" :gutter="12">
       <el-col :span="5">
         <div>ID</div>
         <div>  
@@ -43,7 +56,7 @@
       </el-col>
       <el-col :span="5">
         <div>length</div>
-        <div>  
+        <div class="length-input">  
           <el-input
             placeholder="length"
             v-model="modbusCommand.dataLength"
@@ -52,15 +65,26 @@
         </div>
       </el-col>
       <el-col :span="4">
-        <div>
+        <div class="confirm-button">
           <el-button :disabled="confirmOk" @click="displayFinalCommand">{{$t("confirm")}}</el-button>
         </div>
       </el-col>
+      
     </el-row>
+    
+    <el-row class="check-row">
+      
+      <el-col :span="12" type="flex" justify="center">
+        
+        <div>target: {{final.finalTarget}}</div>
+        <div class="box-finalCommand">command: {{final.finalCommand}}</div>
+      </el-col>
 
-    <el-row>
-      <el-col :span="24">
-        <div>{{finalCommand}}</div>
+      <el-col :span="12" type="flex" justify="center">
+        <div class="send-button">
+          <el-button :disabled="sendOk" @click="sendCommand">send</el-button>
+        </div>
+        
       </el-col>
     </el-row>
   </div>
@@ -101,13 +125,21 @@
           label: '16'
         }],
         modbusCommand:{  
+          target: '',
+          node: '',
           id: '',
           functionCode: '',
           startAddress: '',
           dataLength: '',
         },
         confirmOk: true,
-        finalCommand: '',
+        sendOk: true,
+        
+        final:{
+          finalCommand: '',
+          finalTarget: '',
+          finalNode:''
+        }
       }    
     },
     watch:{
@@ -121,17 +153,61 @@
             || this.modbusCommand.dataLength.length != 4 || this.dataLengthVal < 0x0000 || this.dataLengthVal > 0x7D)
         },
         deep: true
+      },
+      final:{
+        handler: function(){
+          
+          this.sendOk = (this.final.finalTarget.length == 0 || this.final.finalCommand.length == 0)  
+          console.log(this.final.finalTarget.length)
+          console.log(this.final.finalCommand.length)    
+        },
+        deep: true
       }
+
 
     },
     methods:{
       displayFinalCommand(){
-        this.finalCommand = this.modbusCommand.id + this.modbusCommand.functionCode 
+        this.final.finalCommand = this.modbusCommand.id + this.modbusCommand.functionCode 
                        + this.modbusCommand.startAddress + this.modbusCommand.dataLength
                        
-        this.finalCommand =   this.finalCommand + crc16modbus(this.finalCommand).toString(16).toUpperCase()
+        this.final.finalCommand =   this.final.finalCommand + crc16modbus(this.final.finalCommand).toString(16).toUpperCase()
+        this.final.finalTarget = this.modbusCommand.target 
+
+      },
+      sendCommand(){
 
       }
     }
   }
 </script>
+<style scoped>
+
+.page{
+  
+  height: 100%;
+}
+
+.target, .confirm-input, .confirm-button,
+.check-row{
+  position: relative;
+}
+
+.target{
+  position: relative;
+  top: 50px;
+}
+.confirm-input{
+  top: 100px
+}
+.confirm-button{
+  position: relative;
+  top: 20px;
+}
+.check-row{
+  top: 150px;
+}
+
+
+
+</style>>

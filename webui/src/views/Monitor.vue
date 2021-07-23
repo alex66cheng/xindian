@@ -18,9 +18,7 @@
         
       </el-main>
       
-      <el-footer height="100px" class = "footer">
-        emergency message
-      </el-footer>
+      
     </el-container>
 
 
