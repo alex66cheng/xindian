@@ -31,7 +31,7 @@ export default {
       try{
         const user = firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
         console.log(user)
-        this.$router.replace({name: 'gateway601'})
+        this.$router.replace({name: 'login'})
 
       }catch(err){
         console.log(err)
