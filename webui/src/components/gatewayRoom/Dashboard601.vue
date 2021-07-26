@@ -77,6 +77,8 @@ export default {
     setInterval( this.getSensorsData, 6000 )
     //this.gwid = this.$session.get( 'loginUser')
     //console.log('Dashboard gwid=' + this.gwid )
+    
+    //this.$router.push({ name: 'gateway603'})
   },
   methods: {
     
@@ -125,6 +127,7 @@ export default {
       }
     }
   }
+  
 }
 </script>
 

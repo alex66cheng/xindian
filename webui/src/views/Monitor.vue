@@ -29,7 +29,9 @@
 <script>
   import AsideMenu from '../components/AsideMenu.vue'
   import HeaderMenu from '../components/HeaderMenu.vue'
+  
   export default {
+    
     name : 'monitor',
     data() {
       return {
@@ -39,6 +41,7 @@
       AsideMenu,
       HeaderMenu
     },
+    
     
   }
 </script>
