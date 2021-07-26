@@ -31,6 +31,7 @@ const routes = {
     },
     {
       path:'gateway602',
+      name:'gateway602',
       component: Dashboard602,//記得import
       meta:{
         title: '602'
@@ -38,6 +39,7 @@ const routes = {
     },
     {
       path:'gateway603',
+      name:'gateway603',
       component: Dashboard603,//記得import
       meta:{
         title: '603'
