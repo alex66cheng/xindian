@@ -29,24 +29,14 @@ const routes = {
     },
     {
       path:'gateway602',
-<<<<<<< HEAD
       component: Dashboard602,
-=======
-      name:'gateway602',
-      component: Dashboard602,//記得import
->>>>>>> 3fa9d229b321af547d4d0dde7c01eca0e921e6c5
       meta:{
         title: '602'
       }
     },
     {
       path:'gateway603',
-<<<<<<< HEAD
       component: Dashboard603,
-=======
-      name:'gateway603',
-      component: Dashboard603,//記得import
->>>>>>> 3fa9d229b321af547d4d0dde7c01eca0e921e6c5
       meta:{
         title: '603'
       }
