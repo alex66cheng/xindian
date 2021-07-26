@@ -6,7 +6,7 @@
         <form class="middle-input-form" @submit.prevent="pressed">
           <el-input class="middle-input-box" placeholder="Email" v-model="email"></el-input>
           <el-input class="middle-input-box" placeholder="Password" v-model="password" show-password></el-input>
-          <el-input class="middle-input-box" placeholder="checkPassword" v-model="check_password" show-password></el-input>
+          <el-input class="middle-input-box" placeholder="Check Password" v-model="check_password" show-password></el-input>
           <el-button style="margin-bottom: 20px;" type="primary" @click="onSubmit">Register</el-button>
         </form>
         <div class="error" v-if="error">{{error.message}}</div>
@@ -22,6 +22,7 @@ export default {
     return{
       email: '',
       password: '',
+      check_password: '', 
       error: ''
     }
   },
@@ -40,8 +41,8 @@ export default {
     },
 
     goBack() {
-      console.log('go back');
-      window.location.href = "/"
+      console.log('go back')
+      window.location.href = '/'
     }
   }
 }
