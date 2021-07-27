@@ -39,8 +39,8 @@ export default {
     },
     
     goBack() {
-      console.log('go back');
-      window.location.href = "/"
+      console.log('go back')
+      window.location.href = '/'
     }
   }
 }
