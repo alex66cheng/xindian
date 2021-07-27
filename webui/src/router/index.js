@@ -16,6 +16,8 @@ import DeviceStatus from '../components/DeviceStatus.vue'
 import GatewayFrame from '../components/frames/GatewayFrame.vue'
 import GatewayCommand from '../components/GatewayCommand.vue'
 
+import DeviceManager from '../components/DeviceManager.vue'
+
 import ProblemFrame from '../components/frames/ProblemFrame.vue'
 import SolvedProblem from '../components/SolvedProblem.vue'
 import UnsolvedProblem from '../components/UnsolvedProblem.vue'
@@ -70,11 +72,16 @@ const router = new Router({
        
         ...DashboardPath,
         {
-          path: 'gatewayCommand',
+          path: 'deviceManager',
           component: GatewayFrame,
           children:[
             {
               path: '',
+              component: DeviceManager,
+              meta:{title: 'test'}
+            },
+            {
+              path: 'modbus',
               component: GatewayCommand,
               meta:{title: i18n.messages[i18n.locale]['Gateway_Command']}
             }
