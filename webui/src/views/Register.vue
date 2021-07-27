@@ -7,6 +7,9 @@
           <el-input class="middle-input-box" placeholder="Email" v-model="email"></el-input>
           <el-input class="middle-input-box" placeholder="Password" v-model="password" show-password></el-input>
           <el-input class="middle-input-box" placeholder="Check Password" v-model="check_password" show-password></el-input>
+          <p class="error" v-if="errors.length">
+            <span v-for="error in errors" v-bind:key="error">{{ error }}</span>
+          </p>
           <el-button style="margin-bottom: 20px;" type="primary" @click="onSubmit">Register</el-button>
         </form>
         <div class="error" v-if="error">{{error.message}}</div>
@@ -23,21 +26,45 @@ export default {
       email: '',
       password: '',
       check_password: '', 
-      error: ''
+      errors: []
     }
   },
   methods:{
-    async onSubmit(){
-      try{
-        const user = firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
-        console.log(user)
-        this.$router.replace({name: 'login'})
+    checkForm: function () {
+      this.errors = []
 
-      }catch(err){
-        console.log(err)
-      }
+      if (!this.email)
+        this.errors.push('Email required.')
+      else if (!this.validEmail(this.email)) 
+        this.errors.push('Valid email required.')
+
+      if (!this.password && !this.check_password)
+        this.errors.push('Password required.')
+      else if (this.password != this.check_password)
+        this.errors.push('Check Password is invalid.')
       
-      alert('submitted')
+      if (!this.errors.length) 
+        return true
+    },
+
+    validEmail: function (email) {
+      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      return re.test(email)
+    },
+
+    async onSubmit(){
+      if(this.checkForm()){
+        try{
+          const user = firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
+          console.log(user)
+          this.$router.replace({name: 'login'})
+
+        }catch(err){
+          console.log(err)
+        }
+        
+        alert('submitted')
+      }
     },
 
     goBack() {

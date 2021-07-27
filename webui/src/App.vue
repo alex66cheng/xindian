@@ -84,7 +84,8 @@ html,body,#app{
 
 .error{
   color: red;
-  font-size:18px;
+  font-size: 12px;
+  text-align: initial;
 }
 // Jack 部分結束
 
