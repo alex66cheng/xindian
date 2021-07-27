@@ -20,7 +20,10 @@
       </div>
     </el-col>
     <el-col span="4">
-      
+      <div>
+        <el-button @click="gotoConfig">config</el-button>
+      </div>
+
     </el-col>
     <el-col span="4">
     </el-col>
