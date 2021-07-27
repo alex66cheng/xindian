@@ -2,6 +2,18 @@
   <div id="dashboard">
     <el-row>
       <el-col :span="24">
+        <div style="float: left">
+          <el-dropdown @command="gotoGateway">
+            <el-button type="primary">
+              gateway<i class="el-icon-arrow-down el-icon--right"></i>
+            </el-button>
+            <el-dropdown-menu slot="dropdown" >
+              <el-dropdown-item command="gateway601">601</el-dropdown-item>
+              <el-dropdown-item command="gateway602">602</el-dropdown-item>
+              <el-dropdown-item command="gateway603">603</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </div>
         <div>{{area}} </div>
         <div>{{$t("time")}}: {{datetime}}</div>
       </el-col>  
@@ -97,6 +109,9 @@ export default {
           console.log(error)
        })
        // this.outdoor_tempature = '19.5°'
+    },
+    gotoGateway(command){
+      this.$router.replace({name: command})
     }
   },
   watch:{
