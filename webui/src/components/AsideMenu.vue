@@ -50,8 +50,6 @@ export default defineComponent({
     }
   },
   created(){
-    
-    
     this.logo = logoconfig[String(firebase.auth().currentUser.email)]
   }
 
