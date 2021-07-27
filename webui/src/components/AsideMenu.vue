@@ -4,20 +4,10 @@
 
       <img href="/" v-bind:src="logo" height="60px" style="margin: 10%"> 
       
-      <el-submenu index="dashboard">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>{{ $t("Dashboard_Title") }}</span>
-        </template>
-        <el-menu-item-group id="room-group" :title="$t('room')">
-          <el-menu-item index="/dashboard/gateway601">601</el-menu-item>
-          <el-menu-item index="/dashboard/gateway602">602</el-menu-item>
-          <el-menu-item index="/dashboard/gateway603">603</el-menu-item>
-        </el-menu-item-group>
-      </el-submenu>
-      <el-menu-item @click="openDashboard" index="/monitor/dashboard/gateway603">{{ $t("Dashboard_Title") }}</el-menu-item>
+      
+      <el-menu-item index="/monitor/dashboard/gateway601">{{ $t("Dashboard_Title") }}</el-menu-item>
       <el-menu-item index="/monitor/deviceStatus">Device Status</el-menu-item>
-      <el-menu-item index="/monitor/gatewayCommand">{{ $t("Gateway_Command")}}</el-menu-item>
+      <el-menu-item index="/monitor/deviceManager">{{ $t("Gateway_Command")}}</el-menu-item>
       <el-menu-item index="/monitor/problem/solved">{{ $t("problem")}}</el-menu-item>
 
     </el-menu>
