@@ -87,54 +87,11 @@ html,body,#app{
   font-size: 12px;
   text-align: initial;
 }
-// Jack 部分結束
 
-//==login===
-.inputMessage {
-  &.el-form-item {
-    .el-input__inner,
-    .el-input__inner:focus,
-    .el-textarea__inner:focus {
-      border-radius: 0;
-      font-family: PingFangSC-Regular;
-      font-size: 14px;
-      color: rgba(0, 0, 0, 0.87);
-      border-color: rgba(0, 0, 0, 0.1);
-      letter-spacing: 0;
-      text-align: left;
-      line-height: 20px;
-    }
-    &.is-success + .close {
-      display: block;
-    }
-    &.is-required,
-    &.is-success {
-      .el-input__inner,
-      .el-input__inner:focus,
-      .el-textarea__inner:focus {
-        border-color: rgba(0, 0, 0, 0.1);
-        background-position: 295px;
-      }
-    }
-    &.is-error {
-      .el-input__inner,
-      .el-input__inner:focus,
-      .el-textarea__inner,
-      .el-textarea__inner:focus {
-        border-color: #ff5454;
-      }
-      .el-form-item__error {
-        font-family: PingFangSC-Regular;
-        font-size: 12px;
-        color: #ff5454;
-        line-height: 14px;
-      }
-      & + .close {
-        display: block;
-      }
-    }
-  }
+.router-page{
+  padding: 40px;
 }
+// Jack 部分結束
 
 /*
 *Schedule画面:Schedule -> 「モダールの様式」
