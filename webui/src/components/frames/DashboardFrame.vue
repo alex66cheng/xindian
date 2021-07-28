@@ -1,11 +1,22 @@
 <template>
 <div>
-  <router-tab :i18n="i18n" style="height: 100%" class="drop-shadow"/>
+  <router-tab :tabs="tabs" :i18n="i18n" style="height: 100%" class="drop-shadow"/>
 </div>
 </template>
 
 <script>
   export default {
+    data(){
+      return {
+        tabs: [
+          '/jp/monitor/dashboard/gateway601',
+
+          { to: '/jp/monitor/dashboard/gateway602', title: '602' },
+
+          { to: '/jp/monitor/dashboard/gateway603', title: '603' }
+        ]
+      }
+    },
     methods: {
       // custom method
       i18n(key, params) {
