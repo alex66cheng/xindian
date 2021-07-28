@@ -1,6 +1,6 @@
 
 import DashboardFrame from '../components/frames/DashboardFrame.vue'
-import Dashboard from '../components/Dashboard.vue'
+//import Dashboard from '../components/Dashboard.vue'
 import i18n from '../lang/lang.js'
 import Dashboard601 from '../components/gatewayRoom/Dashboard601'
 import Dashboard602 from '../components/gatewayRoom/Dashboard602'
@@ -10,14 +10,14 @@ const routes = {
   
   component: DashboardFrame,
   children:[
-    {
+    /*{
       path:'',
       component: Dashboard,
       meta:{
         title: i18n.messages[i18n.locale]['Dashboard_Title']//只要改 Dashboard_title
         
       }
-    },
+    },*/
     
     {
       path:'gateway601',
@@ -48,6 +48,5 @@ const routes = {
 }
 
 const dashboardPath = [routes]
-
 
 export default dashboardPath
