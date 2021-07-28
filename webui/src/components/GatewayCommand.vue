@@ -58,14 +58,14 @@
         <el-button :disabled="confirmOk" @click="displayFinalCommand" style="height:40px;">{{$t("confirm")}}</el-button>
       </el-col>
     </el-row>
-    
+
     <el-row>
-      <el-col :span="12" type="flex" justify="center">
-        <span>target: {{final.finalTarget}}</span>
-        <span>command: {{final.finalCommand}}</span>
+      <el-col :span="12">
+        <span v-if="finalCommand">Command: {{finalCommand.message}}</span>
+        <span v-if="finalTarget">Target: {{finalTarget.message}}</span>
       </el-col>
 
-      <el-col :span="12" type="flex" justify="center">
+      <el-col :span="12">
         <el-button :disabled="sendOk" @click="sendCommand">send</el-button>
       </el-col>
     </el-row>
@@ -91,7 +91,6 @@
           value: '03',
           label: '03'
         }],
-      
 
         functionCodeOptions:[{
           value: '03',
@@ -165,4 +164,4 @@
 </script>
 <style scoped>
 
-</style>>
+</style>
