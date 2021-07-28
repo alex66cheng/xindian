@@ -74,7 +74,9 @@ firebase.auth().onAuthStateChanged(user=>{
       router,
       store,
       i18n,
+      components:{App},
       render: h => h(App),
+      
     }).$mount('#app')
   }
 })
