@@ -1,37 +1,29 @@
 <template>
-  <div class="page">
-    <el-row class="send-title">
+  <div class="router-page">
+    <el-row>
       <el-col :span="24">{{$t("send")}}:</el-col>
     </el-row>
-    <div class="target">
-      <el-row >
-        <el-col :span="6"> <div class="target-title">{{$t("target")}}: </div></el-col>
-        <el-col :span="18">
-          <div >  
-            <el-input
-              placeholder="target"
-              v-model="modbusCommand.target"
-              clearable>
-            </el-input>
-          </div>  
-        </el-col>
-      </el-row>
-    </div>
-    <el-row class="confirm-input" :gutter="12">
-      <el-col :span="5">
-        <div>ID</div>
-        <div>  
-          <el-select v-model="modbusCommand.id" clearable placeholder="ID">
-            <el-option
-              v-for="item in idOptions"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-            </el-option>
-          </el-select>
-        </div>
+    <el-row :gutter="12">
+      <el-col :span="4">
+        <div>{{$t("target")}}:</div>
+        <el-input
+          placeholder="target"
+          v-model="modbusCommand.target"
+          clearable>
+        </el-input>
       </el-col>
-      <el-col :span="5">
+      <el-col :span="4">
+        <div>ID</div>
+        <el-select v-model="modbusCommand.id" clearable placeholder="ID">
+          <el-option
+            v-for="item in idOptions"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
+      </el-col>
+      <el-col :span="4">
         <div>func</div>
         <div>  
           <el-select v-model="modbusCommand.functionCode" clearable placeholder="function code">
@@ -44,7 +36,7 @@
           </el-select>
         </div>
       </el-col>
-      <el-col :span="5">
+      <el-col :span="4">
         <div>start address</div>
         <div>  
           <el-input
@@ -54,37 +46,27 @@
           </el-input>
         </div>
       </el-col>
-      <el-col :span="5">
+      <el-col :span="4">
         <div>length</div>
-        <div class="length-input">  
-          <el-input
-            placeholder="length"
-            v-model="modbusCommand.dataLength"
-            clearable>
-          </el-input>
-        </div>
+        <el-input
+          placeholder="length"
+          v-model="modbusCommand.dataLength"
+          clearable>
+        </el-input>
       </el-col>
       <el-col :span="4">
-        <div class="confirm-button">
-          <el-button :disabled="confirmOk" @click="displayFinalCommand">{{$t("confirm")}}</el-button>
-        </div>
+        <el-button :disabled="confirmOk" @click="displayFinalCommand" style="height:40px;">{{$t("confirm")}}</el-button>
       </el-col>
-      
     </el-row>
     
-    <el-row class="check-row">
-      
+    <el-row>
       <el-col :span="12" type="flex" justify="center">
-        
-        <div>target: {{final.finalTarget}}</div>
-        <div class="box-finalCommand">command: {{final.finalCommand}}</div>
+        <span>target: {{final.finalTarget}}</span>
+        <span>command: {{final.finalCommand}}</span>
       </el-col>
 
       <el-col :span="12" type="flex" justify="center">
-        <div class="send-button">
-          <el-button :disabled="sendOk" @click="sendCommand">send</el-button>
-        </div>
-        
+        <el-button :disabled="sendOk" @click="sendCommand">send</el-button>
       </el-col>
     </el-row>
   </div>
@@ -182,32 +164,5 @@
   }
 </script>
 <style scoped>
-
-.page{
-  
-  height: 100%;
-}
-
-.target, .confirm-input, .confirm-button,
-.check-row{
-  position: relative;
-}
-
-.target{
-  position: relative;
-  top: 50px;
-}
-.confirm-input{
-  top: 100px
-}
-.confirm-button{
-  position: relative;
-  top: 20px;
-}
-.check-row{
-  top: 150px;
-}
-
-
 
 </style>>
