@@ -34,11 +34,11 @@ export default defineComponent({
     ative(){
       console.log('dosoth')
     },
-    openDashboard(){
+    /*openDashboard(){
       this.$tabs.open('/monitor/dashboard/gateway603')
       this.$tabs.open('/monitor/dashboard/gateway602')
       this.$tabs.open('/monitor/dashboard/gateway601')    
-    },
+    },*/
     gotoPage(paths){
       let finalPath = '/'+ this.$router.currentRoute.params.lang + paths
       console.log(finalPath)
