@@ -1,33 +1,36 @@
 <template>
 <div>
   <el-row>
-    <el-col span="4">
+    <el-col :span="4">
       <div class="device-parameter">
         <el-tag>S/N</el-tag>
-        <div>{{SN}}</div>
+        <div class="device-value">{{SN}}</div>
       </div>
     </el-col>
-    <el-col span="4">
+    <el-col :span="4">
       <div class="device-parameter">
         <el-tag>Type</el-tag>
-        <div>{{type}}</div>
+        <div class="device-value">{{type}}</div>
       </div>
     </el-col>
-    <el-col span="4">
+    <el-col :span="4">
       <div class="device-parameter">
         <el-tag>Status</el-tag>
-        <div>{{status}}</div>
+        <div class="device-value">{{status}}</div>
       </div>
     </el-col>
-    <el-col span="4">
-      <div>
+    <el-col :span="4">
+      <div class="button-configModbus">
         <el-button @click="gotoConfig">config</el-button>
       </div>
 
     </el-col>
-    <el-col span="4">
+    <el-col :span="4">
+      <div class="">
+        <el-button @click="gotoModbus">modbus</el-button>
+      </div>
     </el-col>
-    <el-col span="4">
+    <el-col :span="4">
     </el-col>
   
   </el-row>
@@ -45,6 +48,11 @@ export default {
         status: 'active'
 
       }
+    },
+    methods:{
+      gotoModbus(){
+        this.$router.push({name:'modbus'})
+      }
     }
 
 }
@@ -54,5 +62,9 @@ export default {
 .device-parameter{
   position: relative;
   top: 50px;
+}
+.device-value{
+  position: relative;
+  top: 30px;
 }
 </style>
