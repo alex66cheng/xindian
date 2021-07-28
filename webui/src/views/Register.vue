@@ -12,7 +12,6 @@
           </p>
           <el-button style="margin-bottom: 20px;" type="primary" @click="onSubmit">Register</el-button>
         </form>
-        <div class="error" v-if="error">{{error.message}}</div>
       </el-card>
   </div>
 </template>
