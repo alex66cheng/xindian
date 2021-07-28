@@ -5,10 +5,10 @@
       <img href="/" v-bind:src="logo" height="60px" style="margin: 10%"> 
       
       
-      <el-menu-item index="/monitor/dashboard/gateway601">{{ $t("Dashboard_Title") }}</el-menu-item>
-      <el-menu-item index="/monitor/deviceStatus">Device Status</el-menu-item>
-      <el-menu-item index="/monitor/deviceManager">{{ $t("Gateway_Command")}}</el-menu-item>
-      <el-menu-item index="/monitor/problem/solved">{{ $t("problem")}}</el-menu-item>
+      <el-menu-item @click="gotoPage('/monitor/dashboard/gateway601')">{{ $t("Dashboard_Title") }}</el-menu-item>
+      <el-menu-item @click="gotoPage('/monitor/deviceStatus')">Device Status</el-menu-item>
+      <el-menu-item @click="gotoPage('/monitor/deviceManager')">{{ $t("Gateway_Command")}}</el-menu-item>
+      <el-menu-item @click="gotoPage('/monitor/problem/solved')">{{ $t("problem")}}</el-menu-item>
 
     </el-menu>
   </el-container>       
@@ -23,7 +23,8 @@ export default defineComponent({
   name: 'menu1',
   data() {
     return {
-      logo: ''
+      logo: '',
+      
     }
   },
   components: {
@@ -37,10 +38,17 @@ export default defineComponent({
       this.$tabs.open('/monitor/dashboard/gateway603')
       this.$tabs.open('/monitor/dashboard/gateway602')
       this.$tabs.open('/monitor/dashboard/gateway601')    
+    },
+    gotoPage(paths){
+      let finalPath = '/'+ this.$router.currentRoute.params.lang + paths
+      console.log(finalPath)
+      this.$router.push({path : finalPath})
     }
+
   },
   created(){
     this.logo = logoconfig[String(firebase.auth().currentUser.email)]
+    
   }
 
 })
