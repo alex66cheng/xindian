@@ -21,6 +21,9 @@ import DeviceManager from '../components/DeviceManager.vue'
 import ProblemFrame from '../components/frames/ProblemFrame.vue'
 import SolvedProblem from '../components/SolvedProblem.vue'
 import UnsolvedProblem from '../components/UnsolvedProblem.vue'
+
+import langComponent from '../components/langComponent.vue'
+
 import i18n from '../lang/lang.js'
 
 import DashboardPath from './DashboardPath.js'
@@ -29,6 +32,8 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 
 Vue.use(Router)
+
+let currentLang = 'jp'
 
 const router = new Router({
   mode: 'history',
@@ -46,77 +51,102 @@ const router = new Router({
       ]
     },*/
     {
-      path: '/',
-      name: 'home',
-      component: Home,
-    },
-    {
-      path: '/login',
-      name:'login',
-      component: Login
-    },
-    {
-      path: '/register',
-      name:'register',
-      component: Register
-    },
-   
-    {
-      path: '/monitor',
-      meta:{
-        requiresAuth: true
-      },
-      
-      component: Monitor,
-      children:[
-       
-        ...DashboardPath,
-        {
-          path: 'deviceManager',
-          component: GatewayFrame,
-          children:[
-            {
-              path: '',
-              component: DeviceManager,
-              meta:{title: 'test'}
-            },
-            {
-              path: 'modbus',
-              component: GatewayCommand,
-              meta:{title: i18n.messages[i18n.locale]['Gateway_Command']}
-            }
-          ]
-        },
-        {
-          path: 'deviceStatus',
-          component: DeviceStatus,
-            
-        },
-       
-        {
-          path: 'problem',
-          component: ProblemFrame,
+      path: '/:lang',
+      component: langComponent,
+      beforeEnter(to, from, next){
+        const lang = to.params.lang
 
-          children: [
-            {
-              path: 'solved',
-              component:SolvedProblem,
-              meta:{
-                title: 'solvedProblem'
-              }           
-            },
-            {
-              path: 'unsolved',
-              component: UnsolvedProblem,
-              meta:{
-                title: 'unsolvedProblem'
-              }
-            }
-          ]
-        },
+        if(!['jp', 'cn'].includes(lang)){
+          return next(i18n.locale)
+        }
+
+        if(i18n.locale != lang){
+          i18n.locale = lang
+        }
+        currentLang = lang
+        return next()
+      },
+      children:[
         {
           path: '',
-          redirect: 'dashboard/gateway601'
+          name: 'home',
+          component: Home,
+        },
+        {
+          path: 'login',
+          name:'login',
+          component: Login
+        },
+        {
+          path: 'register',
+          name:'register',
+          component: Register
+        },
+      
+        {
+          path: 'monitor',
+          meta:{
+            requiresAuth: true
+          },
+          
+          component: Monitor,
+          children:[
+          
+            ...DashboardPath,
+            {
+              path: 'deviceManager',
+              component: GatewayFrame,
+              children:[
+                {
+                  path: '',
+                  name: 'deviceManager',
+                  component: DeviceManager,
+                  meta:{title: 'test'}
+                },
+                {
+                  path: 'modbus',
+                  name: 'modbus',
+                  component: GatewayCommand,
+                  meta:{title: i18n.messages[i18n.locale]['Gateway_Command']}
+                }
+              ]
+            },
+            {
+              path: 'deviceStatus',
+              name: 'deviceStatus',
+              component: DeviceStatus,
+                
+            },
+          
+            {
+              path: 'problem',
+              name: 'problem',
+              component: ProblemFrame,
+
+              children: [
+                {
+                  path: 'solved',
+                  name: 'solved',
+                  component:SolvedProblem,
+                  meta:{
+                    title: 'solvedProblem'
+                  }           
+                },
+                {
+                  path: 'unsolved',
+                  name: 'unsolved',
+                  component: UnsolvedProblem,
+                  meta:{
+                    title: 'unsolvedProblem'
+                  }
+                }
+              ]
+            },
+            {
+              path: '',
+              redirect: 'dashboard/gateway601'
+            }
+          ]
         }
       ]
     },

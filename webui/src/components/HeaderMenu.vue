@@ -71,8 +71,11 @@ export default {
         }
       }
     },
-    changeLang(lang){
-      this.$i18n.locale = lang
+    changeLang(language){
+      console.log(this.$router.currentRoute)
+      this.$root.$i18n.locale = language
+      this.$router.push({name: this.$router.currentRoute.name, params:{lang: language} })
+      
     }
     
     
