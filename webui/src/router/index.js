@@ -108,13 +108,13 @@ const router = new Router({
                   path: 'modbus',
                   name: 'modbus',
                   component: GatewayCommand,
-                  meta:{title: i18n.messages[i18n.locale]['Gateway_Command']}
+                  meta:{title: route => i18n.messages[route.params.lang]['Gateway_Command']}
                 },
                 {
                   path: 'gatewayConfig/:device',
                   name: 'gatewayConfig',
                   component: GatewayConfig,
-                  meta: {title: 'gateway config'}
+                  meta: {title: route => `${route.params.device}`}
                 }
               ]
             },
