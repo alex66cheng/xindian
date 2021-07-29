@@ -10,6 +10,7 @@
   "send":"送り出すJ",
   "confirm":"確認J",
   "target":"目標J",
+  "device_information":"機器資訊",
   "green_house_outdoor_label":"室外J",
   "green_house_indoor_label":"室內J",
   "green_house_temperature_label":"溫度J",
