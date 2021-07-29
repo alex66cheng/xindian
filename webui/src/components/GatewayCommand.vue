@@ -40,7 +40,7 @@
         <div>start address</div>
         <div>  
           <el-input
-            placeholder="start address"
+            placeholder=" <= FFFF"
             v-model="modbusCommand.startAddress"
             clearable>
           </el-input>
@@ -49,7 +49,7 @@
       <el-col :span="4">
         <div>length</div>
         <el-input
-          placeholder="length"
+          placeholder=">=0001 && <=007D"
           v-model="modbusCommand.dataLength"
           clearable>
         </el-input>
@@ -61,8 +61,8 @@
 
     <el-row>
       <el-col :span="12">
-        <span v-if="finalCommand">Command: {{finalCommand.message}}</span>
-        <span v-if="finalTarget">Target: {{finalTarget.message}}</span>
+        <div>Command: {{final.finalCommand}}</div>
+        <div>Target: {{final.finalTarget}}</div>
       </el-col>
 
       <el-col :span="12">
