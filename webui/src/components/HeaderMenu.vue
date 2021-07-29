@@ -31,7 +31,7 @@
       text-color="#fff" @command="handleCommand">
       <i class="el-icon-setting" style="margin: 15px; font-size: 30px; color: white"></i>
       <el-dropdown-menu slot="dropdown" :router="true">
-        <el-dropdown-item command="login">login</el-dropdown-item>
+        <el-dropdown-item command="login">logout</el-dropdown-item>
         <el-dropdown-item>Add</el-dropdown-item>
         <el-dropdown-item>Delete</el-dropdown-item>
       </el-dropdown-menu>
