@@ -2,7 +2,7 @@
   <el-container style="height: 100%;">
     <el-menu  :router="true" style="height: 100%; width: 100%" :default-openeds="['dashboard']">
 
-      <img href="/" v-bind:src="logo" height="60px" style="margin: 10%"> 
+      <img href="/" v-bind:src="logo" style="margin: 10%; width: 60%;"> 
       
       
       <el-menu-item @click="gotoPage('/monitor/dashboard/gateway601')">{{ $t("Dashboard_Title") }}</el-menu-item>
