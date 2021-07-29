@@ -24,7 +24,8 @@ const routes = {
       name:'gateway601',
       component: Dashboard601,
       meta:{
-        title: '601'
+        title: '601',
+        closable: false
       }
     },
     {
@@ -32,7 +33,8 @@ const routes = {
       name:'gateway602',
       component: Dashboard602,
       meta:{
-        title: '602'
+        title: '602',
+        closable: false
       }
     },
     {
@@ -40,7 +42,8 @@ const routes = {
       name:'gateway603',
       component: Dashboard603,
       meta:{
-        title: '603'
+        title: '603',
+        closable: false
       }
     }
     

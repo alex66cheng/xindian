@@ -17,6 +17,7 @@ import GatewayFrame from '../components/frames/GatewayFrame.vue'
 import GatewayCommand from '../components/GatewayCommand.vue'
 
 import DeviceManager from '../components/DeviceManager.vue'
+import GatewayConfig from '../components/GatewayConfig.vue'
 
 import ProblemFrame from '../components/frames/ProblemFrame.vue'
 import SolvedProblem from '../components/SolvedProblem.vue'
@@ -28,7 +29,7 @@ import i18n from '../lang/lang.js'
 
 import DashboardPath from './DashboardPath.js'
 
-import firebase from 'firebase/app'
+//import firebase from 'firebase/app' 防止重整logout
 import 'firebase/auth'
 
 Vue.use(Router)
@@ -101,13 +102,19 @@ const router = new Router({
                   path: '',
                   name: 'deviceManager',
                   component: DeviceManager,
-                  meta:{title: 'test'}
+                  meta:{title: 'device Manager'}
                 },
                 {
                   path: 'modbus',
                   name: 'modbus',
                   component: GatewayCommand,
                   meta:{title: i18n.messages[i18n.locale]['Gateway_Command']}
+                },
+                {
+                  path: 'gatewayConfig/:device',
+                  name: 'gatewayConfig',
+                  component: GatewayConfig,
+                  meta: {title: 'gateway config'}
                 }
               ]
             },
