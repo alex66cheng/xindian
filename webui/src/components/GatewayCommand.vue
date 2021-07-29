@@ -7,14 +7,14 @@
       <el-col :span="4">
         <div>{{$t("target")}}:</div>
         <el-input
-          placeholder="target"
+          placeholder=""
           v-model="modbusCommand.target"
           clearable>
         </el-input>
       </el-col>
       <el-col :span="4">
         <div>ID</div>
-        <el-select v-model="modbusCommand.id" clearable placeholder="ID">
+        <el-select v-model="modbusCommand.id" clearable placeholder="choose">
           <el-option
             v-for="item in idOptions"
             :key="item.value"
@@ -26,7 +26,7 @@
       <el-col :span="4">
         <div>func</div>
         <div>  
-          <el-select v-model="modbusCommand.functionCode" clearable placeholder="function code">
+          <el-select v-model="modbusCommand.functionCode" clearable placeholder="choose">
             <el-option
               v-for="item in functionCodeOptions"
               :key="item.value"
@@ -40,7 +40,7 @@
         <div>start address</div>
         <div>  
           <el-input
-            placeholder=" <= FFFF"
+            placeholder="0000 ~ FFFF"
             v-model="modbusCommand.startAddress"
             clearable>
           </el-input>
@@ -49,7 +49,7 @@
       <el-col :span="4">
         <div>length</div>
         <el-input
-          placeholder=">=0001 && <=007D"
+          placeholder="0001 ~ 007D"
           v-model="modbusCommand.dataLength"
           clearable>
         </el-input>
