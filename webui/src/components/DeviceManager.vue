@@ -27,7 +27,7 @@
     </el-col>
     <el-col :span="4">
       <div class="">
-        <el-button @click="gotoModbus">modbus</el-button>
+        <el-button @click="gotoConfig">modbus</el-button>
       </div>
     </el-col>
     <el-col :span="4">
@@ -50,8 +50,8 @@ export default {
       }
     },
     methods:{
-      gotoModbus(){
-        this.$router.push({name:'modbus'})
+      gotoConfig(){
+        this.$router.push({name:'gatewayConfig', params:{device: this.SN}})
       }
     }
 
