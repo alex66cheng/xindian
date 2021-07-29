@@ -1,7 +1,7 @@
 
 import DashboardFrame from '../components/frames/DashboardFrame.vue'
 //import Dashboard from '../components/Dashboard.vue'
-import i18n from '../lang/lang.js'
+//import i18n from '../lang/lang.js'
 import Dashboard601 from '../components/gatewayRoom/Dashboard601'
 import Dashboard602 from '../components/gatewayRoom/Dashboard602'
 import Dashboard603 from '../components/gatewayRoom/Dashboard603'
