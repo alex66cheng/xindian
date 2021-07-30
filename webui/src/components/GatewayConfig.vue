@@ -8,17 +8,17 @@
             <el-button style="float: right; padding: 3px 0" type="text">Operation button</el-button>
           </div>
           <div align="left" class="text item">
-            interface: {{device_interface}}
+            Interface: {{device_interface}}
           </div>
         
           <div align="left" class="text item">
-            bitrate: {{bitrate}}
+            Bitrate: {{bitrate}}
           </div >
           <div align="left" class="text item">
-            datbit: {{datbit}}
+            Datbit: {{datbit}}
           </div>
           <div align="left" class="text item">
-            protocol: {{protocol}}
+            Protocol: {{protocol}}
             <div style="float: right;">
               <el-button @click="gotoSetup">{{ $t("Setup")}}</el-button>
             </div>
