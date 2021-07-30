@@ -102,7 +102,7 @@ const router = new Router({
                   path: '',
                   name: 'deviceManager',
                   component: DeviceManager,
-                  meta:{title: 'device Manager'}
+                  meta:{title: route=> i18n.messages[route.params.lang]['Device_Manager']}
                 },
                 {
                   path: 'modbus',
