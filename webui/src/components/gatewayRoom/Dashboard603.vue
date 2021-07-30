@@ -22,7 +22,7 @@
       <el-col :span="12">
         <el-card class="box-card dashboard_data">
           <div slot="header" class="clearfix">
-            <span>{{$t("city_temperaturei_Label")}}</span>
+            <span>{{$t("city_temperature_Label")}}</span>
             <el-button style="float: right; padding: 3px 0" type="text">詳細資料</el-button>
           </div>
           <div class="text item" id="temperature603">
