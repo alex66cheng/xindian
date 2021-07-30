@@ -1,6 +1,6 @@
 <template>
   <div style="padding: 20px;">
-    <el-row gutter="10">
+    <el-row>
       <el-col span="2">
         <el-button type="primary">新增</el-button>
       </el-col>
@@ -83,7 +83,7 @@ export default {
           },
           {
             id: 2,
-            sn: 'KA-00001',
+            sn: 'KA-00002',
             type: '700',
             status: true
           }
