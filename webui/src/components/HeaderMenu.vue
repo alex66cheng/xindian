@@ -10,10 +10,10 @@
     text-align="left"
     style = "height:60px; width: 100%; padding-left: 20px;padding-right: 20px; border-bottom:0px;">
     <el-submenu index="2-4">
-      <template slot="title">language</template>
+      <template slot="title">{{$t('language')}}</template>
       <el-menu-item @click="changeLang('cn')">cn</el-menu-item>
       <el-menu-item @click="changeLang('jp')">jp</el-menu-item>
-      <el-menu-item index="2-4-3">item three</el-menu-item>
+      <el-menu-item @click="changeLang('en')">en</el-menu-item>
     </el-submenu>
     <el-submenu index="2">
       <template slot="title">Workspace</template>

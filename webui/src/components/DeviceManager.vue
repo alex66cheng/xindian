@@ -2,17 +2,17 @@
   <div style="padding: 20px;">
     <el-row gutter="10">
       <el-col span="2">
-        <el-button type="primary">新增</el-button>
+        <el-button type="primary">{{$t('add')}}</el-button>
       </el-col>
       <el-col span="2">
-        <el-button >刪除</el-button>
+        <el-button >{{$t('delete')}}</el-button>
       </el-col>
       <el-col span="20" align="right">
         <el-input
           scope
           style="width: 240px;"
           v-model="search"
-          placeholder="輸入關鍵字搜尋"
+          :placeholder="$t('search_input_placeholder')"
         />
       </el-col>
     </el-row>
@@ -41,12 +41,12 @@
           </el-table-column>
           <el-table-column
             prop="type"
-            label="Type"
+            :label="$t('Type')"
             width="180">
           </el-table-column>
           <el-table-column
             prop="status"
-            label="Status">
+            :label="$t('Status')">
             <template slot-scope="scope">
               <el-switch active-color="#13ce66" inactive-color="#ff4949" v-model="scope.row.status" @change=changeStatus(scope.row)>
               </el-switch>
@@ -57,8 +57,8 @@
             label="操作"
             width="100">
             <template slot-scope="scope">
-              <el-button @click="gotoConfig(scope.row.sn)" type="text" size="small">查看</el-button>
-              <el-button @click="gotoConfig(scope.row.sn)" type="text" size="small">编辑</el-button>
+              <el-button @click="gotoConfig(scope.row.sn)" type="text" size="big">config</el-button>
+              <el-button @click="gotoConfig(scope.row.sn)" type="text" size="big">modbus</el-button>
             </template>
           </el-table-column>
         </el-table>

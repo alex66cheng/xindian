@@ -20,7 +20,7 @@
           <div align="left" class="text item">
             protocol: {{protocol}}
             <div style="float: right;">
-              <el-button @click="gotoSetup">Setup</el-button>
+              <el-button @click="gotoSetup">{{ $t("Setup")}}</el-button>
             </div>
           </div>
         </el-card>
@@ -46,12 +46,12 @@
             </el-table-column>
             <el-table-column>
               <template slot="header" slot-scope="scope">
-                <el-button>Add</el-button>
+                <el-button>{{$t("add")}}</el-button>
               </template>
               <template slot-scope="scope">
                 <el-button
                   size="mini"
-                  @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
+                  @click="handleEdit(scope.$index, scope.row)">{{ $t("Setup")}}</el-button>
                 
               </template>
             </el-table-column>
