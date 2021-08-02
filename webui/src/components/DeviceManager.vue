@@ -1,13 +1,13 @@
 <template>
   <div style="padding: 20px;">
     <el-row>
-      <el-col span="2">
+      <el-col :span="2">
         <el-button type="primary">{{$t('add')}}</el-button>
       </el-col>
-      <el-col span="2">
+      <el-col :span="2">
         <el-button >{{$t('delete')}}</el-button>
       </el-col>
-      <el-col span="20" align="right">
+      <el-col :span="20" align="right">
         <el-input
           scope
           style="width: 240px;"
