@@ -7,11 +7,9 @@
           <el-input class="middle-input-box" placeholder="Email" v-model="email"></el-input>
           <el-input class="middle-input-box" placeholder="Password" v-model="password" show-password></el-input>
           <el-input class="middle-input-box" placeholder="Check Password" v-model="check_password" show-password></el-input>
-          <p class="error" v-if="errors.length">
-            <span v-for="error in errors" v-bind:key="error">{{ error }}</span>
-          </p>
           <el-button style="margin-bottom: 20px;" type="primary" @click="onSubmit">Register</el-button>
         </form>
+        <span>Already have account? Click here to <el-link type="primary" @click="toLogin">login</el-link></span>
       </el-card>
   </div>
 </template>
@@ -42,8 +40,15 @@ export default {
       else if (this.password != this.check_password)
         this.errors.push('Check Password is invalid.')
       
-      if (!this.errors.length) 
+      if (this.errors.length == 0){
         return true
+      }else{
+        this.$message({
+          message: this.errors[0],
+          type: 'warning'
+        });
+        return false;
+      }
     },
 
     validEmail: function (email) {
@@ -60,10 +65,18 @@ export default {
 
         }catch(err){
           console.log(err)
+          this.$message({
+            message: err.message,
+            type: 'warning'
+          });
         }
         
         alert('submitted')
       }
+    },
+
+    toLogin(){
+      this.$router.replace({name: 'login'})
     },
 
     goBack() {
