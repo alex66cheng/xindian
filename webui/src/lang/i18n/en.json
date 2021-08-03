@@ -1,5 +1,8 @@
 {
   "add":"add",
+  "cn":"繁體中文",
+  "en":"English",
+  "jp":"日本",
   "Dashboard_Title":"Dashboard",
   "Device_Manager":"Device Manager",
   "Device_Status":"Device Status",

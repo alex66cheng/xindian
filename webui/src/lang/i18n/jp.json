@@ -1,5 +1,8 @@
 {
   "add":"追加",
+  "cn":"繁體中文",
+  "en":"English",
+  "jp":"日本",
   "Dashboard_Title":"ダッシュボード",
   "Device_Manager":"端末管理",
   "Device_Status":"デバイスのステータス",

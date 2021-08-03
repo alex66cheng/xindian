@@ -8,12 +8,12 @@
     text-color="#fff"
     active-text-color="#ffd04b"
     text-align="left"
-    style = "height:60px; width: 100%; padding-left: 20px;padding-right: 20px; border-bottom:0px;">
+    style = "height:60px; width: 97%; padding-left: 20px;padding-right: 20px; border-bottom:0px;">
     <el-submenu index="2-4">
       <template slot="title">{{$t('language')}}</template>
-      <el-menu-item @click="changeLang('cn')">cn</el-menu-item>
-      <el-menu-item @click="changeLang('jp')">jp</el-menu-item>
-      <el-menu-item @click="changeLang('en')">en</el-menu-item>
+      <el-menu-item @click="changeLang('cn')">{{$t('cn')}}</el-menu-item>
+      <el-menu-item @click="changeLang('jp')">{{$t('jp')}}</el-menu-item>
+      <el-menu-item @click="changeLang('en')">{{$t('en')}}</el-menu-item>
     </el-submenu>
     <el-submenu index="2">
       <template slot="title">Workspace</template>
@@ -26,16 +26,18 @@
     <el-menu-item index="4"><a href="https://www.ele.me" target="_blank">Orders</a></el-menu-item>
     
     
-    <div v-if="loggedIn" style="float: right; color: white">loggedIn</div>
-    <el-dropdown background-color="#545c64"
-      text-color="#fff" @command="handleCommand">
-      <i class="el-icon-setting" style="margin: 15px; font-size: 30px; color: white"></i>
-      <el-dropdown-menu slot="dropdown" :router="true">
-        <el-dropdown-item command="login">logout</el-dropdown-item>
-        <el-dropdown-item>Add</el-dropdown-item>
-        <el-dropdown-item>Delete</el-dropdown-item>
-      </el-dropdown-menu>
-    </el-dropdown>          
+    <div style="float: right">
+      <el-dropdown background-color="#545c64"
+        text-color="#fff" @command="handleCommand"> 
+        <i class="el-icon-setting" style="margin: 15px; font-size: 30px; color: white"></i>
+        <el-dropdown-menu slot="dropdown" :router="true">
+          <el-dropdown-item command="login">logout</el-dropdown-item>
+          <el-dropdown-item>Add</el-dropdown-item>
+          <el-dropdown-item>Delete</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>     
+    </div>
+    <div style="float: right; color: white">User</div>
   </el-menu>
 </template> 
 
