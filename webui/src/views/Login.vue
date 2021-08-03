@@ -36,7 +36,7 @@ export default {
         this.$message({
           message: err.mess,
           type: 'warning'
-        });
+        })
       }
     },
     

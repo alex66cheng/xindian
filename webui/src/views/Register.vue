@@ -46,8 +46,8 @@ export default {
         this.$message({
           message: this.errors[0],
           type: 'warning'
-        });
-        return false;
+        })
+        return false
       }
     },
 
@@ -68,7 +68,7 @@ export default {
           this.$message({
             message: err.message,
             type: 'warning'
-          });
+          })
         }
         
         alert('submitted')
