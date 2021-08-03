@@ -18,10 +18,9 @@ const routes = {
         
       }
     },*/
-    
     {
-      path:'gateway601',
-      name:'gateway601',
+      path:'601',
+      name:'601',
       component: Dashboard601,
       meta:{
         title: '601',
@@ -29,8 +28,8 @@ const routes = {
       }
     },
     {
-      path:'gateway602',
-      name:'gateway602',
+      path:'602',
+      name:'602',
       component: Dashboard602,
       meta:{
         title: '602',
@@ -38,8 +37,8 @@ const routes = {
       }
     },
     {
-      path:'gateway603',
-      name:'gateway603',
+      path:'603',
+      name:'603',
       component: Dashboard603,
       meta:{
         title: '603',
