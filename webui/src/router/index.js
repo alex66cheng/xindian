@@ -151,7 +151,7 @@ const router = new Router({
             },
             {
               path: '',
-              redirect: 'dashboard/gateway601'
+              redirect: 'dashboard/601'
             }
           ]
         }
