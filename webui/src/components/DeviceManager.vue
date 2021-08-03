@@ -1,7 +1,7 @@
 <template>
   <div style="padding: 20px;">
-    <el-row>
-      <el-col span="2">
+    <el-row >
+      <el-col span="2" >
         <el-button type="primary">{{$t('add')}}</el-button>
       </el-col>
       <el-col span="2">
