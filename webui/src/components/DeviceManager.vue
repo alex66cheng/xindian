@@ -1,13 +1,34 @@
 <template>
   <div style="padding: 20px;">
-    <el-row >
-      <el-col span="2" >
-        <el-button type="primary">{{$t('add')}}</el-button>
+    <el-row>
+      <!--加入機器開始-->
+      <el-col :span="2">
+        <el-button type="primary" @click="dialogVisible = true">{{$t('add')}}</el-button>
       </el-col>
-      <el-col span="2">
+      <el-dialog
+        title="加入一台新的機器"
+        :visible.sync="dialogVisible"
+        width="30%"
+        :before-close="handleClose">
+        <el-form ref="form" :model="form" label-position="top" style="padding-left: 30px; padding-right: 30px">
+          <el-form-item>
+            <el-input v-model="form.sn" placeholder="S/N"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-input v-model="form.type" placeholder="Type"></el-input>
+          </el-form-item>
+          <el-button @click="dialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="addDevice">立即創建 </el-button>
+        </el-form>
+      </el-dialog>
+      <!--加入機器結束-->
+      
+      <!--刪除機器開始-->
+      <el-col :span="2">
         <el-button >{{$t('delete')}}</el-button>
       </el-col>
-      <el-col span="20" align="right">
+      <!--刪除機器結束-->
+      <el-col :span="20" align="right">
         <el-input
           scope
           style="width: 240px;"
@@ -74,6 +95,7 @@ export default {
     data(){
       return{
         search: '',
+        dialogVisible: false,
         deviceData:[
           {
             id: 1,
@@ -87,7 +109,11 @@ export default {
             type: '700',
             status: true
           }
-        ]
+        ],
+        form:{
+          sn: '',
+          type: ''
+        }
       }
     },
     computed: {
@@ -113,6 +139,13 @@ export default {
           id: row.id,
           status: row.status,
         }
+      },
+      handleClose(done) {
+        this.$confirm('確定取消?')
+          .then(_ => {
+            done();
+          })
+          .catch(_ => {});
       }
     }
 
