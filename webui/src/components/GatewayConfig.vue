@@ -46,7 +46,7 @@
             </el-table-column>
             <el-table-column>
               <template slot="header" slot-scope="scope">
-                <el-button>{{$t("add")}}</el-button>
+                <el-button @click="centerDialogVisible = true">{{$t("add")}}</el-button>
               </template>
               <template slot-scope="scope">
                 <el-button
@@ -59,6 +59,37 @@
         </div>
       </el-col>
     </el-row>
+    <el-dialog
+      title="Warning"
+      :visible.sync="centerDialogVisible"
+      width="30%"
+      center>
+      <el-row>
+        <el-col :span="12">
+          <div>{{$t('sensor')}}</div>
+          <div>  
+            <el-input
+              v-model="addSensor.sensor"
+              clearable>
+            </el-input>
+          </div>
+        </el-col>
+        <el-col :span="12">
+          <div>unit</div>
+          <div>  
+            <el-input
+              v-model="addSensor.value"
+              clearable>
+            </el-input>
+          </div>
+        </el-col>
+      </el-row>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="clearNewSensor">Cancel</el-button>
+        <el-button type="primary" @click="confirmNewSensor">Confirm</el-button>
+      </span>
+    </el-dialog>
+
 
   </div>
 </template>
@@ -74,6 +105,7 @@ export default {
       bitrate: '',
       datbit: '',
       protocol: 'modbus',
+      centerDialogVisible: false,
       sensorArr: [
         {
           sensor: 'green_house_outdoor_label',
@@ -84,6 +116,10 @@ export default {
           value: '70%'
         }
       ],
+      addSensor:{
+        sensor: '',
+        value: ''
+      }
     }
   },
   methods: {
@@ -92,6 +128,18 @@ export default {
     },
     gotoSetup(){
       this.$router.push({name: 'modbus'})
+    },
+    clearNewSensor(){
+      this.addSensor.sensor = ''
+      this.addSensor.value = ''
+      this.centerDialogVisible = false
+    },
+    confirmNewSensor(){
+      this.sensorArr.push({sensor: this.addSensor.sensor, value: this.addSensor.value})
+      this.addSensor.sensor = ''
+      this.addSensor.value = ''
+      this.centerDialogVisible = false
+      console.log('confirm')
     }
     
   },
