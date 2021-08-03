@@ -52,7 +52,6 @@
                 <el-button
                   size="mini"
                   @click="handleEdit(scope.$index, scope.row)">{{ $t("Setup")}}</el-button>
-                
               </template>
             </el-table-column>
           </el-table>
