@@ -19,6 +19,12 @@ import GatewayCommand from '../components/GatewayCommand.vue'
 import DeviceManager from '../components/DeviceManager.vue'
 import GatewayConfig from '../components/GatewayConfig.vue'
 
+import ScheduleFrame from '../components/frames/ScheduleFrame.vue'
+import Schedule from '../views/Schedule.vue'
+
+import HistoryFrame from '../components/frames/HistoryFrame.vue'
+import History from '../components/History.vue'
+
 import ProblemFrame from '../components/frames/ProblemFrame.vue'
 import SolvedProblem from '../components/SolvedProblem.vue'
 import UnsolvedProblem from '../components/UnsolvedProblem.vue'
@@ -34,7 +40,7 @@ import 'firebase/auth'
 
 Vue.use(Router)
 
-let currentLang = 'jp'
+
 
 const router = new Router({
   mode: 'history',
@@ -64,7 +70,7 @@ const router = new Router({
         if(i18n.locale != lang){
           i18n.locale = lang
         }
-        currentLang = lang
+        
         return next()
       },
       children:[
@@ -102,7 +108,7 @@ const router = new Router({
                   path: '',
                   name: 'deviceManager',
                   component: DeviceManager,
-                  meta:{title: route=> i18n.messages[route.params.lang]['Device_Manager']}
+                  meta:{title: route => i18n.messages[route.params.lang]['Device_Manager']}
                 },
                 {
                   path: 'modbus',
@@ -115,6 +121,31 @@ const router = new Router({
                   name: 'gatewayConfig',
                   component: GatewayConfig,
                   meta: {title: route => `${route.params.device}`}
+                }
+              ]
+            },
+            {
+              path: 'schedule',
+              component: ScheduleFrame,
+              children: [
+                {
+                  path: '',
+                  name: 'schedule',
+                  component: Schedule,
+                  meta: {title: route => i18n.messages[route.params.lang]['schedule']}
+                }
+              ]
+            },
+            {
+              path: 'history',
+              component: HistoryFrame,
+              children: [
+                {
+                  path: '',
+                  name: 'history',
+                  component: History,
+                  meta: {title: route => i18n.messages[route.params.lang]['History_Title']}
+                
                 }
               ]
             },
