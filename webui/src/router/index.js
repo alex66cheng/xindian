@@ -9,54 +9,35 @@ import Register from '../views/Register.vue'
 
 import Monitor from '../views/Monitor.vue'
 
-
-
-import DeviceStatus from '../components/DeviceStatus.vue'
-
-import GatewayFrame from '../components/frames/GatewayFrame.vue'
-import GatewayCommand from '../components/GatewayCommand.vue'
-
-import DeviceManager from '../components/DeviceManager.vue'
-import GatewayConfig from '../components/GatewayConfig.vue'
-
 import ScheduleFrame from '../components/frames/ScheduleFrame.vue'
 import Schedule from '../views/Schedule.vue'
+
+import DeviceStatus from '../components/DeviceStatus.vue'
 
 import HistoryFrame from '../components/frames/HistoryFrame.vue'
 import History from '../components/History.vue'
 
 import ProblemFrame from '../components/frames/ProblemFrame.vue'
-import SolvedProblem from '../components/SolvedProblem.vue'
-import UnsolvedProblem from '../components/UnsolvedProblem.vue'
+import SolvedProblem from '../components/problem/SolvedProblem.vue'
+import UnsolvedProblem from '../components/problem/UnsolvedProblem.vue'
 
 import langComponent from '../components/langComponent.vue'
 
 import i18n from '../lang/lang.js'
 
 import DashboardPath from './DashboardPath.js'
+import DevicePath from './DevicePath.js'
 
 //import firebase from 'firebase/app' 防止重整logout
 import 'firebase/auth'
 
 Vue.use(Router)
 
-
-
 const router = new Router({
   mode: 'history',
   //mode: 'hash',
   base: process.env.BASE_URL,
   routes: [
-    /*{
-      path: '/',
-      name: '',
-      component: LoginLayout,
-      children:[
-          {path:'/' , name:'login' ,component:LoginComponent},
-          {path:'/forgetpassword' , name:'forgetpassword' ,component:ForgetPasswordComponent},
-          {path:'/changepassword' , name:'changepassword' ,component:ChangePasswordComponent}
-      ]
-    },*/
     {
       path: '/:lang',
       component: langComponent,
@@ -100,30 +81,7 @@ const router = new Router({
           children:[
           
             ...DashboardPath,
-            {
-              path: 'deviceManager',
-              component: GatewayFrame,
-              children:[
-                {
-                  path: '',
-                  name: 'deviceManager',
-                  component: DeviceManager,
-                  meta:{title: route => i18n.messages[route.params.lang]['Device_Manager']}
-                },
-                {
-                  path: 'modbus',
-                  name: 'modbus',
-                  component: GatewayCommand,
-                  meta:{title: route => i18n.messages[route.params.lang]['Gateway_Command']}
-                },
-                {
-                  path: 'gatewayConfig/:device',
-                  name: 'gatewayConfig',
-                  component: GatewayConfig,
-                  meta: {title: route => `${route.params.device}`}
-                }
-              ]
-            },
+            ...DevicePath,
             {
               path: 'schedule',
               component: ScheduleFrame,
@@ -182,7 +140,7 @@ const router = new Router({
             },
             {
               path: '',
-              redirect: 'dashboard/601'
+              redirect: 'problem/solved'
             }
           ]
         }
