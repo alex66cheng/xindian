@@ -35,6 +35,13 @@ import 'vue-router-tab/dist/lib/vue-router-tab.css'
 
 import firebase from 'firebase/app'
 
+import Chartkick from 'vue-chartkick'
+import Chart from 'chart.js'
+
+
+Vue.use(Chartkick.use(Chart))
+
+
 
 
 
