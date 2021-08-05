@@ -1,0 +1,22 @@
+{
+    "location":"ohga",
+    "area":[
+        {
+            "name":"601"
+        },
+        {
+            "name":"602",
+            "temperature":"25.6",
+            "humidity":"71",
+            "peoplecount":"0"
+        },
+        {
+            "name":"603",
+            "peoplecount":"0",
+            "temperature":"26.1",
+            "humidity":"66.4",
+            "pm25":"0"
+        }
+    ],
+    "datetime":"2021-08-06 01:41:53"
+}
