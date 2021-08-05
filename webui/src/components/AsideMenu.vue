@@ -5,7 +5,7 @@
       <img href="/" v-bind:src="logo" style="margin: 10%; width: 60%;"> 
       
       
-      <el-menu-item @click="gotoPage('/monitor/dashboard/gateway601')">{{ $t("Dashboard_Title") }}</el-menu-item>
+      <el-menu-item @click="gotoPage('/monitor/dashboardManager/dashboard/601')">{{ $t("Dashboard_Title") }}</el-menu-item>
       <el-menu-item @click="gotoPage('/monitor/deviceStatus')">{{ $t('Device_Status')}}</el-menu-item>
       <el-menu-item @click="gotoPage('/monitor/deviceManager')">{{ $t("Device_Manager")}}</el-menu-item>
       <el-menu-item @click="gotoPage('/monitor/schedule')">{{$t("schedule")}}</el-menu-item>
@@ -36,11 +36,6 @@ export default defineComponent({
     ative(){
       console.log('dosoth')
     },
-    /*openDashboard(){
-      this.$tabs.open('/monitor/dashboard/gateway603')
-      this.$tabs.open('/monitor/dashboard/gateway602')
-      this.$tabs.open('/monitor/dashboard/gateway601')    
-    },*/
     gotoPage(paths){
       let finalPath = '/'+ this.$router.currentRoute.params.lang + paths
       console.log(finalPath)
