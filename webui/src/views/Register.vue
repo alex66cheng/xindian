@@ -9,7 +9,7 @@
           <el-input class="middle-input-box" placeholder="Check Password" v-model="check_password" show-password></el-input>
           <el-button style="margin-bottom: 20px;" type="primary" @click="onSubmit">Register</el-button>
         </form>
-        <span>Already have account? Click here to <el-link type="primary" @click="toLogin">login</el-link></span>
+        <span>Already have account? Click here to <el-link type="primary" @click="$router.replace({name: 'login'})">login</el-link></span>
       </el-card>
   </div>
 </template>
@@ -73,10 +73,6 @@ export default {
         
         alert('submitted')
       }
-    },
-
-    toLogin(){
-      this.$router.replace({name: 'login'})
     },
 
     goBack() {

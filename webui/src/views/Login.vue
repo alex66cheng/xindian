@@ -9,7 +9,7 @@
           <el-button style="margin-bottom: 20px;" type="primary" @click="onSubmit">Login</el-button>
         </form>
         <el-alert v-if="error" type="error" show-icon> {{error.message}} </el-alert>
-        <span>Need an account? Click here to <el-link type="primary" @click="toRegister">register</el-link></span>
+        <span>Need an account? Click here to <el-link type="primary" @click="$router.replace({name: 'register'})">register</el-link></span>
       </el-card>
   </div>
 </template>
@@ -43,10 +43,6 @@ export default {
     goBack() {
       console.log('go back')
       window.location.href = '/'
-    },
-
-    toRegister(){
-      this.$router.replace({name: 'register'})
     }
   }
 }
