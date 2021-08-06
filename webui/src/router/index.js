@@ -140,7 +140,7 @@ const router = new Router({
             },
             {
               path: '',
-              redirect: 'problem/solved'
+              redirect: 'dashboardManager/dashboard/601'
             }
           ]
         }
