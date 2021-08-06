@@ -126,7 +126,7 @@ export default {
       console.log(index, row)
     },
     gotoSetup(){
-      this.$router.push({name: 'modbus'})
+      this.$router.push({name: 'modbus' ,params: {device: this.$route.params.device}})
     },
     clearNewSensor(){
       this.addSensor.sensor = ''
