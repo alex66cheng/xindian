@@ -3,14 +3,17 @@ import Dashboard from '../components/gatewayRoom/Dashboard'
 
 const routes = {
   path: 'dashboardManager',
+  name: 'dashboardManager',
   component: DashboardFrame,
   children:[
     {
       path: 'dashboard/:id',
+      name: 'dashboard',
       component: Dashboard,
       meta: {
         title: route => `${route.params.id}`,
-        key: 'path'
+        key: 'path',
+        closable: false
       }
     }
   ]
