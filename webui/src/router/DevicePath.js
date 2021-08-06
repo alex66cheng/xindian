@@ -1,5 +1,8 @@
 import GatewayFrame from '../components/frames/GatewayFrame.vue'
 import GatewayCommand from '../components/GatewayCommand.vue'
+
+import i18n from '../lang/lang.js'
+
 import DeviceManager from '../components/DeviceManager.vue'
 import GatewayConfig from '../components/GatewayConfig.vue'
 
@@ -14,7 +17,7 @@ const routes = {
       meta:{title: route => i18n.messages[route.params.lang]['Device_Manager']}
     },
     {
-      path: 'modbus',
+      path: 'modbus/:device',
       name: 'modbus',
       component: GatewayCommand,
       meta:{title: route => i18n.messages[route.params.lang]['Gateway_Command']}
