@@ -5,7 +5,7 @@
       <img href="/" v-bind:src="logo" style="margin: 10%; width: 60%;"> 
       
       
-      <el-menu-item @click="gotoPage('/monitor/dashboardManager/dashboard/601')">{{ $t("Dashboard_Title") }}</el-menu-item>
+      <el-menu-item @click="gotoPage('/monitor/dashboardManager')">{{ $t("Dashboard_Title") }}</el-menu-item>
       <el-menu-item @click="gotoPage('/monitor/deviceStatus')">{{ $t('Device_Status')}}</el-menu-item>
       <el-menu-item @click="gotoPage('/monitor/deviceManager')">{{ $t("Device_Manager")}}</el-menu-item>
       <el-menu-item @click="gotoPage('/monitor/schedule')">{{$t("schedule")}}</el-menu-item>
