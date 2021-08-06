@@ -1,9 +1,6 @@
 <template>
-    <router-tab class="gateway-tab"/>
+  <router-tab :tabs="['/monitor/deviceManager']" style="height: 100%" class="drop-shadow"/>
 </template>
 
 <style scoped>
-.gateway-tab{
-  height: 100%;
-}
 </style>
