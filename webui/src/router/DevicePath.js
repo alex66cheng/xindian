@@ -1,6 +1,5 @@
 import GatewayFrame from '../components/frames/GatewayFrame.vue'
 import GatewayCommand from '../components/GatewayCommand.vue'
-
 import DeviceManager from '../components/DeviceManager.vue'
 import GatewayConfig from '../components/GatewayConfig.vue'
 
