@@ -9,9 +9,9 @@
         tabs: [
           '/jp/monitor/dashboardManager/dashboard/601',
 
-          { to: '/jp/monitor/dashboardManager/dashboard/602', title: '602' },
+          { to: '/jp/monitor/dashboardManager/dashboard/602'},
 
-          { to: '/jp/monitor/dashboardManager/dashboard/603', title: '603' }
+          { to: '/jp/monitor/dashboardManager/dashboard/603'}
         ]
       }
     },
