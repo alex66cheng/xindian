@@ -57,7 +57,7 @@
           </el-table-column>
           <el-table-column
             prop="sn"
-            label="S/N"
+            label="device id"
             width="180">
           </el-table-column>
           <el-table-column
@@ -79,7 +79,7 @@
             width="100">
             <template slot-scope="scope">
               <el-button @click="gotoConfig(scope.row.sn)" type="text" size="big">config</el-button>
-              <el-button @click="gotoConfig(scope.row.sn)" type="text" size="big">modbus</el-button>
+              <el-button @click="gotoConfig(scope.row.sn)" type="text" size="big" style="margin-left: 0px">modbus</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -99,7 +99,7 @@ export default {
         deviceData:[
           {
             id: 1,
-            sn: 'KA-00001',
+            sn: 'xa00001',
             type: '700',
             status: true
           },
