@@ -81,7 +81,6 @@ export default {
        this.$ajax({
          method: 'GET',
          url: 'http://52.197.39.218:8080/sensordata'
-         //url: 'http://47.74.5.223:7542/query?gwid=KASO03HM'
        })
        .then( res => {
           var objstr = JSON.stringify(res.data)
