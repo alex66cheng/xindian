@@ -1,0 +1,11 @@
+{
+    "condition":"temp>30",
+    "message":"Temperature tool high",
+    "emails":[
+        {
+            "email":"mark01@gmail.com"
+        },{
+            "email":"mark01@gmail.com"
+        }
+    ]
+}
