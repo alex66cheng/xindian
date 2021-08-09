@@ -90,23 +90,41 @@
     </el-dialog>
 
 
+    <el-dialog
+      title="add sensor"
+      :visible.sync="setUpDialogVisible"
+      width="70%"
+      center>
+      <ParamConfig  outer_pa_id="temp" outer_if_id="usb0" :outer_pa_name="sensorArr[sensorIndex].sensor" 
+        @done="setUpDialogVisible = false"/>
+      
+    </el-dialog>
+
+
   </div>
 </template>
 
 <script>
 
+import ParamConfig from './ParamConfig.vue'
 
 export default {
+  components:{
+    ParamConfig
+  },
   data(){
     return{
       device: '',
       device_interface: 'dev/ttymxc03',
       bitrate: '',
       datbit: '',
+
       protocol: 'modbus',
       centerDialogVisible: false,
+      
       sensorArr: [
         {
+          pa_id: 'tamp',
           sensor: 'green_house_outdoor_label',
           value: '25'
         },
@@ -118,12 +136,17 @@ export default {
       addSensor:{
         sensor: '',
         value: ''
-      }
+      },
+      
+      setUpDialogVisible: false,
+      sensorIndex: 0,
     }
   },
   methods: {
     handleEdit(index, row) {
       console.log(index, row)
+      this.sensorIndex = index
+      this.setUpDialogVisible = true
     },
     gotoSetup(){
       this.$router.push({name: 'modbus' ,params: {device: this.$route.params.device}})
@@ -131,7 +154,7 @@ export default {
     clearNewSensor(){
       this.addSensor.sensor = ''
       this.addSensor.value = ''
-      this.centerDialogVisible = false
+      this.setUpDialogVisible = false
     },
     confirmNewSensor(){
       this.sensorArr.push({sensor: this.addSensor.sensor, value: this.addSensor.value})
