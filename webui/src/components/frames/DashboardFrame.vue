@@ -1,5 +1,5 @@
 <template>
-  <router-tab :tabs="tabs" :i18n="i18n" style="height: 100%" class="drop-shadow"/>
+  <router-tab v-if="tabs.length > 0" :tabs="tabs" :i18n="i18n" style="height: 100%" class="drop-shadow"/>
 </template>
 
 <script>
@@ -10,8 +10,7 @@
       }
     },
     created(){
-      this.tabs = this.getTabs()
-      console.log('this.tabs: ' + JSON.stringify(this.tabs))
+      this.getTabs()
     },
     methods: {
       // custom method
@@ -35,7 +34,8 @@
             all_tabs.push('/jp/monitor/dashboardManager/dashboard/' + room.name)
           }
           console.log('all_data: ' + JSON.stringify(all_tabs))
-          return all_tabs
+          
+          this.tabs = all_tabs
         })
         .catch( error => {
           console.log(error)
