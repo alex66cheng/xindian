@@ -9,8 +9,8 @@
         tabs: []
       }
     },
-    created(){
-      this.tabs = this.getTabs()
+    beforecreated(){
+      this.tabs = this.getTabs().then
       console.log('this.tabs: ' + JSON.stringify(this.tabs))
     },
     methods: {
@@ -22,8 +22,7 @@
       getTabs() {
         this.$ajax({
           method: 'GET',
-          url: 'http://52.197.39.218:8080/sensordata',
-          async: false
+          url: 'http://52.197.39.218:8080/sensordata'
         })
         .then( res => {
           var objstr = JSON.stringify(res.data)
