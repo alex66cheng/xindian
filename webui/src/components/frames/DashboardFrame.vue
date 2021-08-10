@@ -6,46 +6,19 @@
   export default {
     data(){
       return {
-        tabs: []
+        tabs: [
+          '/jp/monitor/dashboardManager/dashboard/601',
+          { to: '/jp/monitor/dashboardManager/dashboard/602'},
+          { to: '/jp/monitor/dashboardManager/dashboard/603'}
+        ]
       }
-    },
-    created(){
-      this.tabs = this.getTabs()
-      console.log('this.tabs: ' + JSON.stringify(this.tabs))
     },
     methods: {
       // custom method
       i18n(key, params) {
         // $getI18n() is the global method for internationalization in real projects
         return this.$getI18n(key, params)
-      },
-      getTabs() {
-        this.$ajax({
-          method: 'GET',
-          url: 'http://52.197.39.218:8080/sensordata',
-          async: false
-        })
-        .then( res => {
-          var objstr = JSON.stringify(res.data)
-          var objres = JSON.parse(objstr)
-
-          var all_tabs = []
-          for(var room of objres.area){
-            console.log('get all room name ' + room.name)
-            console.log('/jp/monitor/dashboardManager/dashboard/' + room.name)
-            all_tabs.push('/jp/monitor/dashboardManager/dashboard/' + room.name)
-          }
-
-          console.log('all_data: ' + JSON.stringify(all_tabs))
-          return all_tabs
-        })
-        .catch( error => {
-          console.log(error)
-        })
       }
-    },
-    computed:{
-       
     }
   }
 </script>

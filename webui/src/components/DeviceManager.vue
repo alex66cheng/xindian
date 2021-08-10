@@ -143,9 +143,9 @@ export default {
       handleClose(done) {
         this.$confirm('確定取消?')
           .then(_ => {
-            done();
+            done()
           })
-          .catch(_ => {});
+          .catch(_ => {})
       }
     }
 
