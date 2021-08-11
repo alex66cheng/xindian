@@ -7,11 +7,14 @@
     <el-row :gutter="10">
       <el-col :span="5" :offset="0">
         <div>area</div>
-        <el-input
-          placeholder=""
-          v-model="area"
-          clearable>
-        </el-input>
+        <el-select v-model="area" clearable placeholder="">
+          <el-option
+            v-for="item in areaOptions"
+            :key="item.areaName"
+            :label="item.areaName"
+            :value="item.areaName">
+          </el-option>
+        </el-select>
       </el-col>
       <el-col :span="5">
         <div>pa_id</div>
@@ -25,7 +28,7 @@
         
       </el-col>
     </el-row>
-    </el-row>
+    
     <el-row :gutter="12" style="margin-top: 30px">
       <el-col :span="4">
         <div>{{$t("interface")}}:</div>
@@ -89,7 +92,7 @@
       </el-col>
       <el-col :span="4">
         <div>
-          <div>length</div>
+          <div>length</div> 
           <el-input
             placeholder="0001 ~ 007D"
             v-model="modbusCommand.dataLength"
@@ -97,7 +100,7 @@
             clearable>
           </el-input>
         </div>
-        <div>
+        <div class="register">
           <div>register value</div>
           <el-input
             placeholder="0000 ~ FFFF"
@@ -109,6 +112,52 @@
       </el-col>
       <el-col :span="4">
         <el-button :disabled="confirmDisable" @click="displayFinalCommand" style="height:40px; margin-top: 20px">{{$t("confirm")}}</el-button>
+      </el-col>
+    </el-row>
+
+
+    <el-row :gutter="12" style="margin-top: 30px">
+      <el-col :span="4">
+        <div>startAddress:</div>
+        <el-input
+          placeholder="0000 ~ FFFF"
+          v-model="modbusCommand.startAddress16"
+          :disabled=" modbusCommand.functionCode != '10'"
+          clearable>
+        </el-input>
+      </el-col>
+      <el-col :span="4" >
+        <div>
+          <div>quantity</div>
+          <div>  
+            <el-input 
+              v-model="modbusCommand.quantity" 
+              placeholder="0001 ~ 007B"
+              clearable >            
+            </el-input>
+          </div>
+        </div>
+      </el-col>
+      <el-col :span="4">
+        <div>Byte Count</div>
+        <div class="byteCount">{{modbusCommand.byteCount}}</div>
+      </el-col>
+      
+      <el-col :span="4">
+        <div>
+          <div>registerValue</div>
+          <div v-for="(item, index) in modbusCommand.registerValueArr" :key="index">  
+            <el-input           
+              placeholder="0000 ~ FFFF"
+              v-model="modbusCommand.registerValueArr[index].registerValue"
+              :disabled="!(modbusCommand.functionCode == '10')"
+              clearable>
+            </el-input>
+          </div>
+        </div>
+      </el-col>
+      <el-col :span="4">
+       
       </el-col>
     </el-row>
 
@@ -131,6 +180,15 @@
   export default {
     data() {
       return {
+        areaOptions:[{
+          areaName: '601'        
+        }, {
+          areaName: '602'
+        }, {
+          areaName: '603'
+        }
+
+        ],
         idOptions: [{
           value: '00',
           label: '00'
@@ -155,21 +213,28 @@
           value: '06',
           label: '06',
         },{
-          value: '16',
-          label: '16'
+          value: '10',
+          label: '10(hex)'
         }],
 
         area: '',
         pa_id: '',
         modbusCommand:{  
           if_id: '',
-          node: '',
           id: '',
           functionCode: '',
+
           startAddress: '',
           dataLength: '',
           registerAddress: '',
-          registerValue: ''
+          registerValue: '',
+
+          startAddress16: '',
+          quantity: '',
+          byteCount: '0',
+          registerValueArr:[
+            
+          ]
         },
         confirmDisable: true,
         sendOk: true,
@@ -188,18 +253,39 @@
           
           
           if(this.modbusCommand.functionCode == '04' || this.modbusCommand.functionCode == '03'){
+
             this.addressVal = parseInt(this.modbusCommand.startAddress, 16)
             this.dataLengthVal = parseInt(this.modbusCommand.dataLength, 16)
             this.confirmDisable = (this.modbusCommand.id.length == 0 || this.modbusCommand.functionCode.length == 0
-              || this.modbusCommand.startAddress.length != 4|| this.addressVal < 0x0000 || this.addressVal > 0xFFFF 
-              || this.modbusCommand.dataLength.length != 4 || this.dataLengthVal < 0x0000 || this.dataLengthVal > 0x7D)
+              || this.modbusCommand.startAddress.length != 4|| this.checkValue(this.addressVal, 0x0000, 0xFFFF)
+              || this.modbusCommand.dataLength.length != 4 || this.checkValue(this.dataLengthVal, 0x0000, 0x7D))
+
           }else if(this.modbusCommand.functionCode == '06'){
+
             this.addressVal = parseInt(this.modbusCommand.registerAddress, 16)
             this.registerVal = parseInt(this.modbusCommand.registerValue, 16)
             this.confirmDisable = (this.modbusCommand.id.length == 0 || this.modbusCommand.functionCode.length == 0
-              || this.modbusCommand.registerAddress.length != 4 || this.addressVal < 0x0000 || this.addressVal > 0xFFFF 
-              || this.modbusCommand.registerValue.length != 4 || this.registerVal < 0x0000 || this.registerVal > 0xFFFF)
+              || this.modbusCommand.registerAddress.length != 4 || this.checkValue(this.addressVal, 0x0000, 0xFFFF)
+              || this.modbusCommand.registerValue.length != 4 || this.checkValue(this.registerVal, 0x0000, 0xFFFF))
+
+          }else if(this.modbusCommand.functionCode == '10'){
+
+            this.valueInvalid= this.modbusCommand.registerValueArr.length == 0
+            for(this.i = 0; this.i < this.modbusCommand.registerValueArr.length; ++this.i){      
+              console.log(this.modbusCommand.registerValueArr[this.i].registerValue)
+              if(this.modbusCommand.registerValueArr[this.i].registerValue.length != 4
+                ||this.checkValue(parseInt(this.modbusCommand.registerValueArr[this.i].registerValue, 16), 0x0000, 0xFFFF)){
+
+                this.valueInvalid = true
+
+              }
+            }
           }
+
+          this.confirmDisable = (this.valueInvalid || this.area.length == 0 || this.pa_id.length == 0 || this.modbusCommand.if_id.length == 0
+                                || this.modbusCommand.functionCode.length == 0 || this.modbusCommand.id.length == 0)
+             
+          
 
 
         },
@@ -213,6 +299,24 @@
           console.log(this.final.finalCommand.length)    
         },
         deep: true
+      },
+
+      'modbusCommand.quantity': function(){
+        const quantity = parseInt(this.modbusCommand.quantity, 16)
+        const byteCount = (quantity*2)
+        
+        if(isNaN(byteCount)){
+          this.modbusCommand.byteCount = '0'
+          this.modbusCommand.registerValueArr.length = 0
+        }else{
+          //console.log(byteCount.toString(16))
+          this.modbusCommand.byteCount = byteCount.toString(16)
+          this.modbusCommand.registerValueArr.length = 0
+          for(this.i=0; this.i < quantity; ++this.i){
+            this.modbusCommand.registerValueArr.push({registerValue: ''})
+          }
+        }
+        //console.log(this.modbusCommand.byteCount) 
       }
 
 
@@ -235,10 +339,22 @@
       },
       sendCommand(){
 
+      },
+      checkValue(value, floor, ceil){
+        return (value < floor || value > ceil)
       }
     }
   }
 </script>
 <style scoped>
-
+.register{
+  margin-top: 20px;
+}
+.byteCount{
+  font-size: 14px;
+  padding:10px 0 8px 10px;
+  text-align: left;
+  border:1px solid #DCDFE6; 
+  border-radius: 4px;
+}
 </style>
