@@ -90,15 +90,15 @@ export default {
 
           this.id = this.$route.params.id
           for(var room of objres.area){
-            console.log('room name ' + room.name)
-            console.log('this.id ' + this.id)
+            //console.log('room name ' + room.name)
+            //console.log('this.id ' + this.id)
             if(room.name == this.id){
               this.peoplecount = room.peoplecount
               this.temperature = room.temperature + ' °C'
               this.humidity = room.humidity
               this.pm25 = room.pm25
               for(var attributename in room){
-                console.log(attributename + ': ' + room[attributename])
+                //console.log(attributename + ': ' + room[attributename])
               }
             }
           }
