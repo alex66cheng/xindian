@@ -357,4 +357,10 @@
   border:1px solid #DCDFE6; 
   border-radius: 4px;
 }
+.el-input.is-disabled .el-input__inner {
+    background-color: #F5F7FA;
+    border-color: #E4E7ED;
+    color: #C0C4CC;
+    cursor: not-allowed;
+}
 </style>
