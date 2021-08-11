@@ -44,7 +44,7 @@ const router = new Router({
       beforeEnter(to, from, next){
         const lang = to.params.lang
 
-        if(!['jp', 'cn'].includes(lang)){
+        if(!['jp', 'cn', 'en'].includes(lang)){
           return next(i18n.locale)
         }
 
