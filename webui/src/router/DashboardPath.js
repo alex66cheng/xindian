@@ -13,7 +13,7 @@ const routes = {
       meta: {
         title: route => `${route.params.id}`,
         key: 'path',
-        closable: false
+        closable: true,
       }
     }
   ]
