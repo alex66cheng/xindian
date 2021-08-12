@@ -1,4 +1,5 @@
 import DashboardFrame from '../components/frames/DashboardFrame.vue'
+import DashboardTable from '../components/gatewayRoom/DashboardTable'
 import Dashboard from '../components/gatewayRoom/Dashboard'
 
 const routes = {
@@ -6,6 +7,11 @@ const routes = {
   name: 'dashboardManager',
   component: DashboardFrame,
   children:[
+    {
+      path: 'dashboard-table',
+      component: DashboardTable,
+      meta: {title: 'Table'}
+    },
     {
       path: 'dashboard/:id',
       name: 'dashboard',

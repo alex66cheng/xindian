@@ -27,15 +27,17 @@
         .then( res => {
           var objstr = JSON.stringify(res.data)
           var objres = JSON.parse(objstr)
-          var all_tabs = []
+          var all_tabs = [{to: '/' + this.$route.params.lang + '/monitor/dashboardManager/dashboard-table'}]
           for(var room of objres.area){
             console.log('get all room name ' + room.name)
             console.log('/' + this.$route.params.lang + '/monitor/dashboardManager/dashboard/' + room.name)
             all_tabs.push('/' + this.$route.params.lang + '/monitor/dashboardManager/dashboard/' + room.name)
           }
-          console.log('all_data: ' + JSON.stringify(all_tabs))
+          console.log('all_tabs: ' + JSON.stringify(all_tabs))
           
           this.tabs = all_tabs
+
+          console.log('this.tabs: ' + JSON.stringify(this.tabs))
         })
         .catch( error => {
           console.log(error)
