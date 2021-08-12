@@ -30,8 +30,8 @@
           var all_tabs = []
           for(var room of objres.area){
             console.log('get all room name ' + room.name)
-            console.log('/jp/monitor/dashboardManager/dashboard/' + room.name)
-            all_tabs.push('/jp/monitor/dashboardManager/dashboard/' + room.name)
+            console.log('/' + this.$route.params.lang + '/monitor/dashboardManager/dashboard/' + room.name)
+            all_tabs.push('/' + this.$route.params.lang + '/monitor/dashboardManager/dashboard/' + room.name)
           }
           console.log('all_data: ' + JSON.stringify(all_tabs))
           
