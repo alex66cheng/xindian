@@ -118,13 +118,15 @@
 
     <el-row :gutter="12" style="margin-top: 30px">
       <el-col :span="4">
-        <div>startAddress:</div>
-        <el-input
-          placeholder="0000 ~ FFFF"
-          v-model="modbusCommand.startAddress16"
-          :disabled=" modbusCommand.functionCode != '10'"
-          clearable>
-        </el-input>
+        <div>
+          <div>startAddress:</div>
+          <el-input
+            placeholder="0000 ~ FFFF"
+            v-model="modbusCommand.startAddress16"
+            :disabled=" modbusCommand.functionCode != '10'"
+            clearable>
+          </el-input>
+        </div>
       </el-col>
       <el-col :span="4" >
         <div>
@@ -133,6 +135,7 @@
             <el-input 
               v-model="modbusCommand.quantity" 
               placeholder="0001 ~ 007B"
+              :disabled="modbusCommand.functionCode != '10'"
               clearable >            
             </el-input>
           </div>
@@ -140,7 +143,7 @@
       </el-col>
       <el-col :span="4">
         <div>Byte Count</div>
-        <div class="byteCount">{{modbusCommand.byteCount}}</div>
+        <div :class="{byteCount: true, 'byteCount-disabled': byteCountDisable}">{{modbusCommand.byteCount}}</div>
       </el-col>
       
       <el-col :span="4">
@@ -148,7 +151,7 @@
           <div>registerValue</div>
           <div v-for="(item, index) in modbusCommand.registerValueArr" :key="index">  
             <el-input           
-              placeholder="0000 ~ FFFF"
+              :placeholder="'Value'+'('+(index+1)+')'"
               v-model="modbusCommand.registerValueArr[index].registerValue"
               :disabled="!(modbusCommand.functionCode == '10')"
               clearable>
@@ -217,6 +220,8 @@
           label: '10(hex)'
         }],
 
+        
+
         area: '',
         pa_id: '',
         modbusCommand:{  
@@ -242,7 +247,6 @@
         final:{
           finalCommand: '',
           final_if_id: '',
-          finalNode:''
         }
       }    
     },
@@ -250,13 +254,13 @@
       modbusCommand:{
         handler: function () {
           
-          
+          this.commandInvalid = false
           
           if(this.modbusCommand.functionCode == '04' || this.modbusCommand.functionCode == '03'){
 
             this.addressVal = parseInt(this.modbusCommand.startAddress, 16)
             this.dataLengthVal = parseInt(this.modbusCommand.dataLength, 16)
-            this.confirmDisable = (this.modbusCommand.id.length == 0 || this.modbusCommand.functionCode.length == 0
+            this.commandInvalid = (this.modbusCommand.id.length == 0 || this.modbusCommand.functionCode.length == 0
               || this.modbusCommand.startAddress.length != 4|| this.checkValue(this.addressVal, 0x0000, 0xFFFF)
               || this.modbusCommand.dataLength.length != 4 || this.checkValue(this.dataLengthVal, 0x0000, 0x7D))
 
@@ -264,25 +268,25 @@
 
             this.addressVal = parseInt(this.modbusCommand.registerAddress, 16)
             this.registerVal = parseInt(this.modbusCommand.registerValue, 16)
-            this.confirmDisable = (this.modbusCommand.id.length == 0 || this.modbusCommand.functionCode.length == 0
+            this.commandInvalid = (this.modbusCommand.id.length == 0 || this.modbusCommand.functionCode.length == 0
               || this.modbusCommand.registerAddress.length != 4 || this.checkValue(this.addressVal, 0x0000, 0xFFFF)
               || this.modbusCommand.registerValue.length != 4 || this.checkValue(this.registerVal, 0x0000, 0xFFFF))
 
           }else if(this.modbusCommand.functionCode == '10'){
 
-            this.valueInvalid= this.modbusCommand.registerValueArr.length == 0
+            this.commandInvalid= this.modbusCommand.registerValueArr.length == 0
             for(this.i = 0; this.i < this.modbusCommand.registerValueArr.length; ++this.i){      
               console.log(this.modbusCommand.registerValueArr[this.i].registerValue)
               if(this.modbusCommand.registerValueArr[this.i].registerValue.length != 4
                 ||this.checkValue(parseInt(this.modbusCommand.registerValueArr[this.i].registerValue, 16), 0x0000, 0xFFFF)){
 
-                this.valueInvalid = true
+                this.commandInvalid = true
 
               }
             }
           }
 
-          this.confirmDisable = (this.valueInvalid || this.area.length == 0 || this.pa_id.length == 0 || this.modbusCommand.if_id.length == 0
+          this.confirmDisable = (this.commandInvalid || this.area.length == 0 || this.pa_id.length == 0 || this.modbusCommand.if_id.length == 0
                                 || this.modbusCommand.functionCode.length == 0 || this.modbusCommand.id.length == 0)
              
           
@@ -321,6 +325,11 @@
 
 
     },
+    computed:{
+      byteCountDisable: function(){
+        return this.modbusCommand.functionCode != '10'
+      }
+    },
     methods:{
       displayFinalCommand(){
         if(this.modbusCommand.functionCode == '04' || this.modbusCommand.functionCode == '03'){
@@ -328,13 +337,29 @@
                         + this.modbusCommand.startAddress + this.modbusCommand.dataLength
                         
           this.final.finalCommand = this.final.finalCommand + crc16modbus(this.final.finalCommand).toString(16).toUpperCase()
-          this.final.final_if_id = this.modbusCommand.if_id 
+          
         }
         else if(this.modbusCommand.functionCode == '06'){
           this.final.finalCommand = this.modbusCommand.id + this.modbusCommand.functionCode 
                         + this.modbusCommand.registerAddress + this.modbusCommand.registerValue
           this.final.finalCommand = this.final.finalCommand + crc16modbus(this.final.finalCommand).toString(16).toUpperCase()
         }
+        else if(this.modbusCommand.functionCode == '10'){
+          const registerValueArr = this.modbusCommand.registerValueArr
+          
+          this.registerValueCommand = ''
+          for(this.i = 0; this.i < registerValueArr.length; ++this.i){
+            this.registerValueCommand += registerValueArr[this.i].registerValue
+          }
+          this.final.finalCommand = this.modbusCommand.id+ this.modbusCommand.functionCode
+                                    + this.modbusCommand.startAddress16+ this.modbusCommand.quantity 
+                                    + this.modbusCommand.byteCount + this.registerValueCommand
+          
+          this.final.finalCommand = this.final.finalCommand + crc16modbus(this.final.finalCommand).toString(16).toUpperCase()
+          
+        }
+
+        this.final.final_if_id = this.modbusCommand.if_id 
         // send final command with interface id
       },
       sendCommand(){
@@ -362,5 +387,12 @@
     border-color: #E4E7ED;
     color: #C0C4CC;
     cursor: not-allowed;
+}
+
+.byteCount-disabled{
+  background-color: #F5F7FA;
+  border-color: #E4E7ED;
+  color: #C0C4CC;
+  cursor: not-allowed;
 }
 </style>
