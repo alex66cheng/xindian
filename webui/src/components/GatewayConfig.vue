@@ -31,14 +31,14 @@
           :data="sensorArr"
           style="width: 100%; float: left;">
             <el-table-column
-              :label="$t('area')"
+              label="area"
               width="100">
               <template slot-scope="scope">
                 <span style="margin-left: 10px">{{scope.row.area}}</span>
               </template>
             </el-table-column>
             <el-table-column
-              :label="$t('pa_id')"
+              label="pa_id"
               width="100">
               <template slot-scope="scope">
                 <span style="margin-left: 10px">{{scope.row.pa_id}}</span>
