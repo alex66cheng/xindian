@@ -10,15 +10,15 @@
         :visible.sync="dialogVisible"
         width="30%"
         :before-close="handleClose">
-        <el-form ref="form" :model="form" label-position="top" style="padding-left: 30px; padding-right: 30px">
+        <el-form ref="form" :model="addForm" label-position="top" style="padding-left: 30px; padding-right: 30px">
           <el-form-item>
-            <el-input v-model="form.sn" placeholder="S/N"></el-input>
+            <el-input v-model="addForm.id" placeholder="ID"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-input v-model="form.type" placeholder="Type"></el-input>
+            <el-input v-model="addForm.type" placeholder="Type"></el-input>
           </el-form-item>
           <el-button @click="dialogVisible = false">取 消</el-button>
-          <el-button type="primary" @click="addDevice">立即創建 </el-button>
+          <el-button type="primary" :disabled="addDisable" @click="addDevice">立即創建 </el-button>
         </el-form>
       </el-dialog>
       <!--加入機器結束-->
@@ -40,33 +40,23 @@
     <el-row>
       <el-col>
         <el-table
-          :data="tableData"
-          height="100%"
-          stripe
-          style="width: 100%;">
-          <el-table-column 
-            prop="select"
-            type="selection" 
-            :reserve-selection="true" 
-            width="50">
+          :data="deviceData"
+          style="width: 100%; float: left;">
+          <el-table-column
+            label="id"
+            width="150">
+            <template slot-scope="scope">
+              <span >{{scope.row.id}}</span>
+            </template>
           </el-table-column>
           <el-table-column
-            prop="id"
-            label="ID"
-            width="90">
+            label="type"
+            width="150">
+            <template slot-scope="scope">
+              <span style="margin-left: 10px">{{scope.row.type}}</span>
+            </template>
           </el-table-column>
           <el-table-column
-            prop="sn"
-            label="device id"
-            width="180">
-          </el-table-column>
-          <el-table-column
-            prop="type"
-            :label="$t('Type')"
-            width="180">
-          </el-table-column>
-          <el-table-column
-            prop="status"
             :label="$t('Status')">
             <template slot-scope="scope">
               <el-switch active-color="#13ce66" inactive-color="#ff4949" v-model="scope.row.status" @change=changeStatus(scope.row)>
@@ -78,8 +68,8 @@
             label="操作"
             width="100">
             <template slot-scope="scope">
-              <el-button @click="gotoConfig(scope.row.sn)" type="text" size="big">config</el-button>
-              <el-button @click="gotoConfig(scope.row.sn)" type="text" size="big" style="margin-left: 0px">modbus</el-button>
+              <el-button @click="gotoConfig(scope.row.id)" type="text" size="big">config</el-button>
+              <el-button @click="gotoConfig(scope.row.id)" type="text" size="big" style="margin-left: 0px">modbus</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -98,20 +88,19 @@ export default {
         dialogVisible: false,
         deviceData:[
           {
-            id: 1,
-            sn: 'xa00001',
+            id: 'xa00001',
             type: '700',
             status: true
           },
           {
-            id: 2,
-            sn: 'KA-00002',
+            id: 'KA-00002',
             type: '700',
             status: true
-          }
+          },
+         
         ],
-        form:{
-          sn: '',
+        addForm:{
+          id: '',
           type: ''
         }
       }
@@ -128,6 +117,9 @@ export default {
               })
           }
           return this.deviceData
+      },
+      addDisable: function(){
+        return this.addForm.id.length == 0 || this.addForm.type.length == 0
       }
     },
     methods:{
@@ -146,6 +138,16 @@ export default {
             done()
           })
           .catch(_ => {})
+      },
+      addDevice(){
+        this.deviceData.push({id: this.addForm.id, type: this.addForm.type, status: true})
+        console.log({id: this.addForm.id, type: this.addForm.type, status: true})
+        console.log(this.deviceData)
+        this.addForm.id = ''
+        this.addForm.type = ''
+        this.dialogVisible = false
+        
+
       }
     }
 
