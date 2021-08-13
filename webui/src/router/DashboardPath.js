@@ -10,7 +10,10 @@ const routes = {
     {
       path: 'dashboard-table',
       component: DashboardTable,
-      meta: {title: 'Table'}
+      meta: {
+        title: 'Table',
+        closable: false
+      }
     },
     {
       path: 'dashboard/:id',
