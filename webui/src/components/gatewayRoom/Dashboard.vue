@@ -30,7 +30,7 @@
             <el-button style="float: right; padding: 3px 0" type="text">詳細資料</el-button>
           </div>
           <div class="text item" id="temperature">
-            {{temperature}}
+            {{temperature[currentArea]}}
           </div>
         </el-card>
       </el-col>
@@ -41,7 +41,7 @@
             <el-button style="float: right; padding: 3px 0" type="text">詳細資料</el-button>
           </div>
           <div class="text item">
-            {{peoplecount}}
+            {{peoplecount[currentArea]}}
           </div>
         </el-card>
       </el-col>
@@ -52,7 +52,7 @@
             <el-button style="float: right; padding: 3px 0" type="text">詳細資料</el-button>
           </div>
           <div class="text item">
-            {{humidity}}
+            {{humidity[currentArea]}}
           </div>
         </el-card>
       </el-col>
@@ -63,7 +63,7 @@
             <el-button style="float: right; padding: 3px 0" type="text">詳細資料</el-button>
           </div>
           <div class="text item">
-            {{pm25}}
+            {{pm25[currentArea]}}
           </div>
         </el-card>
       </el-col>
@@ -77,10 +77,10 @@ export default {
   data() {
     return {
       id: '',
-      peoplecount: '0',
-      temperature: '',
-      humidity: '0',
-      pm25: '0',
+      peoplecount: [],
+      temperature: [],
+      humidity: [],
+      pm25: [],
       datetime: '',
       polling: null
     }
@@ -118,15 +118,16 @@ export default {
           for(var room of objres.area){
             //console.log('room name ' + room.name)
             //console.log('this.id ' + this.id)
-            if(room.name == this.id){
-              this.peoplecount = room.peoplecount
-              this.temperature = room.temperature + ' °C'
-              this.humidity = room.humidity
-              this.pm25 = room.pm25
+            var nn = String(room.name)
+            this.peoplecount[nn] = room.peoplecount
+            this.temperature[nn] = room.temperature + ' °C'
+            this.humidity[nn] = room.humidity
+            this.pm25[nn] = room.pm25
+            /*if(room.name == this.id){
               for(var attributename in room){
                 //console.log(attributename + ': ' + room[attributename])
               }
-            }
+            }*/
           }
        })
        .catch( error => {
