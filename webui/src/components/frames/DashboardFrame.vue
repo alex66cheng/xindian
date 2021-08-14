@@ -1,5 +1,5 @@
 <template>
-  <router-tab v-if="tabs.length > 0" :tabs="tabs" :i18n="i18n" style="height: 100%" class="drop-shadow"/>
+  <router-tab style="height: 100%"/>
 </template>
 
 <script>
@@ -9,7 +9,7 @@
         tabs: []
       }
     },
-    created(){
+    /*created(){
       this.getTabs()
     },
     methods: {
@@ -33,7 +33,7 @@
             console.log('/' + this.$route.params.lang + '/monitor/dashboardManager/dashboard/' + room.name)
             all_tabs.push('/' + this.$route.params.lang + '/monitor/dashboardManager/dashboard/' + room.name)
           }
-          console.log('all_tabs: ' + JSON.stringify(all_tabs))*/
+          console.log('all_tabs: ' + JSON.stringify(all_tabs))
           
           this.tabs = all_tabs
 
@@ -44,9 +44,11 @@
         })
       }
     },
+    */
     computed:{
        
     }
+    
   }
 </script>
 
