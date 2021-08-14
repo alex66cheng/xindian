@@ -2,9 +2,25 @@
   <div>
     <el-row>
       <el-col :span="24">
-        <div>{{ id }} </div>
+        <div>
+          <el-dropdown @command="gotoGateway">
+            <el-button type="primary">
+              {{currentArea}}<i class="el-icon-arrow-down el-icon--right"></i>
+            </el-button>
+            <el-dropdown-menu slot="dropdown" >
+              <el-dropdown-item command="601">601</el-dropdown-item>
+              <el-dropdown-item command="602">602</el-dropdown-item>
+              <el-dropdown-item command="603">603</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </div>
+        
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="24">
         <div>{{$t("time")}}: {{datetime}}</div>
-      </el-col>  
+      </el-col>
     </el-row>
     <el-row :gutter="20">
       <el-col :span="6">
@@ -65,16 +81,26 @@ export default {
       temperature: '',
       humidity: '0',
       pm25: '0',
-      datetime: ''
+      datetime: '',
+      polling: null
     }
   },
   created() {
     this.getSensorsData()
-    setInterval( this.getSensorsData, 6000 )
+    this.polling = setInterval( this.getSensorsData, 6000 )
     //this.gwid = this.$session.get( 'loginUser')
     //console.log('Dashboard gwid=' + this.gwid )
     
     //this.$router.push({ name: 'gateway603'})
+  },
+  beforeDestroy(){
+    clearInterval( this.polling)
+    console.log('destroy')
+  },
+  computed:{
+    currentArea: function(){
+      return this.$route.params.id
+    }
   },
   methods: {
     getSensorsData() {
@@ -106,7 +132,10 @@ export default {
        .catch( error => {
           console.log(error)
        })
+    },gotoGateway(command){
+      this.$router.replace({namd: 'dashboard', params:{id: command}})
     }
+
   },
   watch:{
     temperature: function() {
