@@ -9,6 +9,7 @@ const routes = {
   children:[
     {
       path: 'dashboard-table',
+      name: 'dashboard-table',
       component: DashboardTable,
       meta: {
         title: 'Table',

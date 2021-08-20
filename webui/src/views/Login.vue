@@ -31,7 +31,7 @@ export default {
       try{
         const val = await firebase.auth().signInWithEmailAndPassword(this.email, this.password)
         console.log(val)
-        this.$router.replace({name: 'dashboard', params:{lang: this.$route.params.lang,id: '601'}})
+        this.$router.replace({name: 'dashboard-table'})
       }catch(err){
         console.log(err)
         this.$message({
