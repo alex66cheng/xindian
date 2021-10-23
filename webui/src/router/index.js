@@ -28,7 +28,7 @@ import i18n from '../lang/lang.js'
 import DashboardPath from './DashboardPath.js'
 import DevicePath from './DevicePath.js'
 
-//import firebase from 'firebase/app' 防止重整logout
+import firebase from 'firebase/app' //防止重整logout
 import 'firebase/auth'
 
 Vue.use(Router)
@@ -150,14 +150,14 @@ const router = new Router({
   ]
 })
 
-/*router.beforeEach((to, from, next)=>{
+router.beforeEach((to, from, next)=>{
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
   const isAuthenticated = firebase.auth().currentUser
   if(requiresAuth && !isAuthenticated){
-    next('/login')
+    next({name:'login', params:{lang: 'jp'}})
   }else{
     next()
   }
-})*/
+})
 
 export default router
