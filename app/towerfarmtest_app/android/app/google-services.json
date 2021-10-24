@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "358459698604",
+    "project_id": "towerfarmtest",
+    "storage_bucket": "towerfarmtest.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:358459698604:android:7ce7385654ae079d4b9e09",
+        "android_client_info": {
+          "package_name": "com.example.towerfarmtest_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "358459698604-atu26ruigcqjca3503luat18e48ba9a3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.towerfarmtest_app",
+            "certificate_hash": "56acc7ab312596986401ccf11d5fdccd0cd1a815"
+          }
+        },
+        {
+          "client_id": "358459698604-ftnlenk2j1f7qg561i1dvo9u3llt44c6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXyD-LLTqknmYetqmCcYCCqZh5WkkIhTs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "358459698604-ftnlenk2j1f7qg561i1dvo9u3llt44c6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
