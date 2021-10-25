@@ -37,7 +37,7 @@
         </el-dropdown-menu>
       </el-dropdown>     
     </div>
-    <div style="float: right; color: white">User</div>
+    <div style="float: right; color: white" v-if="loggedIn">loggedIn</div>
   </el-menu>
 </template> 
 

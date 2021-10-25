@@ -2,9 +2,25 @@
   <div>
     <el-row>
       <el-col :span="24">
-        <div>{{ id }} </div>
+        <div>
+          <el-dropdown @command="gotoGateway">
+            <el-button type="primary">
+              {{currentArea}}<i class="el-icon-arrow-down el-icon--right"></i>
+            </el-button>
+            <el-dropdown-menu slot="dropdown" >
+              <el-dropdown-item command="601">601</el-dropdown-item>
+              <el-dropdown-item command="602">602</el-dropdown-item>
+              <el-dropdown-item command="603">603</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </div>
+        
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="24">
         <div>{{$t("time")}}: {{datetime}}</div>
-      </el-col>  
+      </el-col>
     </el-row>
     <el-row :gutter="20">
       <el-col :span="6">
@@ -14,7 +30,7 @@
             <el-button style="float: right; padding: 3px 0" type="text">詳細資料</el-button>
           </div>
           <div class="text item" id="temperature">
-            {{temperature}}
+            {{temperature[currentArea]}}
           </div>
         </el-card>
       </el-col>
@@ -25,7 +41,7 @@
             <el-button style="float: right; padding: 3px 0" type="text">詳細資料</el-button>
           </div>
           <div class="text item">
-            {{peoplecount}}
+            {{peoplecount[currentArea]}}
           </div>
         </el-card>
       </el-col>
@@ -36,7 +52,7 @@
             <el-button style="float: right; padding: 3px 0" type="text">詳細資料</el-button>
           </div>
           <div class="text item">
-            {{humidity}}
+            {{humidity[currentArea]}}
           </div>
         </el-card>
       </el-col>
@@ -47,7 +63,7 @@
             <el-button style="float: right; padding: 3px 0" type="text">詳細資料</el-button>
           </div>
           <div class="text item">
-            {{pm25}}
+            {{pm25[currentArea]}}
           </div>
         </el-card>
       </el-col>
@@ -61,27 +77,36 @@ export default {
   data() {
     return {
       id: '',
-      peoplecount: '0',
-      temperature: '',
-      humidity: '0',
-      pm25: '0',
-      datetime: ''
+      peoplecount: [],
+      temperature: [],
+      humidity: [],
+      pm25: [],
+      datetime: '',
+      polling: null
     }
   },
   created() {
     this.getSensorsData()
-    setInterval( this.getSensorsData, 6000 )
+    this.polling = setInterval( this.getSensorsData, 6000 )
     //this.gwid = this.$session.get( 'loginUser')
     //console.log('Dashboard gwid=' + this.gwid )
     
     //this.$router.push({ name: 'gateway603'})
+  },
+  beforeDestroy(){
+    clearInterval( this.polling)
+    console.log('destroy')
+  },
+  computed:{
+    currentArea: function(){
+      return this.$route.params.id
+    }
   },
   methods: {
     getSensorsData() {
        this.$ajax({
          method: 'GET',
          url: 'http://52.197.39.218:8080/sensordata'
-         //url: 'http://47.74.5.223:7542/query?gwid=KASO03HM'
        })
        .then( res => {
           var objstr = JSON.stringify(res.data)
@@ -91,23 +116,27 @@ export default {
 
           this.id = this.$route.params.id
           for(var room of objres.area){
-            console.log('room name ' + room.name)
-            console.log('this.id ' + this.id)
-            if(room.name == this.id){
-              this.peoplecount = room.peoplecount
-              this.temperature = room.temperature + ' °C'
-              this.humidity = room.humidity
-              this.pm25 = room.pm25
+            //console.log('room name ' + room.name)
+            //console.log('this.id ' + this.id)
+            var nn = String(room.name)
+            this.peoplecount[nn] = room.peoplecount
+            this.temperature[nn] = room.temperature + ' °C'
+            this.humidity[nn] = room.humidity
+            this.pm25[nn] = room.pm25
+            /*if(room.name == this.id){
               for(var attributename in room){
-                console.log(attributename + ': ' + room[attributename])
+                //console.log(attributename + ': ' + room[attributename])
               }
-            }
+            }*/
           }
        })
        .catch( error => {
           console.log(error)
        })
+    },gotoGateway(command){
+      this.$router.replace({namd: 'dashboard', params:{id: command}})
     }
+
   },
   watch:{
     temperature: function() {

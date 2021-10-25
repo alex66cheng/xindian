@@ -6,10 +6,11 @@
         <form class="middle-input-form" @submit.prevent="pressed">
           <el-input class="middle-input-box" placeholder="Email" v-model="email"></el-input>
           <el-input class="middle-input-box" placeholder="Password" v-model="password" show-password></el-input>
+          <div style="height: 25px"><el-link style="float: right" @click="$router.replace({name: 'resetpassword'})">Forget password</el-link></div>
           <el-button style="margin-bottom: 20px;" type="primary" @click="onSubmit">Login</el-button>
         </form>
         <el-alert v-if="error" type="error" show-icon> {{error.message}} </el-alert>
-        <span>Need an account? Click here to <el-link type="primary" @click="$router.replace({name: 'register'})">register</el-link></span>
+        <span>Need an account? Click here to <el-link type="primary" @click="$router.replace({name: 'register'})">Sign UP</el-link></span><br>
       </el-card>
   </div>
 </template>
@@ -30,7 +31,7 @@ export default {
       try{
         const val = await firebase.auth().signInWithEmailAndPassword(this.email, this.password)
         console.log(val)
-        this.$router.replace({name: 'dashboard', params:{lang: this.$route.params.lang,id: '601'}})
+        this.$router.replace({name: 'dashboard-table'})
       }catch(err){
         console.log(err)
         this.$message({
