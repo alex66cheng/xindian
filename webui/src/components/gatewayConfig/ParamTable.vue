@@ -1,35 +1,29 @@
 <template>
-  <div>  
+  <div>
+      
     <div>
       <el-table
-      :data="sensorArr"
+      :data="paramArr"
       style="width: 100%; float: left;">
         <el-table-column
           label="id"
-          width="100">
+          width="80">
           <template slot-scope="scope">
             <span style="margin-left: 10px">{{scope.row.id}}</span>
           </template>
         </el-table-column>
         <el-table-column
           :label="$t('name')"
-          width="100">
+          width="110">
           <template slot-scope="scope">
             <span style="margin-left: 10px">{{scope.row.name}}</span>
           </template>
         </el-table-column>
         <el-table-column
           :label="$t('device')"
-          width="100">
+          width="80">
           <template slot-scope="scope">
-            <span style="margin-left: 10px">{{$t(scope.row.dev)}}</span>
-          </template>
-        </el-table-column>
-        <el-table-column
-          :label="$t('value')"
-          width="100">
-          <template slot-scope="scope">
-            <span style="margin-left: 10px">{{scope.row.value}}</span>
+            <span style="margin-left: 10px">{{scope.row.dev}}</span>
           </template>
         </el-table-column>
         <el-table-column>
@@ -40,6 +34,9 @@
             <el-button
               size="mini"
               @click="handleEdit(scope.$index, scope.row)">{{ $t("Setup")}}</el-button>
+            <el-button
+              size="mini"
+              @click="handelDelete(scope.$index, scope.row)">{{ $t("Delete")}}</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -54,7 +51,7 @@
           <div>id</div>
           <div>
             <el-input
-              v-model="addSensor.id"
+              v-model="addParam.id"
               clearable>
             </el-input>
           </div>
@@ -63,7 +60,7 @@
           <div>name</div>
           <div>  
             <el-input
-              v-model="addSensor.name"
+              v-model="addParam.name"
               clearable>
             </el-input>
           </div>
@@ -72,7 +69,7 @@
           <div>device</div>
           <div>  
             <el-input
-              v-model="addSensor.dev"
+              v-model="addParam.dev"
               clearable>
             </el-input>
           </div>
@@ -89,7 +86,7 @@
       :visible.sync="setUpDialogVisible"
       width="70%"
       center>
-      <ParamConfig  outer_pa_id="temp" outer_if_id="usb0" :outer_pa_name="sensorArr[sensorIndex].sensor" 
+      <ParamConfig
         @done="setUpDialogVisible = false"/>
       
     </el-dialog>
@@ -102,25 +99,15 @@ export default {
   components:{
     ParamConfig
   },
+  props:{
+    interfaceId: String,
+  },
   data(){
     return{
       centerDialogVisible: false,
       
-      sensorArr: [
-        {
-          id: '601',
-          name: 'temp',
-          dev: '1',
-          unit: '25'
-        },
-        {
-          id: '602',
-          name: 'humi',
-          dev: '1',
-          unit: '70'
-        }
-      ],
-      addSensor:{
+      
+      addParam:{
         id: '', 
         name: '',
         dev: ''        
@@ -128,6 +115,15 @@ export default {
       
       setUpDialogVisible: false,
       sensorIndex: 0,
+    }
+  },
+  computed:{
+    paramArr: function(){
+      let all = this.$store.state.config.all
+      return all.find(x => x.id === this.interfaceId).protocal.param
+    },
+    testid: function(){
+      return this.$store.state.testid
     }
   },
   methods: {
@@ -139,18 +135,18 @@ export default {
     },
     
     clearNewSensor(){
-      this.addSensor.area = ''
-      this.addSensor.pa_id = ''
-      this.addSensor.sensor = ''
+      this.addParam.area = ''
+      this.addParam.pa_id = ''
+      this.addParam.sensor = ''
       this.setUpDialogVisible = false
     },
     confirmNewSensor(){
-      this.sensorArr.push({id: this.addSensor.id, name: this.addSensor.name ,dev: this.addSensor.dev})
-      this.addSensor.id = ''
-      this.addSensor.name = ''
-      this.addSensor.dev = ''
+      this.paramArr.push({id: this.addParam.id, name: this.addParam.name ,dev: this.addParam.dev})
+      this.addParam.id = ''
+      this.addParam.name = ''
+      this.addParam.dev = ''
       this.centerDialogVisible = false
-      this.sensorArr.sort(function(a, b){
+      this.paramArr.sort(function(a, b){
         return (a.area-b.area)
       })
       console.log('confirm')

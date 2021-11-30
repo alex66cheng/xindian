@@ -5,7 +5,7 @@
     </el-row>
     
     <el-row :gutter="12" style="margin-bottom: 10px">
-      <el-col :span="8">
+      <el-col :span="6">
         <div>unit</div>
         <el-input
           placeholder="unit"
@@ -14,7 +14,7 @@
           clearable>
         </el-input>
       </el-col>
-      <el-col :span="8">
+      <el-col :span="6">
         <div>scale</div>
         <el-input
           placeholder="scale"
@@ -22,73 +22,32 @@
           clearable>
         </el-input>
       </el-col>
-      <el-col :span="8">
-        <div>interval</div>
+      <el-col :span="6">
+        <div>min</div>
         <el-input
-          placeholder="interval"
-          v-model="paramSetting.interval"
+          placeholder="min"
+          v-model="paramSetting.min"
+          clearable>
+        </el-input>
+      </el-col>
+      <el-col :span="6">
+        <div>max</div>
+        <el-input
+          placeholder="max"
+          v-model="paramSetting.max"
           clearable>
         </el-input>
       </el-col>
     </el-row>
-    
-    <el-row :gutter="12">
-      
-      <el-col :span="4">
-        <div>interface</div>
-        <el-input v-model="modbusCommand.if_id"></el-input>
-      </el-col>
-      <el-col :span="4">
-        <div>ID</div>
-        <el-select v-model="modbusCommand.id" clearable placeholder="choose">
-          <el-option
-            v-for="item in idOptions"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-          </el-option>
-        </el-select>
-      </el-col>
-      <el-col :span="4">
-        <div>func</div>
-        <div>  
-          <el-select v-model="modbusCommand.functionCode" clearable placeholder="choose">
-            <el-option
-              v-for="item in functionCodeOptions"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-            </el-option>
-          </el-select>
-        </div>
-      </el-col>
-      <el-col :span="4">
-        <div>start address</div>
-        <div>  
-          <el-input
-            placeholder="0000 ~ FFFF"
-            v-model="modbusCommand.startAddress"
+    <el-row>
+      <el-col :span="6">
+        <div v-for="(item, index) in paramSetting.value" :key="index">  
+          <el-input           
+            :placeholder="'Value'+'('+(index+1)+')'"
+            v-model="paramSetting.value[index].byte"
             clearable>
           </el-input>
         </div>
-      </el-col>
-      <el-col :span="4">
-        <div>length</div>
-        <el-input
-          placeholder="0001 ~ 007D"
-          v-model="modbusCommand.dataLength"
-          clearable>
-        </el-input>
-      </el-col>
-      <el-col :span="4">
-        <el-button :disabled="confirmOk" @click="displayFinalCommand" style="height:40px; margin-top: 20px">{{$t("confirm")}}</el-button>
-      </el-col>
-    </el-row>
-
-    <el-row>
-      <el-col :span="24">
-        <div>Command: {{final.finalCommand}}</div>
-        <div>Interface: {{final.final_if_id}}</div>
       </el-col>
     </el-row>
 
@@ -97,7 +56,7 @@
         <el-button @click="cancelEdit" style="">Cancel</el-button>
       </el-col>
       <el-col :span="12" style="text-align: left; padding-left: 20px;">
-        <el-button :disabled="!modbusOk || !paramSettingOk" @click="confirmEdit" type="primary">Confirm</el-button>
+        <el-button @click="confirmEdit" type="primary">Confirm</el-button>
       </el-col>
     </el-row>
     
@@ -110,10 +69,7 @@
   import crc16modbus from 'crc/crc16modbus'
   export default {
     props:{
-      
-      outer_pa_id: String,
-      outer_pa_name: String,
-      test: String,
+      interfaceId: String,
     },
     data() {
       return {
@@ -149,19 +105,21 @@
         paramSetting:{
           unit: '',
           scale: '',
-          interval: '',
-        },
-        
+          min: '',
+          max: '',
+          value:[
+            {
+              byte: '',
+            },
+            {
+              byte: '',
+            }
+          ]
+        },      
         
         confirmOk: true,
         modbusOk: false,
         paramSettingOk: false,
-        
-        final:{
-          finalCommand: '',
-          final_if_id: '',
-          finalNode:''
-        }
       }    
     },
     watch:{
