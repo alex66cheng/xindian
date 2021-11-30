@@ -1,54 +1,34 @@
-
 import DashboardFrame from '../components/frames/DashboardFrame.vue'
-import Dashboard from '../components/Dashboard.vue'
-import i18n from '../lang/lang.js'
-import Dashboard601 from '../components/gatewayRoom/Dashboard601'
-import Dashboard602 from '../components/gatewayRoom/Dashboard602'
-import Dashboard603 from '../components/gatewayRoom/Dashboard603'
+import DashboardTable from '../components/gatewayRoom/DashboardTable'
+import Dashboard from '../components/gatewayRoom/Dashboard'
+
 const routes = {
-  path: 'dashboard',  
-  
+  path: 'dashboardManager',
+  name: 'dashboardManager',
   component: DashboardFrame,
   children:[
     {
-      path:'',
+      path: 'dashboard-table',
+      name: 'dashboard-table',
+      component: DashboardTable,
+      meta: {
+        title: 'Table',
+        closable: false
+      }
+    },
+    {
+      path: 'dashboard/:id',
+      name: 'dashboard',
       component: Dashboard,
-      meta:{
-        title: i18n.messages[i18n.locale]['Dashboard_Title']//只要改 Dashboard_title
-        
-        
-        
-      }
-    },
-    
-    {
-      path:'gateway601',
-      component: Dashboard601,//記得import
-      meta:{
-        title: '601'
-      }
-    },
-    {
-      path:'gateway602',
-      component: Dashboard602,//記得import
-      meta:{
-        title: '602'
-      }
-    },
-    {
-      path:'gateway603',
-      component: Dashboard603,//記得import
-      meta:{
-        title: '603'
+      meta: {
+        title: route => `${route.params.id}`,
+        key: 'path',
+        closable: true,
       }
     }
-    
-  ]   
+  ]
 }
 
 const dashboardPath = [routes]
-
-
-
 
 export default dashboardPath

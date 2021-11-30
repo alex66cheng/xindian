@@ -34,14 +34,8 @@ export default {
 </script>
 
 <style lang="scss">
-router-tab{
-  float: right;
-}
 
-html,body,#app{
-  height: 100%;
-}
-
+// Jack 部分開始
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -52,52 +46,52 @@ html,body,#app{
 body {
   margin: auto;
 }
-//==login===
-.inputMessage {
-  &.el-form-item {
-    .el-input__inner,
-    .el-input__inner:focus,
-    .el-textarea__inner:focus {
-      border-radius: 0;
-      font-family: PingFangSC-Regular;
-      font-size: 14px;
-      color: rgba(0, 0, 0, 0.87);
-      border-color: rgba(0, 0, 0, 0.1);
-      letter-spacing: 0;
-      text-align: left;
-      line-height: 20px;
-    }
-    &.is-success + .close {
-      display: block;
-    }
-    &.is-required,
-    &.is-success {
-      .el-input__inner,
-      .el-input__inner:focus,
-      .el-textarea__inner:focus {
-        border-color: rgba(0, 0, 0, 0.1);
-        background-position: 295px;
-      }
-    }
-    &.is-error {
-      .el-input__inner,
-      .el-input__inner:focus,
-      .el-textarea__inner,
-      .el-textarea__inner:focus {
-        border-color: #ff5454;
-      }
-      .el-form-item__error {
-        font-family: PingFangSC-Regular;
-        font-size: 12px;
-        color: #ff5454;
-        line-height: 14px;
-      }
-      & + .close {
-        display: block;
-      }
-    }
-  }
+
+router-tab{ 
+  border: 2px gray;
 }
+
+.drop-shadow{ // 可用於幫物體加上 shadow
+  filter: drop-shadow(1px 1px 12px rgba(0, 0, 0, 0.1));
+}
+
+html,body,#app{
+  height: 100%;
+}
+
+// 此三個用在 login 跟 register
+.middle-input-card{
+    height: 500px;
+    max-width: 600px;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
+    margin-bottom: auto;
+    border-radius: 10px;
+  }
+
+.middle-input-form{
+  min-width: 250px;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.middle-input-box{
+  margin-bottom: 20px;
+}
+
+.error{
+  color: red;
+  font-size: 12px;
+  text-align: initial;
+}
+
+.router-page{
+  padding: 40px;
+}
+// Jack 部分結束
 
 /*
 *Schedule画面:Schedule -> 「モダールの様式」

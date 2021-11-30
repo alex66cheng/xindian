@@ -8,18 +8,18 @@
     </el-row>
     <el-row>
       <el-col :span="12">
-        <el-card class="box-card">
+        <el-card class="box-card dashboard_data">
           <div slot="header" class="clearfix">
-            <span>{{$t("city_temperaturei_Label")}}</span>
+            <span>{{$t("city_temperature_Label")}}</span>
             <el-button style="float: right; padding: 3px 0" type="text">詳細資料</el-button>
           </div>
-          <div class="text item" id="temperature">
+          <div class="text item" id="temperature601">
             {{temperature}}
           </div>
         </el-card>
       </el-col>
       <el-col :span="12">
-        <el-card class="box-card">
+        <el-card class="box-card dashboard_data">
           <div slot="header" class="clearfix">
             <span>{{$t("people_count")}}</span>
             <el-button style="float: right; padding: 3px 0" type="text">詳細資料</el-button>
@@ -32,7 +32,7 @@
     </el-row>
     <el-row>
       <el-col :span="12">
-        <el-card class="box-card">
+        <el-card class="box-card dashboard_data">
           <div slot="header" class="clearfix">
             <span>{{$t("humidity")}}</span>
             <el-button style="float: right; padding: 3px 0" type="text">詳細資料</el-button>
@@ -43,7 +43,7 @@
         </el-card>
       </el-col>
       <el-col :span="12">
-        <el-card class="box-card">
+        <el-card class="box-card dashboard_data">
           <div slot="header" class="clearfix">
             <span>PM2.5</span>
             <el-button style="float: right; padding: 3px 0" type="text">詳細資料</el-button>
@@ -68,7 +68,6 @@ export default {
       humidity: '0',
       pm25: '0',
       datetime: ''
-
       
     }
   },
@@ -77,6 +76,8 @@ export default {
     setInterval( this.getSensorsData, 6000 )
     //this.gwid = this.$session.get( 'loginUser')
     //console.log('Dashboard gwid=' + this.gwid )
+    
+    //this.$router.push({ name: 'gateway603'})
   },
   methods: {
     
@@ -97,45 +98,36 @@ export default {
           this.temperature = objres.area[0].temperature + ' °C'
           this.humidity = objres.area[0].humidity
           this.pm25 = objres.area[0].pm25
-
           // 改變溫度顏色
-          if(parseFloat(this.temperature) >= 25){
+          /*if(parseFloat(this.temperature) >= 25){
             console.log('temperature is too high')
             document.getElementById('temperature').style.color = 'red'
           }else{
             document.getElementById('temperature').style.color = 'black'
-          }
+          }*/
        })
        .catch( error => {
           console.log(error)
        })
+    },
+    gotoGateway(command){
+      this.$router.replace({name: command})
+    }
+  },
+  watch:{
+    temperature: {
+      handler: function() {
+        if(parseFloat(this.temperature) > 25){
+          console.log(this.temperature)
+          document.getElementById('temperature601').style.color = 'red'
+        }else{
+          document.getElementById('temperature601').style.color = 'black'
+        }
+        
+        
+      }
     }
   }
+  
 }
 </script>
-
-<style>
-
-  .text {
-    font-size: 28px;
-  }
-
-  .item {
-    margin: 5vh;
-  }
-
-  .clearfix:before,
-  .clearfix:after {
-    display: table;
-    content: "";
-  }
-  .clearfix:after {
-    clear: both
-  }
-
-  .box-card {
-    width: 60%;
-    margin: 5% 20% 15% 20%;
-  }
-
-</style>

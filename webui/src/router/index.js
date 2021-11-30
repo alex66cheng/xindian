@@ -2,105 +2,162 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
+import Register from '../views/Register.vue'
 //import LoginComponent from './components/Login.vue'
 //import ForgetPasswordComponent from './components/ForgetPassword.vue'
 //import ChangePasswordComponent from './components/ChangePassword.vue'
 
 import Monitor from '../views/Monitor.vue'
 
-
+import ScheduleFrame from '../components/frames/ScheduleFrame.vue'
+import Schedule from '../views/Schedule.vue'
 
 import DeviceStatus from '../components/DeviceStatus.vue'
 
-import GatewayFrame from '../components/frames/GatewayFrame.vue'
-import GatewayCommand from '../components/GatewayCommand.vue'
+import HistoryFrame from '../components/frames/HistoryFrame.vue'
+import History from '../components/History.vue'
 
 import ProblemFrame from '../components/frames/ProblemFrame.vue'
-import SolvedProblem from '../components/SolvedProblem.vue'
-import UnsolvedProblem from '../components/UnsolvedProblem.vue'
+import SolvedProblem from '../components/problem/SolvedProblem.vue'
+import UnsolvedProblem from '../components/problem/UnsolvedProblem.vue'
+
+import langComponent from '../components/langComponent.vue'
+
 import i18n from '../lang/lang.js'
 
 import DashboardPath from './DashboardPath.js'
+import DevicePath from './DevicePath.js'
+
+import firebase from 'firebase/app' //防止重整logout
+import 'firebase/auth'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   //mode: 'hash',
   base: process.env.BASE_URL,
   routes: [
-    /*{
-      path: '/',
-      name: '',
-      component: LoginLayout,
-      children:[
-          {path:'/' , name:'login' ,component:LoginComponent},
-          {path:'/forgetpassword' , name:'forgetpassword' ,component:ForgetPasswordComponent},
-          {path:'/changepassword' , name:'changepassword' ,component:ChangePasswordComponent}
-      ]
-    },*/
     {
-      path: '/home',
-      name: 'home',
-      component: Home,
-    },
-    {
-      path: '/login',
-      name:'login',
-      component: Login
-    },
-   
-    {
-      path: '/monitor',
-      
-      component: Monitor,
-      children:[
-       
-        ...DashboardPath,
-        {
-          path: 'gatewayCommand',
-          component: GatewayFrame,
-          children:[
-            {
-              path: '',
-              component: GatewayCommand,
-              meta:{title: i18n.messages[i18n.locale]['Gateway_Command']}
-            }
-          ]
-        },
-        {
-          path: 'deviceStatus',
-          component: DeviceStatus,
-            
-        },
-       
-        {
-          path: 'problem',
-          component: ProblemFrame,
+      path: '/:lang',
+      component: langComponent,
+      beforeEnter(to, from, next){
+        const lang = to.params.lang
 
-          children: [
-            {
-              path: 'solved',
-              component:SolvedProblem,
-              meta:{
-                title: 'solvedProblem'
-              }           
-            },
-            {
-              path: 'unsolved',
-              component: UnsolvedProblem,
-              meta:{
-                title: 'unsolvedProblem'
-              }
-            }
-          ]
-        },
+        if(!['jp', 'cn', 'en'].includes(lang)){
+          return next(i18n.locale)
+        }
+
+        if(i18n.locale != lang){
+          i18n.locale = lang
+        }
+        
+        return next()
+      },
+      children:[
         {
           path: '',
-          redirect: 'dashboard/gateway601'
+          name: 'home',
+          component: Home,
+        },
+        {
+          path: 'login',
+          name:'login',
+          component: Login
+        },
+        {
+          path: 'register',
+          name:'register',
+          component: Register
+        },
+      
+        {
+          path: 'monitor',
+          meta:{
+            requiresAuth: true
+          },
+          
+          component: Monitor,
+          children:[
+          
+            ...DashboardPath,
+            ...DevicePath,
+            {
+              path: 'schedule',
+              component: ScheduleFrame,
+              children: [
+                {
+                  path: '',
+                  name: 'schedule',
+                  component: Schedule,
+                  meta: {title: route => i18n.messages[route.params.lang]['schedule']}
+                }
+              ]
+            },
+            {
+              path: 'history',
+              component: HistoryFrame,
+              children: [
+                {
+                  path: '',
+                  name: 'history',
+                  component: History,
+                  meta: {title: route => i18n.messages[route.params.lang]['History_Title']}
+                
+                }
+              ]
+            },
+            {
+              path: 'deviceStatus',
+              name: 'deviceStatus',
+              component: DeviceStatus,
+                
+            },
+          
+            {
+              path: 'problem',
+              name: 'problem',
+              component: ProblemFrame,
+
+              children: [
+                {
+                  path: 'solved',
+                  name: 'solved',
+                  component:SolvedProblem,
+                  meta:{
+                    title: 'solvedProblem'
+                  }           
+                },
+                {
+                  path: 'unsolved',
+                  name: 'unsolved',
+                  component: UnsolvedProblem,
+                  meta:{
+                    title: 'unsolvedProblem'
+                  }
+                }
+              ]
+            },
+            {
+              path: '',
+              redirect: 'dashboardManager/dashboard-table'
+            }
+          ]
         }
       ]
     },
    
   ]
 })
+
+router.beforeEach((to, from, next)=>{
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+  const isAuthenticated = firebase.auth().currentUser
+  if(requiresAuth && !isAuthenticated){
+    next({name:'login', params:{lang: 'jp'}})
+  }else{
+    next()
+  }
+})
+
+export default router
