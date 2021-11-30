@@ -27,6 +27,7 @@ import i18n from '../lang/lang.js'
 
 import DashboardPath from './DashboardPath.js'
 import DevicePath from './DevicePath.js'
+import TestPath from './test.js'
 
 import firebase from 'firebase/app' //防止重整logout
 import 'firebase/auth'
@@ -55,6 +56,8 @@ const router = new Router({
         return next()
       },
       children:[
+        
+        ...TestPath,
         {
           path: '',
           name: 'home',
@@ -146,6 +149,9 @@ const router = new Router({
         }
       ]
     },
+    
+
+    
    
   ]
 })

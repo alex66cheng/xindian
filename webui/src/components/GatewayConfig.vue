@@ -129,7 +129,7 @@
 
 <script>
 
-import ParamConfig from './ParamConfig.vue'
+import ParamConfig from './ParamConfig_old2.vue'
 
 export default {
   components:{
