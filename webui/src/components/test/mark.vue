@@ -18,7 +18,7 @@ export default {
   },
   methods:{
     add(){
-      this.interfaceId = String(parseInt(this.interfaceId,10)+1);
+      this.interfaceId = String(parseInt(this.interfaceId,10)+1)
     }
   }
   
