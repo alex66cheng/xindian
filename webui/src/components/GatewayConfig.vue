@@ -5,11 +5,18 @@
     style='width: 100%'>
       <el-table-column type='expand'>
         <template slot-scope='props'>
-          <el-form label-position='left' inline class='demo-table-expand'>
-            <el-form-item v-for="(item, key) in props.row.interface" :key="key" :label=key>
-              <span> {{ item }} </span>
-            </el-form-item>
-          </el-form>
+          <el-container style="display: flex">
+          <el-container style="width: 50%">
+            <el-form label-position='left' inline class='demo-table-expand'>
+              <el-form-item v-for="(item, key) in props.row.interface" :key="key" :label=key style="width: 100%">
+                <span> {{ item }} </span>
+              </el-form-item>
+            </el-form>
+          </el-container>
+          <el-container style="width: 50%">
+            <span>param table</span>
+          </el-container>
+          </el-container>
         </template>
       </el-table-column>
       <el-table-column
