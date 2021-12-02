@@ -30,7 +30,7 @@
                 </el-form>
               </el-container>
               <el-container style="width: 50%">
-                <ParamTable :interfaceId="1"></ParamTable>
+                <ParamTable :interfaceId="props.row.id"></ParamTable>
               </el-container>
             </el-container>
           </template>
