@@ -7,7 +7,7 @@
           <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
         </div>
         <div v-for="(param, index) in deviceInfo.mqtt" :key="index" class="text item" style="float: left; ">
-          {{index + ": " + param }}
+          {{ index + ": " + param }}
         </div>
       </el-card>
     </el-container>
@@ -30,7 +30,7 @@
                 </el-form>
               </el-container>
               <el-container style="width: 50%">
-                <span>param table</span>
+                <ParamTable :interfaceId="1"></ParamTable>
               </el-container>
             </el-container>
           </template>
@@ -64,11 +64,11 @@
 </template>
 
 <script>
-
+import ParamTable from "./gatewayConfig/ParamTable.vue"
 
 export default {
   components:{
-    
+    ParamTable
   },
   data(){
     return{
@@ -395,7 +395,7 @@ export default {
   },
   methods: {
     handleEdit(index, row) {
-        console.log(index, row)
+      console.log(index, row)
     },
     handleDelete(index, row) {
       console.log(index, row)
