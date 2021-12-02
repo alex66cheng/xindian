@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state:{
-    testid: "123",
+    testid: '123',
     config:{
       my: {
         id: 'KA0000001'

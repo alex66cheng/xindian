@@ -87,6 +87,8 @@
       width="70%"
       center>
       <ParamConfig
+        :interfaceId="interfaceId"
+        :paramIndex="paramIndex"
         @done="setUpDialogVisible = false"/>
       
     </el-dialog>
@@ -115,6 +117,7 @@ export default {
       
       setUpDialogVisible: false,
       sensorIndex: 0,
+      paramIndex: 0,
     }
   },
   computed:{
@@ -131,6 +134,7 @@ export default {
       console.log(index, row)
       console.log(row.id)
       this.sensorIndex = index
+      this.paramIndex = index
       this.setUpDialogVisible = true
     },
     
