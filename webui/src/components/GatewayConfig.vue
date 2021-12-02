@@ -1,53 +1,28 @@
 <template>
   <el-contianer>
     <el-table
-    :data="tableData"
-    style="width: 100%">
-      <el-table-column type="expand">
-        <template slot-scope="props">
-          <el-form label-position="left" inline class="demo-table-expand">
-            <el-form-item label="所属店铺">
-              <span>{{ props.row.shop }}</span>
+    :data='deviceData'
+    style='width: 100%'>
+      <el-table-column type='expand'>
+        <template slot-scope='props'>
+          <el-form label-position='left' inline class='demo-table-expand'>
+            <el-form-item v-for="(item, key) in props.row.interface" :key="key" :label=key>
+              <span> {{ item }} </span>
             </el-form-item>
-            <el-form-item label="店铺 ID">
-              <span>{{ props.row.shopId }}</span>
-            </el-form-item>
-            <el-form-item label="商品分类">
-              <span>{{ props.row.category }}</span>
-            </el-form-item>
-            <el-form-item label="店铺地址">
-              <span>{{ props.row.address }}</span>
-            </el-form-item>
-            <el-table :data="tableData2" style="width: 100%">
-              <el-table-column
-                prop="date"
-                label="日期"
-                width="180">
-              </el-table-column>
-              <el-table-column
-                prop="name"
-                label="姓名"
-                width="180">
-              </el-table-column>
-              <el-table-column
-                prop="address"
-                label="地址">
-              </el-table-column> 
-            </el-table>
           </el-form>
         </template>
       </el-table-column>
       <el-table-column
-        label="商品 ID"
-        prop="id">
+        label='ID'
+        prop='id'>
       </el-table-column>
       <el-table-column
-        label="商品名称"
-        prop="name">
+        label='Device'
+        prop='interface.dev'>
       </el-table-column>
       <el-table-column
-        label="描述"
-        prop="desc">
+        label='Protocal'
+        prop='protocal.type'>
       </el-table-column>
     </el-table>
   </el-contianer>
@@ -62,56 +37,315 @@ export default {
   },
   data(){
     return{
-      tableData: [{
-          id: '12987122',
-          name: '好滋好味鸡蛋仔',
-          category: '江浙小吃、小吃零食',
-          desc: '荷兰优质淡奶，奶香浓而不腻',
-          address: '上海市普陀区真北路',
-          shop: '王小虎夫妻店',
-          shopId: '10333'
-        }, {
-          id: '12987123',
-          name: '好滋好味鸡蛋仔',
-          category: '江浙小吃、小吃零食',
-          desc: '荷兰优质淡奶，奶香浓而不腻',
-          address: '上海市普陀区真北路',
-          shop: '王小虎夫妻店',
-          shopId: '10333'
-        }, {
-          id: '12987125',
-          name: '好滋好味鸡蛋仔',
-          category: '江浙小吃、小吃零食',
-          desc: '荷兰优质淡奶，奶香浓而不腻',
-          address: '上海市普陀区真北路',
-          shop: '王小虎夫妻店',
-          shopId: '10333'
-        }, {
-          id: '12987126',
-          name: '好滋好味鸡蛋仔',
-          category: '江浙小吃、小吃零食',
-          desc: '荷兰优质淡奶，奶香浓而不腻',
-          address: '上海市普陀区真北路',
-          shop: '王小虎夫妻店',
-          shopId: '10333'
-        }],
-        tableData2: [{
-            date: '2016-05-02',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }, {
-            date: '2016-05-04',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1517 弄'
-          }, {
-            date: '2016-05-01',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1519 弄'
-          }, {
-            date: '2016-05-03',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1516 弄'
-          }]
+      deviceData: [
+        {
+          'id':'1',
+          'interface': {
+            'dev': 'wifi',
+            'ip': '192.168.1.115',
+            'port': '1221'
+          },
+          'protocal': {
+            'type': 'modbus',
+            'devices': [
+              {
+                'id': '1',
+                'fun': '3',
+                'start': '0',
+                'length': '4'
+              }
+            ],
+            'interval': '5000',
+            'param': [
+              {
+                'id': 'TEMP',
+                'name': 'temperature',
+                'dev': '1',
+                'min': '0',
+                'max': '100',
+                'unit': '°C',
+                'value': [
+                  {
+                    'byte': '4'
+                  },
+                  {
+                    'byte': '3'
+                  }
+                ],
+                'scale': '10'
+              },
+              {
+                'id': 'HUM',
+                'name': 'humidity',
+                'dev': '1',
+                'min': '0',
+                'max': '100',
+                'unit': '%',
+                'value': [
+                  {
+                    'byte': '6'
+                  },
+                  {
+                    'byte': '5'
+                  }
+                ],
+                'scale': '10'
+              },
+              {
+                'id': 'CO2',
+                'name': 'CO2',
+                'dev': '1',
+                'min': '0',
+                'max': '3000',
+                'unit': 'ppm',
+                'value': [
+                  {
+                    'byte': '8'
+                  },
+                  {
+                    'byte': '7'
+                  }
+                ],
+                'scale': '1'
+              },
+              {
+                'id': 'NH3',
+                'name': 'Ammonia',
+                'dev': '1',
+                'min': '0',
+                'max': '3000',
+                'unit': 'ppm',
+                'value': [
+                  {
+                    'byte': '10'
+                  },
+                  {
+                    'byte': '9'
+                  }
+                ],
+                'scale': '100'
+              }
+            ]
+          }
+        },
+        {
+          'id': '2',
+          'interface': {
+            'dev': 'wifi',
+            'ip': '192.168.1.115',
+            'port': '1222'
+          },
+          'protocal': {
+            'type': 'auto',
+            'param': [
+              {
+                'id': 'WDIR',
+                'name': 'wind direction',
+                'min': '0',
+                'max': '360',
+                'unit': '°',
+                'value': [
+                  {
+                    'byte': '2'
+                  },
+                  {
+                    'byte': '3',
+                    'shift': '7',
+                    'mask': '1'
+                  }
+                ],
+                'scale': '1'
+              },
+              {
+                'id': 'LOW',
+                'name': 'power low',
+                'min': '0',
+                'max': '1',
+                'unit': ' ',
+                'value': [
+                  {
+                    'byte': '3',
+                    'shift': '3',
+                    'mask': '1'
+                  }
+                ],
+                'scale': '1'
+              },
+              {
+                'id': 'OTEMP',
+                'name': 'out door temperature',
+                'min': '0',
+                'max': '100',
+                'unit': '°C',
+                'value': [
+                  {
+                    'byte': '4'
+                  },
+                  {
+                    'byte': '3',
+                    'mask': '7'
+                  }
+                ],
+                'scale': '10'
+              },
+              {
+                'id': 'OHUM',
+                'name': 'out door humidity',
+                'min': '0',
+                'max': '100',
+                'unit': '%',
+                'value': [
+                  {
+                    'byte': '5'
+                  }
+                ],
+                'scale': '1'
+              },
+              {
+                'id': 'WIND',
+                'name': 'wind speed',
+                'min': '0',
+                'max': '100',
+                'unit': 'm/s',
+                'value': [
+                  {
+                    'byte': '6'
+                  }
+                ],
+                'scale': '7.299'
+              },
+              {
+                'id': 'QWIND',
+                'name': 'instance wind speed',
+                'min': '0',
+                'max': '100',
+                'unit': 'm/s',
+                'value': [
+                  {
+                    'byte': '7'
+                  }
+                ],
+                'scale': '0.9'
+              },
+              {
+                'id': 'RAIN',
+                'name': 'rain',
+                'min': '0',
+                'max': '100',
+                'unit': 'mm',
+                'value': [
+                  {
+                    'byte': '9'
+                  },
+                  {
+                    'byte': '8'
+                  }
+                ],
+                'scale': '0.9'
+              }
+            ]
+          }
+        },
+        {
+          'id': '3',
+          'interface': {
+            'dev': 'rs485',
+            'tty': '/dev/ttymxc4',
+            'baud': '9600',
+            'databit': '8',
+            'stopbit': '1',
+            'parity': 'none'
+          },
+          'protocal': {
+            'type': 'modbus',
+            'devices': [
+              {
+                'id': '15',
+                'fun': '3',
+                'start': '0',
+                'length': '2'
+              },
+              {
+                'id': '24',
+                'fun': '3',
+                'start': '0',
+                'length': '2'
+              }
+            ],
+            'interval': '5000',
+            'param': [
+              {
+                'id': 'TEMP15',
+                'dev': '15',
+                'name': 'temperature15',
+                'min': '0',
+                'max': '100',
+                'unit': '°C',
+                'value': [
+                  {
+                    'byte': '6'
+                  },
+                  {
+                    'byte': '5'
+                  }
+                ],
+                'scale': '10'
+              },
+              {
+                'id': 'HUM15',
+                'name': 'humidity15',
+                'dev': '15',
+                'min': '0',
+                'max': '100',
+                'unit': '%',
+                'value': [
+                  {
+                    'byte': '4'
+                  },
+                  {
+                    'byte': '3'
+                  }
+                ],
+                'scale': '10'
+              },
+              {
+                'id': 'TEMP24',
+                'dev': '24',
+                'name': 'temperature24',
+                'min': '0',
+                'max': '100',
+                'unit': '°C',
+                'value': [
+                  {
+                    'byte': '6'
+                  },
+                  {
+                    'byte': '5'
+                  }
+                ],
+                'scale': '10'
+              },
+              {
+                'id': 'HUM24',
+                'name': 'humidity24',
+                'dev': '24',
+                'min': '0',
+                'max': '100',
+                'unit': '%',
+                'value': [
+                  {
+                    'byte': '4'
+                  },
+                  {
+                    'byte': '3'
+                  }
+                ],
+                'scale': '10'
+              }
+            ]
+          }
+        }
+      ]
     }
   },
   methods: {
