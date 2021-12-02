@@ -1,46 +1,43 @@
 <template>
-  <div>
-      
-    <div>
-      <el-table
-      :data="paramArr"
-      style="width: 100%; float: left;">
-        <el-table-column
-          label="id"
-          width="80">
-          <template slot-scope="scope">
-            <span style="margin-left: 10px">{{scope.row.id}}</span>
-          </template>
-        </el-table-column>
-        <el-table-column
-          :label="$t('name')"
-          width="110">
-          <template slot-scope="scope">
-            <span style="margin-left: 10px">{{scope.row.name}}</span>
-          </template>
-        </el-table-column>
-        <el-table-column
-          :label="$t('device')"
-          width="80">
-          <template slot-scope="scope">
-            <span style="margin-left: 10px">{{scope.row.dev}}</span>
-          </template>
-        </el-table-column>
-        <el-table-column>
-          <template slot="header" slot-scope="scope">
-            <el-button @click="centerDialogVisible = true">{{$t("add")}}</el-button>
-          </template>
-          <template slot-scope="scope">
-            <el-button
-              size="mini"
-              @click="handleEdit(scope.$index, scope.row)">{{ $t("Setup")}}</el-button>
-            <el-button
-              size="mini"
-              @click="handelDelete(scope.$index, scope.row)">{{ $t("Delete")}}</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-    </div>
+  <el-container>
+    <el-table
+    :data="paramArr"
+    style="width: 100%; float: left;">
+      <el-table-column
+        label="id"
+        width="80">
+        <template slot-scope="scope">
+          <span style="margin-left: 10px">{{scope.row.id}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        :label="$t('name')"
+        width="110">
+        <template slot-scope="scope">
+          <span style="margin-left: 10px">{{scope.row.name}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        :label="$t('device')"
+        width="80">
+        <template slot-scope="scope">
+          <span style="margin-left: 10px">{{scope.row.dev}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column>
+        <template slot="header" slot-scope="scope">
+          <el-button @click="centerDialogVisible = true">{{$t("add")}}</el-button>
+        </template>
+        <template slot-scope="scope">
+          <el-button
+            size="mini"
+            @click="handleEdit(scope.$index, scope.row)">{{ $t("Setup")}}</el-button>
+          <el-button
+            size="mini"
+            @click="handelDelete(scope.$index, scope.row)">{{ $t("Delete")}}</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
     <el-dialog
       title="add sensor"
       :visible.sync="centerDialogVisible"
@@ -92,7 +89,7 @@
         @done="setUpDialogVisible = false"/>
       
     </el-dialog>
-  </div>
+  </el-container>
 </template>
 <script>
 import ParamConfig from './ParamConfig.vue'
