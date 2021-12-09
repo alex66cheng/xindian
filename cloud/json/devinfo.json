@@ -35,10 +35,14 @@
           "unit": "°C",
           "value": [
             {
-              "byte": "4"
+              "byte": "4",
+              "shift": "",
+              "mask": ""
             },
             {
-              "byte": "3"
+              "byte": "3",
+              "shift": "",
+              "mask": ""
             }
           ],
           "scale": "10"
@@ -52,10 +56,14 @@
           "unit": "%",
           "value": [
             {
-              "byte": "6"
+              "byte": "6",
+              "shift": "",
+              "mask": ""
             },
             {
-              "byte": "5"
+              "byte": "5",
+              "shift": "",
+              "mask": ""
             }
           ],
           "scale": "10"
@@ -69,10 +77,14 @@
           "unit": "ppm",
           "value": [
             {
-              "byte": "8"
+              "byte": "8",
+              "shift": "",
+              "mask": ""
             },
             {
-              "byte": "7"
+              "byte": "7",
+              "shift": "",
+              "mask": ""
             }
           ],
           "scale": "1"
@@ -86,10 +98,14 @@
           "unit": "ppm",
           "value": [
             {
-              "byte": "10"
+              "byte": "10",
+              "shift": "",
+              "mask": ""
             },
             {
-              "byte": "9"
+              "byte": "9",
+              "shift": "",
+              "mask": ""
             }
           ],
           "scale": "100"
@@ -114,7 +130,9 @@
         "unit": "°",
         "value": [
           {
-            "byte": "2"
+            "byte": "2",
+            "shift": "",
+            "mask": ""
           },
           {
             "byte": "3",
@@ -146,10 +164,13 @@
           "unit": "°C",
           "value": [
             {
-              "byte": "4"
+              "byte": "4",
+              "shift": "",
+              "mask": ""
             },
             {
               "byte": "3",
+              "shift": "",
               "mask": "7"
             }
           ],
@@ -163,7 +184,9 @@
           "unit": "%",
           "value": [
             {
-              "byte": "5"
+              "byte": "5",
+              "shift": "",
+              "mask": ""
             }
           ],
           "scale": "1"
@@ -176,7 +199,9 @@
           "unit": "m/s",
           "value": [
             {
-              "byte": "6"
+              "byte": "6",
+              "shift": "",
+              "mask": ""
             }
           ],
           "scale": "7.299"
@@ -189,7 +214,9 @@
           "unit": "m/s",
           "value": [
             {
-              "byte": "7"
+              "byte": "7",
+              "shift": "",
+              "mask": ""
             }
           ],
           "scale": "0.9"
@@ -202,10 +229,14 @@
           "unit": "mm",
           "value": [
             {
-              "byte": "9"
+              "byte": "9",
+              "shift": "",
+              "mask": ""
             },
             {
-              "byte": "8"
+              "byte": "8",
+              "shift": "",
+              "mask": ""
             }
           ],
           "scale": "0.9"
@@ -248,10 +279,14 @@
           "unit": "°C",
           "value": [
             {
-              "byte": "6"
+              "byte": "6",
+              "shift": "",
+              "mask": ""
             },
             {
-              "byte": "5"
+              "byte": "5",
+              "shift": "",
+              "mask": ""
             }
           ],
           "scale": "10"
@@ -265,10 +300,14 @@
           "unit": "%",
           "value": [
             {
-              "byte": "4"
+              "byte": "4",
+              "shift": "",
+              "mask": ""
             },
             {
-              "byte": "3"
+              "byte": "3",
+              "shift": "",
+              "mask": ""
             }
           ],
           "scale": "10"
@@ -282,10 +321,14 @@
           "unit": "°C",
           "value": [
             {
-              "byte": "6"
+              "byte": "6",
+              "shift": "",
+              "mask": ""
             },
             {
-              "byte": "5"
+              "byte": "5",
+              "shift": "",
+              "mask": ""
             }
           ],
           "scale": "10"
@@ -299,10 +342,14 @@
           "unit": "%",
           "value": [
             {
-              "byte": "4"
+              "byte": "4",
+              "shift": "",
+              "mask": ""
             },
             {
-              "byte": "3"
+              "byte": "3",
+              "shift": "",
+              "mask": ""
             }
           ],
           "scale": "10"
