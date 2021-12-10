@@ -18,10 +18,10 @@
         </template>
       </el-table-column>
       <el-table-column
-        :label="$t('device')"
+        :label="$t('unit')"
         width="80">
         <template slot-scope="scope">
-          <span style="margin-left: 10px">{{scope.row.dev}}</span>
+          <span style="margin-left: 10px">{{scope.row.unit}}</span>
         </template>
       </el-table-column>
       <el-table-column>
@@ -34,7 +34,7 @@
             @click="handleEdit(scope.$index, scope.row)">{{ $t("Setup")}}</el-button>
           <el-button
             size="mini"
-            @click="handelDelete(scope.$index, scope.row)">{{ $t("Delete")}}</el-button>
+            @click="handleDelete(scope.$index)">{{ $t("Delete")}}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -63,10 +63,10 @@
           </div>
         </el-col>
         <el-col :span="8">
-          <div>device</div>
+          <div>unit</div>
           <div>  
             <el-input
-              v-model="addParam.dev"
+              v-model="addParam.unit"
               clearable>
             </el-input>
           </div>
@@ -84,10 +84,10 @@
       width="70%"
       center>
       <ParamConfig
+        v-if="setUpDialogVisible"
         :interfaceId="interfaceId"
         :paramIndex="paramIndex"
-        @done="setUpDialogVisible = false"/>
-      
+        @done="setUpDialogVisible = false"/>     
     </el-dialog>
   </el-container>
 </template>
@@ -109,18 +109,17 @@ export default {
       addParam:{
         id: '', 
         name: '',
-        dev: ''        
+        unit: ''        
       },
       
       setUpDialogVisible: false,
-      sensorIndex: 0,
       paramIndex: 0,
     }
   },
   computed:{
     paramArr: function(){
       let all = this.$store.state.config.all
-      return all.find(x => x.id === this.interfaceId).protocal.param
+      return all.find(x => x.id === this.interfaceId).param
     },
     testid: function(){
       return this.$store.state.testid
@@ -129,10 +128,14 @@ export default {
   methods: {
     handleEdit(index, row) {
       console.log(index, row)
-      console.log(row.id)
-      this.sensorIndex = index
       this.paramIndex = index
       this.setUpDialogVisible = true
+    },
+    handleDelete(index){
+      this.$store.commit('deleteParam', {
+        interfaceId: this.interfaceId,
+        paramIndex: index
+      })
     },
     
     clearNewSensor(){
@@ -142,14 +145,25 @@ export default {
       this.setUpDialogVisible = false
     },
     confirmNewSensor(){
-      this.paramArr.push({id: this.addParam.id, name: this.addParam.name ,dev: this.addParam.dev})
+      this.$store.commit('addParam', {
+        interfaceId: this.interfaceId,
+        newParam: {
+          id: this.addParam.id,
+          dev: '',
+          name: this.addParam.name,
+          min: '',
+          max: '',
+          unit: this.addParam.unit,
+          value: [
+            
+          ],
+          scale: '' 
+        }    
+      })
       this.addParam.id = ''
       this.addParam.name = ''
-      this.addParam.dev = ''
+      this.addParam.unit = ''
       this.centerDialogVisible = false
-      this.paramArr.sort(function(a, b){
-        return (a.area-b.area)
-      })
       console.log('confirm')
     }
     
