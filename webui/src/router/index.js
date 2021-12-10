@@ -149,6 +149,10 @@ const router = new Router({
         }
       ]
     },
+    {
+      path: '',
+      redirect: 'jp/login'
+    }
     
 
     
