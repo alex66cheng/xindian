@@ -133,6 +133,7 @@ export default new Vuex.Store({
             {
               id: 'WDIR',
               name: 'wind direction',
+              dev: '',
               min: '0',
               max: '360',
               unit: '°',
@@ -152,6 +153,7 @@ export default new Vuex.Store({
             {
               id: 'LOW',
               name: 'power low',
+              dev: '',
               min: '0',
               max: '1',
               unit: ' ',
@@ -167,6 +169,7 @@ export default new Vuex.Store({
             {
               id: 'OTEMP',
               name: 'out door temperature',
+              dev: '',
               min: '0',
               max: '100',
               unit: '°C',
@@ -187,6 +190,7 @@ export default new Vuex.Store({
             {
               id: 'OHUM',
               name: 'out door humidity',
+              dev: '',
               min: '0',
               max: '100',
               unit: '%',
@@ -202,6 +206,7 @@ export default new Vuex.Store({
             {
               id: 'WIND',
               name: 'wind speed',
+              dev: '',
               min: '0',
               max: '100',
               unit: 'm/s',
@@ -217,6 +222,7 @@ export default new Vuex.Store({
             {
               id: 'QWIND',
               name: 'instance wind speed',
+              dev: '',
               min: '0',
               max: '100',
               unit: 'm/s',
@@ -232,6 +238,7 @@ export default new Vuex.Store({
             {
               id: 'RAIN',
               name: 'rain',
+              dev: '',
               min: '0',
               max: '100',
               unit: 'mm',
@@ -372,7 +379,45 @@ export default new Vuex.Store({
     
   },
   mutations: {
-
+    addValue (state, payload){
+      state.config.all.find(x => x.id === payload.interfaceId).param[payload.paramIndex]
+      .value.push(payload.newValue)
+    },
+    deleteValue (state, payload){
+      state.config.all.find(x => x.id === payload.interfaceId).param[payload.paramIndex]
+      .value.splice(payload.valueIndex, 1)
+    },
+    addParam (state, payload){
+      state.config.all.find(x => x.id === payload.interfaceId).param.push(payload.newParam)
+    },
+    setParam (state, payload){
+      let p = state.config.all.find(x => x.id === payload.interfaceId).param[payload.paramIndex]
+      p.dev = payload.newSetting.dev
+      p.scale = payload.newSetting.scale
+      p.min = payload.newSetting.min
+      p.max = payload.newSetting.max
+    },
+    setParamDev (state, payload){
+      let p = state.config.all.find(x => x.id === payload.interfaceId).param[payload.paramIndex]
+      p.dev = payload.newDev
+    },
+    setParamScale (state, payload){
+      let p = state.config.all.find(x => x.id === payload.interfaceId).param[payload.paramIndex]
+      p.scale = payload.newScale
+    },
+    setParamMin (state, payload){
+      let p = state.config.all.find(x => x.id === payload.interfaceId).param[payload.paramIndex]
+      p.min = payload.newMin
+    },
+    setParamMax (state, payload){
+      let p = state.config.all.find(x => x.id === payload.interfaceId).param[payload.paramIndex]
+      p.max = payload.newMax
+    },
+    deleteParam (state, payload){
+      state.config.all.find(x => x.id === payload.interfaceId).param.splice(payload.paramIndex, 1)
+      console.log(state.config.all.find(x => x.id === payload.interfaceId).param)
+    }
+    
   },
   actions:{
 
