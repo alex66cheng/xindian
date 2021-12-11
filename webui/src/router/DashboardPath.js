@@ -1,16 +1,12 @@
-import DashboardFrame from '../components/frames/DashboardFrame.vue'
-import DashboardTable from '../components/gatewayRoom/DashboardTable'
-import Dashboard from '../components/gatewayRoom/Dashboard'
-
 const routes = {
-  path: 'dashboardManager',
-  name: 'dashboardManager',
-  component: DashboardFrame,
+  path: 'dashboard-manager',
+  name: 'dashboard-manager',
+  component: () => import('../components/frames/DashboardFrame.vue'),
   children:[
     {
       path: 'dashboard-table',
       name: 'dashboard-table',
-      component: DashboardTable,
+      component: () => import('../components/gatewayRoom/DashboardTable'),
       meta: {
         title: 'Table',
         closable: false
@@ -19,7 +15,7 @@ const routes = {
     {
       path: 'dashboard/:id',
       name: 'dashboard',
-      component: Dashboard,
+      component: () => import('../components/gatewayRoom/Dashboard'),
       meta: {
         title: route => `${route.params.id}`,
         key: 'path',
