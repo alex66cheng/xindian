@@ -6,7 +6,7 @@
   </div>
 </template>
 <script>
-import ParamTable from '../gatewayConfig/ParamTable.vue'
+import ParamTable from '../Interface/Param/ParamTable.vue'
 export default {
   components: {
     ParamTable
