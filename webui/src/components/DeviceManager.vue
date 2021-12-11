@@ -124,7 +124,7 @@ export default {
     },
     methods:{
       gotoConfig(target_sn){
-        this.$router.push({name:'gatewayConfig', params:{device: target_sn}})
+        this.$router.push({name:'interface-table', params:{device: target_sn}})
       },
       changeStatus(row){ // 到時候修該 status 要用到
         const data = {

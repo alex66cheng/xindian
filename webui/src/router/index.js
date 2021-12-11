@@ -111,8 +111,8 @@ const router = new Router({
               ]
             },
             {
-              path: 'deviceStatus',
-              name: 'deviceStatus',
+              path: 'device-status',
+              name: 'device-status',
               component: DeviceStatus,
                 
             },
@@ -143,7 +143,7 @@ const router = new Router({
             },
             {
               path: '',
-              redirect: 'dashboardManager/dashboard-table'
+              redirect: 'dashboard-manager/dashboard-table'
             }
           ]
         }

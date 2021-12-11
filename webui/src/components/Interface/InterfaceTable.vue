@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import ParamTable from "Param/ParamTable.vue"
+import ParamTable from "./Param/ParamTable.vue"
 
 export default {
   data(){

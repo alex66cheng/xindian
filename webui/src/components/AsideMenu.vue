@@ -6,8 +6,8 @@
       
       
       <el-menu-item @click="gotoPage('/monitor/dashboardManager/dashboard-table')">{{ $t("Dashboard_Title") }}</el-menu-item>
-      <el-menu-item @click="gotoPage('/monitor/deviceStatus')">{{ $t('Device_Status')}}</el-menu-item>
-      <el-menu-item @click="gotoPage('/monitor/deviceManager')">{{ $t("Device_Manager")}}</el-menu-item>
+      <el-menu-item @click="gotoPage('/monitor/device-status')">{{ $t('Device_Status')}}</el-menu-item>
+      <el-menu-item @click="gotoPage('/monitor/device-manager')">{{ $t("Device_Manager")}}</el-menu-item>
       <el-menu-item @click="gotoPage('/monitor/schedule')">{{$t("schedule")}}</el-menu-item>
       <el-menu-item @click="gotoPage('/monitor/history')">{{$t("History_Title")}}</el-menu-item>
       <el-menu-item @click="gotoPage('/monitor/problem/solved')">{{ $t("problem")}}</el-menu-item>
