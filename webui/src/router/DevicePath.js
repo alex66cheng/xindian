@@ -24,7 +24,7 @@ const routes = {
     {
       path: 'interface-table/:device',
       name: 'interface-table',
-      component: () => import("../components/InterfaceTable.vue"),
+      component: () => import("../components/Interface/InterfaceTable.vue"),
       meta: {title: route => `${route.params.device}`}
     }
   ]
