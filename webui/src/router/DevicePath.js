@@ -4,7 +4,6 @@ import GatewayCommand from '../components/GatewayCommand.vue'
 import i18n from '../lang/lang.js'
 
 import DeviceManager from '../components/DeviceManager.vue'
-import GatewayConfig from '../components/GatewayConfig.vue'
 
 const routes = {
   path: 'deviceManager',
@@ -23,9 +22,9 @@ const routes = {
       meta:{title: route => i18n.messages[route.params.lang]['Gateway_Command']}
     },
     {
-      path: 'gatewayConfig/:device',
-      name: 'gatewayConfig',
-      component: GatewayConfig,
+      path: 'interface-table/:device',
+      name: 'interface-table',
+      component: () => import("../components/InterfaceTable.vue"),
       meta: {title: route => `${route.params.device}`}
     }
   ]
