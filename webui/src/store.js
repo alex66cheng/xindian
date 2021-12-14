@@ -416,8 +416,27 @@ export default new Vuex.Store({
     deleteParam (state, payload){
       state.config.all.find(x => x.id === payload.interfaceId).param.splice(payload.paramIndex, 1)
       console.log(state.config.all.find(x => x.id === payload.interfaceId).param)
-    }
-    
+    },
+
+    addDevice (state, payload){
+      state.config.all.find(x => x.id === payload.interfaceId).devices.push(payload.newDevice)
+    },
+    deleteDevice (state, payload){
+      state.config.all.find(x => x.id === payload.interfaceId).devices.splice(payload.deviceIndex, 1)
+      console.log(state.config.all.find(x => x.id === payload.interfaceId).devices)
+    },
+    setDeviceFun (state, payload){
+      let p = state.config.all.find(x => x.id === payload.interfaceId).devices[payload.deviceIndex]
+      p.fun= payload.newFun
+    },
+    setDeviceStart (state, payload){
+      let p = state.config.all.find(x => x.id === payload.interfaceId).devices[payload.deviceIndex]
+      p.start= payload.newStart
+    },
+    setDeviceLength (state, payload){
+      let p = state.config.all.find(x => x.id === payload.interfaceId).devices[payload.deviceIndex]
+      p.length = payload.newLength
+    },
   },
   actions:{
 
