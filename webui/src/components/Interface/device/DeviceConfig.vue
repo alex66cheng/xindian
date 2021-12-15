@@ -37,15 +37,6 @@
         </el-input>
       </el-col>
 
-     <el-col :span="6">
-        <div>aaa</div>
-        <el-input
-          v-model="aaa"
-          :disabled="disableEdit"
-          clearable>
-        </el-input>
-      </el-col> 
-    
     </el-row>
     <el-row style="text-align:center; position: relative; bottom:0; margin-top: 20px"> 
       <el-col :span="12" style="text-align: right; padding-right: 20px;">
@@ -127,18 +118,7 @@
         }
       },
       
-      aaa:{
-        get(){
-          return 'aaa'
-        },
-        set(newLength){
-          this.$store.commit('setDeviceLength',{
-            interfaceId: this.interfaceId,
-            deviceIndex: this.deviceIndex,
-            newLength: newLength
-          })
-        }
-      }
+      
       
     },
     watch:{

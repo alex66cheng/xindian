@@ -154,8 +154,8 @@ export default {
   methods: {
     handleEdit(index,row) {
       console.log(index,row)
-	  console.log(typeof index)
-	  this.deviceIndex = index,
+	    console.log(typeof index)
+      this.deviceIndex = index,
       this.setUpDialogVisible = true
     },
     handleDelete(index){
