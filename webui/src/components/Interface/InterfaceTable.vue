@@ -10,7 +10,7 @@
       </el-descriptions-item>
     </el-descriptions>
     <el-container style="width: 100%">
-      <el-button type="primary" style="float: right">添加</el-button>
+      <el-button type="primary" @click="openAddDialog()" style="float: right">添加</el-button>
     </el-container>
     <el-table
     :data='deviceData'
@@ -27,7 +27,6 @@
             </el-container>
             <el-container style="width: 50%">
               <ParamTable :interfaceId="props.row.id"></ParamTable>
-              <!-- <ParamTable interfaceId="1"></ParamTable> -->
             </el-container>
           </el-container>
         </template>
@@ -48,7 +47,7 @@
         <template slot-scope="scope">
           <el-button
             size="mini"
-            @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
+            @click="openEditDialog(scope.$index, scope.row)">Edit</el-button>
           <el-button
             size="mini"
             type="danger"
@@ -58,29 +57,43 @@
     </el-table>
     <el-dialog
       title="提示"
-      :visible.sync="dialogVisible"
-      width="30%"
-      :before-close="handleClose">
-      <span>input</span>
+      v-if="editDialogVisible"
+      :visible.sync="editDialogVisible"
+      width="30%">
+      <InterfaceEditForm :InterfaceData="editInterfaceData"/>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+        <el-button type="primary" @click="editDialogVisible = false">關閉</el-button>
+      </span>
+    </el-dialog>
+    <el-dialog
+      title="提示"
+      :visible.sync="addDialogVisible"
+      width="30%">
+      <InterfaceAddForm />
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="addDialogVisible = false">關閉</el-button>
       </span>
     </el-dialog>
   </el-container>
 </template>
 
 <script>
-import ParamTable from "./Param/ParamTable.vue"
+import ParamTable from './Param/ParamTable.vue'
+import InterfaceAddForm from './InterfaceAddForm.vue'
+import InterfaceEditForm from './InterfaceEditForm.vue'
 
 export default {
   data(){
     return {
-      dialogVisible: false
+      addDialogVisible: false,
+      editDialogVisible: false,
+      editInterfaceData: {}
     }
   },
   components:{
-    ParamTable
+    ParamTable, 
+    InterfaceAddForm,
+    InterfaceEditForm
   },
   computed: {
     deviceData: function(){
@@ -92,9 +105,15 @@ export default {
     }
   },
   methods: {
-    handleEdit(index, row) {
-      console.log(index, row)
-      this.dialogVisible = true
+    openAddDialog() {
+      this.addDialogVisible = true
+    },
+    openEditDialog(index, row) {
+      console.log(row.id)
+      this.editInterfaceData = row
+      this.editDialogVisible = true
+
+      console.log(this.editInterfaceData)
     },
     handleDelete(index, row) {
       console.log(index, row)
