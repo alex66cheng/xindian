@@ -88,7 +88,7 @@ export default {
         dialogVisible: false,
         deviceData:[
           {
-            id: 'xa00001',
+            id: 'KA-00001',
             type: '700',
             status: true
           },
