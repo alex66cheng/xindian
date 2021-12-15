@@ -131,13 +131,17 @@ export default {
           id: row.id,
           status: row.status,
         }
+        console.log(data)
       },
       handleClose(done) {
         this.$confirm('確定取消?')
           .then(_ => {
+            console.log(_)
             done()
           })
-          .catch(_ => {})
+          .catch(_ => {
+            console.log(_)
+          })
       },
       addDevice(){
         this.deviceData.push({id: this.addForm.id, type: this.addForm.type, status: true})
