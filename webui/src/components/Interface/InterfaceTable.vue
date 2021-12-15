@@ -1,14 +1,5 @@
 <template>
   <el-container style="display: block; padding: 20px">
-    <el-descriptions class="margin-top" title="带边框列表" :column="3" :size="size" border>
-      <el-descriptions-item label="用户名">kooriookami</el-descriptions-item>
-      <el-descriptions-item v-for="(param, key) in deviceInfo" :key="key" class="text item" style="float: left; " label=key>
-        <template slot="label">
-          {{ key }}
-        </template>
-        {{ param }}
-      </el-descriptions-item>
-    </el-descriptions>
     <el-container style="width: 100%">
       <el-button type="primary" @click="openAddDialog()" style="float: right">添加</el-button>
     </el-container>
@@ -19,11 +10,7 @@
         <template slot-scope='props'>
           <el-container style="display: flex">
             <el-container style="width: 50%">
-              <el-form label-position='left' inline class='demo-table-expand'>
-                <!--<el-form-item v-for="(item, key) in props.row.protocal" :key="key" :label=key style="width: 100%">
-                  <span> {{ item }} </span>
-                </el-form-item>-->
-              </el-form>
+              <DeviceTable :interfaceId="props.row.id"></DeviceTable>
             </el-container>
             <el-container style="width: 50%">
               <ParamTable :interfaceId="props.row.id"></ParamTable>
@@ -60,13 +47,13 @@
       v-if="editDialogVisible"
       :visible.sync="editDialogVisible"
       width="30%">
-      <InterfaceEditForm :InterfaceData="editInterfaceData"/>
+      <InterfaceEditForm :InterfaceId="editInterfaceId"/>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="editDialogVisible = false">關閉</el-button>
       </span>
     </el-dialog>
     <el-dialog
-      title="提示"
+      title="Interface 設置"
       :visible.sync="addDialogVisible"
       width="30%">
       <InterfaceAddForm />
@@ -78,6 +65,7 @@
 </template>
 
 <script>
+import DeviceTable from './Device/DeviceTable.vue'
 import ParamTable from './Param/ParamTable.vue'
 import InterfaceAddForm from './InterfaceAddForm.vue'
 import InterfaceEditForm from './InterfaceEditForm.vue'
@@ -91,6 +79,7 @@ export default {
     }
   },
   components:{
+    DeviceTable,
     ParamTable, 
     InterfaceAddForm,
     InterfaceEditForm
@@ -109,11 +98,11 @@ export default {
       this.addDialogVisible = true
     },
     openEditDialog(index, row) {
-      console.log(row.id)
-      this.editInterfaceData = row
+      console.log(index, row)
+      this.editInterfaceId = index
       this.editDialogVisible = true
 
-      console.log(this.editInterfaceData)
+      console.log(this.editInterfaceId)
     },
     handleDelete(index, row) {
       console.log(index, row)

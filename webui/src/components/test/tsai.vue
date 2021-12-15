@@ -7,7 +7,7 @@
   </div>
 </template>
 <script>
-import DeviceTable from '../deviceConfig/DeviceTable.vue'
+import DeviceTable from '../Interface/Device/DeviceTable.vue'
 
 export default {
   components: {
