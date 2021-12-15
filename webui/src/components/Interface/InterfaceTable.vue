@@ -54,6 +54,7 @@
     </el-dialog>
     <el-dialog
       title="Interface 設置"
+      v-if="addDialogVisible"
       :visible.sync="addDialogVisible"
       width="30%">
       <InterfaceAddForm />
