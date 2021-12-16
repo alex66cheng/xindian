@@ -39,6 +39,8 @@ export default{
                 id: this.InterfaceId,
                 data: this.interfaceFormData
             })
+
+            console.log(this.$store.state.config.all[this.InterfaceId].interface)
         }
     }
 }

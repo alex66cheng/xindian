@@ -439,6 +439,14 @@ export default new Vuex.Store({
     },
     setInterface (state, payload){
       state.config.all[payload.id].interface = payload.data
+    },
+    addInterface (state, payload){
+      state.config.all.push({
+        id: payload.id,
+        interface: payload.data,
+        devices: [],
+        param: []
+      })
     }
   },
   actions:{
