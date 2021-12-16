@@ -107,7 +107,7 @@
     <el-dialog
       title="Edit"
       :visible.sync="setUpDialogVisible"
-      width="70%"
+      width="50%"
       center>
       <DeviceConfig
         v-if="setUpDialogVisible"

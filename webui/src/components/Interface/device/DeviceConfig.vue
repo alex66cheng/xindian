@@ -9,7 +9,7 @@
     
     <el-row :gutter="12" style="margin-bottom: 10px">
 
-      <el-col :span="6">
+      <el-col :span="8">
         <div>fun</div>
         <el-input
           v-model="fun"
@@ -18,7 +18,7 @@
         </el-input>
       </el-col>
 
-      <el-col :span="6">
+      <el-col :span="8">
         <div>start</div>
         <el-input
           v-model="start"
@@ -28,7 +28,7 @@
         <div></div>
       </el-col>
       
-      <el-col :span="6">
+      <el-col :span="8">
         <div>length</div>
         <el-input
           v-model="length"
