@@ -36,7 +36,7 @@
       </el-table-column>
 
       <el-table-column>
-        <template slot="header">
+        <template slot="header" slot-scope="scope">
           <el-button @click="centerDialogVisible = true">{{$t("add")}}</el-button>
         </template>
         <template slot-scope="scope">
@@ -107,7 +107,7 @@
     <el-dialog
       title="Edit"
       :visible.sync="setUpDialogVisible"
-      width="70%"
+      width="50%"
       center>
       <DeviceConfig
         v-if="setUpDialogVisible"

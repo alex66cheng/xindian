@@ -131,7 +131,7 @@
 </template>
 
 <script>
-  import crc16modbus from 'crc/crc16modbus'
+  //import crc16modbus from 'crc/crc16modbus'
   export default {
     props:{
       interfaceId: String,

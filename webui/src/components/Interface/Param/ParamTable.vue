@@ -25,7 +25,7 @@
         </template>
       </el-table-column>
       <el-table-column>
-        <template slot="header">
+        <template slot="header" slot-scope="scope">
           <el-button @click="centerDialogVisible = true">{{$t("add")}}</el-button>
         </template>
         <template slot-scope="scope">
