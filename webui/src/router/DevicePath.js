@@ -1,30 +1,25 @@
-import GatewayFrame from '../components/frames/GatewayFrame.vue'
-import GatewayCommand from '../components/GatewayCommand.vue'
-
 import i18n from '../lang/lang.js'
 
-import DeviceManager from '../components/DeviceManager.vue'
-
 const routes = {
-  path: 'deviceManager',
-  component: GatewayFrame,
+  path: 'device-manager',
+  component: () => import('../components/frames/GatewayFrame.vue'),
   children:[
     {
       path: '',
-      name: 'deviceManager',
-      component: DeviceManager,
+      name: 'device-manager',
+      component: () => import('../components/DeviceManager.vue'),
       meta:{title: route => i18n.messages[route.params.lang]['Device_Manager']}
     },
     {
       path: 'modbus/:device',
       name: 'modbus',
-      component: GatewayCommand,
+      component: () => import('../components/GatewayCommand.vue'),
       meta:{title: route => i18n.messages[route.params.lang]['Gateway_Command']}
     },
     {
       path: 'interface-table/:device',
       name: 'interface-table',
-      component: () => import("../components/Interface/InterfaceTable.vue"),
+      component: () => import('../components/Interface/InterfaceTable.vue'),
       meta: {title: route => `${route.params.device}`}
     }
   ]

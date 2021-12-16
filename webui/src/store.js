@@ -437,6 +437,9 @@ export default new Vuex.Store({
       let p = state.config.all.find(x => x.id === payload.interfaceId).devices[payload.deviceIndex]
       p.length = payload.newLength
     },
+    setInterface (state, payload){
+      state.config.all[payload.id].interface = payload.data
+    }
   },
   actions:{
 
