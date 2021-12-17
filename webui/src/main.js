@@ -3,7 +3,7 @@ import Vue from 'vue'
 import locale from 'element-ui/lib/locale/lang/ja'
 import App from './App.vue'
 import router from './router/index.js'
-import store from './store'
+import store from './store/index.js'
 import i18n from './lang/lang'
 import echarts from 'echarts'
 // 画像拡大
