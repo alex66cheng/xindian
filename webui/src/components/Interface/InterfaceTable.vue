@@ -29,7 +29,7 @@
       </el-table-column>
       <el-table-column
         label='Protocal'
-        prop='protocal.type'>
+        prop='interface.protocal'>
       </el-table-column>
       <el-table-column>
         <template slot-scope="scope">
