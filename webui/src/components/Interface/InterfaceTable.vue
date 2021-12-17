@@ -1,7 +1,8 @@
 <template>
   <el-container style="display: block; padding: 20px">
     <el-container style="width: 100%">
-      <el-button type="primary" @click="openAddDialog()" style="float: right">添加</el-button>
+      <el-button @click="openAddDialog()" style="float: right">添加</el-button>
+      <el-button type="primary" @click="sendConfig()" style="float: right">送出</el-button>
     </el-container>
     <el-table
     :data='deviceData'
@@ -107,6 +108,9 @@ export default {
     },
     handleDelete(index, row) {
       console.log(index, row)
+    },
+    sendConfig(){
+      console.log(this.$store.state.config)
     }
   },
   created(){
