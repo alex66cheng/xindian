@@ -68,7 +68,7 @@
     data () {
       return {
         size: ''
-      };
+      }
     }
   }
 </script>
