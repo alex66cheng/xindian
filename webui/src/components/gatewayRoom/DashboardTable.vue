@@ -45,19 +45,25 @@
   export default {
     data() {
       return {
-        tableData: [{
+        tableData: [
+          {
+            location: 'ohga',
+            name: 'Pig0001',
+            tags: ['temperature', 'humidity', 'CO2', 'Ammonia']
+          },{
             location: 'ohga',
             name: '601',
             tags: ['peoplecount', 'temperature', 'humidity', 'pm25']
-        }, {
+          }, {
             location: 'ohga',
             name: '602',
             tags: ['peoplecount', 'temperature', 'humidity']
-        }, {
+          }, {
             location: 'ohga',
             name: '603',
             tags: ['peoplecount', 'temperature', 'humidity']
-        }]
+          }
+        ]
       }
     },
     methods: {

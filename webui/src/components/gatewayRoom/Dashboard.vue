@@ -2,39 +2,39 @@
   <div>
     <el-row>
       <el-col :span="24">
-        <div>
-          <el-dropdown @command="gotoGateway">
-            <el-button type="primary">
-              {{currentArea}}<i class="el-icon-arrow-down el-icon--right"></i>
-            </el-button>
-            <el-dropdown-menu slot="dropdown" >
-              <el-dropdown-item command="601">601</el-dropdown-item>
-              <el-dropdown-item command="602">602</el-dropdown-item>
-              <el-dropdown-item command="603">603</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-        </div>
-        
+        <!--<el-dropdown @command="gotoGateway">
+          <el-button type="primary">
+            {{currentArea}}<i class="el-icon-arrow-down el-icon--right"></i>
+          </el-button>
+          <el-dropdown-menu slot="dropdown" >
+            <el-dropdown-item command="601">601</el-dropdown-item>
+            <el-dropdown-item command="602">602</el-dropdown-item>
+            <el-dropdown-item command="603">603</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>-->
       </el-col>
     </el-row>
-    <el-row>
+    <!--<el-row>
       <el-col :span="24">
         <div>{{$t("time")}}: {{datetime}}</div>
       </el-col>
-    </el-row>
+    </el-row>-->
     <el-row :gutter="20">
-      <el-col :span="6">
+     <el-col
+       v-for="(data, index) in sensorData.params"
+       :span="6"
+       :key="index">
         <el-card class="box-card dashboard_data" >
           <div slot="header" class="clearfix">
-            <span>{{$t("city_temperature_Label")}}</span>
+            <span> {{ data.name }} </span>
             <el-button style="float: right; padding: 3px 0" type="text">詳細資料</el-button>
           </div>
-          <div class="text item" id="temperature">
-            {{temperature[currentArea]}}
+          <div class="text item" v-bind:class="{ 'text-danger': (data.value > data.max || data.value < data.min) }" :id="data.name">
+            {{ data.value }} {{ data.unit }}
           </div>
         </el-card>
       </el-col>
-      <el-col :span="6">
+      <!--<el-col :span="6">
         <el-card class="box-card dashboard_data">
           <div slot="header" class="clearfix">
             <span>{{$t("people_count")}}</span>
@@ -66,7 +66,7 @@
             {{pm25[currentArea]}}
           </div>
         </el-card>
-      </el-col>
+      </el-col>-->
     </el-row>
   </div>
 </template>
@@ -76,18 +76,12 @@ export default {
   
   data() {
     return {
-      id: '',
-      peoplecount: [],
-      temperature: [],
-      humidity: [],
-      pm25: [],
-      datetime: '',
-      polling: null
+      sensorData:{}
     }
   },
   created() {
     this.getSensorsData()
-    this.polling = setInterval( this.getSensorsData, 6000 )
+    this.polling = setInterval( this.getSensorsData, 1000 )
     //this.gwid = this.$session.get( 'loginUser')
     //console.log('Dashboard gwid=' + this.gwid )
     
@@ -106,50 +100,30 @@ export default {
     getSensorsData() {
        this.$ajax({
          method: 'GET',
-         url: 'http://52.197.39.218:8080/sensordata'
+         url: 'http://localhost:8080/Pig' // 理論上要加 Pig0001 之類的 id 去分別讀取不同 data
        })
        .then( res => {
           var objstr = JSON.stringify(res.data)
           console.log(objstr)
-          var objres = JSON.parse(objstr)
-          this.datetime = objres.datetime
 
-          this.id = this.$route.params.id
-          for(var room of objres.area){
-            //console.log('room name ' + room.name)
-            //console.log('this.id ' + this.id)
-            var nn = String(room.name)
-            this.peoplecount[nn] = room.peoplecount
-            this.temperature[nn] = room.temperature + ' °C'
-            this.humidity[nn] = room.humidity
-            this.pm25[nn] = room.pm25
-            /*if(room.name == this.id){
-              for(var attributename in room){
-                //console.log(attributename + ': ' + room[attributename])
-              }
-            }*/
-          }
+          this.sensorData = res.data
        })
        .catch( error => {
           console.log(error)
        })
-    },gotoGateway(command){
+    },
+    gotoGateway(command){
       this.$router.replace({namd: 'dashboard', params:{id: command}})
     }
 
   },
   watch:{
-    temperature: function() {
-        if(parseFloat(this.temperature) > 25){
-          console.log(this.temperature)
-          document.getElementById('temperature').style.color = 'red'
-        }else{
-          document.getElementById('temperature').style.color = 'black'
-        }
-      }
   }
 }
 </script>
 
 <style scoped>
+.text-danger {
+  color: red;
+}
 </style>
