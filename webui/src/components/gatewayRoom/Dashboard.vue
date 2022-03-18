@@ -34,39 +34,6 @@
           </div>
         </el-card>
       </el-col>
-      <!--<el-col :span="6">
-        <el-card class="box-card dashboard_data">
-          <div slot="header" class="clearfix">
-            <span>{{$t("people_count")}}</span>
-            <el-button style="float: right; padding: 3px 0" type="text">詳細資料</el-button>
-          </div>
-          <div class="text item">
-            {{peoplecount[currentArea]}}
-          </div>
-        </el-card>
-      </el-col>
-      <el-col :span="6">
-        <el-card class="box-card dashboard_data">
-          <div slot="header" class="clearfix">
-            <span>{{$t("humidity")}}</span>
-            <el-button style="float: right; padding: 3px 0" type="text">詳細資料</el-button>
-          </div>
-          <div class="text item">
-            {{humidity[currentArea]}}
-          </div>
-        </el-card>
-      </el-col>
-      <el-col :span="6">
-        <el-card class="box-card dashboard_data">
-          <div slot="header" class="clearfix">
-            <span>PM2.5</span>
-            <el-button style="float: right; padding: 3px 0" type="text">詳細資料</el-button>
-          </div>
-          <div class="text item">
-            {{pm25[currentArea]}}
-          </div>
-        </el-card>
-      </el-col>-->
     </el-row>
   </div>
 </template>
@@ -100,7 +67,7 @@ export default {
     getSensorsData() {
        this.$ajax({
          method: 'GET',
-         url: 'http://localhost:8080/Pig' // 理論上要加 Pig0001 之類的 id 去分別讀取不同 data
+         url: 'http://54.65.68.13:8080/Pig/' + this.$route.params.id +'/#' // 理論上要加 Pig00001 之類的 id 去分別讀取不同 data
        })
        .then( res => {
           var objstr = JSON.stringify(res.data)

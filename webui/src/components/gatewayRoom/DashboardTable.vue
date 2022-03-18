@@ -48,7 +48,7 @@
         tableData: [
           {
             location: 'ohga',
-            name: 'Pig0001',
+            name: 'Pig00001',
             tags: ['temperature', 'humidity', 'CO2', 'Ammonia']
           },{
             location: 'ohga',
