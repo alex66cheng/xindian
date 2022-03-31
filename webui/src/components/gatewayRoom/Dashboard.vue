@@ -20,7 +20,7 @@
       </el-col>
     </el-row>-->
     <el-row :gutter="20">
-     <el-col
+     <!--<el-col
        v-for="(data, index) in sensorData.params"
        :span="6"
        :key="index">
@@ -31,6 +31,17 @@
           </div>
           <div class="text item" v-bind:class="{ 'text-danger': (data.value > data.max || data.value < data.min) }" :id="data.name">
             {{ data.value }} {{ data.unit }}
+          </div>
+        </el-card>
+      </el-col>-->
+      <el-col>
+        <el-card class="box-card dashboard_data" >
+          <div slot="header" class="clearfix">
+            <span> temperture </span>
+            <el-button style="float: right; padding: 3px 0" type="text">詳細資料</el-button>
+          </div>
+          <div class="text item">
+            100C
           </div>
         </el-card>
       </el-col>
