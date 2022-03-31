@@ -21,6 +21,16 @@ const routes = {
         key: 'path',
         closable: true,
       }
+    },
+    {
+      path: 'dashboard/:id/:data_name/history',
+      name: 'sensor-history',
+      component: () => import('../components/gatewayRoom/HistoryChart.vue'),
+      meta: {
+        title: route => `${route.params.id}`,
+        key: 'path',
+        closable: true,
+      }
     }
   ]
 }

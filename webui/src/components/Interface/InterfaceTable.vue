@@ -115,11 +115,12 @@ export default {
   },
   created(){
     this.device = this.$route.params.device
+    console.log(this.device)
 
     this.$store.commit('initState', {
       config:{
       my: {
-        id: 'KA0000001'
+        id: this.device
       },
       mqtt: {
         ip: '52.197.39.218',
