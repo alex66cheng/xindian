@@ -23,7 +23,7 @@ const routes = {
       }
     },
     {
-      path: 'dashboard/:id/:data_name/history',
+      path: 'dashboard/:id/:key/history',
       name: 'sensor-history',
       component: () => import('../components/gatewayRoom/HistoryChart.vue'),
       meta: {

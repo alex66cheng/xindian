@@ -14,9 +14,6 @@ import Schedule from '../views/Schedule.vue'
 
 import DeviceStatus from '../components/DeviceStatus.vue'
 
-import HistoryFrame from '../components/frames/HistoryFrame.vue'
-import History from '../components/History.vue'
-
 import ProblemFrame from '../components/frames/ProblemFrame.vue'
 import SolvedProblem from '../components/problem/SolvedProblem.vue'
 import UnsolvedProblem from '../components/problem/UnsolvedProblem.vue'
@@ -94,19 +91,6 @@ const router = new Router({
                   name: 'schedule',
                   component: Schedule,
                   meta: {title: route => i18n.messages[route.params.lang]['schedule']}
-                }
-              ]
-            },
-            {
-              path: 'history',
-              component: HistoryFrame,
-              children: [
-                {
-                  path: '',
-                  name: 'history',
-                  component: History,
-                  meta: {title: route => i18n.messages[route.params.lang]['History_Title']}
-                
                 }
               ]
             },
