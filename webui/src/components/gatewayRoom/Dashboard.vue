@@ -38,7 +38,7 @@
         <el-card class="box-card dashboard_data" >
           <div slot="header" class="clearfix">
             <span> temperture </span>
-            <el-button style="float: right; padding: 3px 0" type="text">詳細資料</el-button>
+            <el-button style="float: right; padding: 3px 0" type="text" @click="$router.push('Pig00001/TEMP/history')">詳細資料</el-button>
           </div>
           <div class="text item">
             100C
