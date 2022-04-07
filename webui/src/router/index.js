@@ -10,9 +10,9 @@ import Register from '../views/Register.vue'
 import Monitor from '../views/Monitor.vue'
 
 import ScheduleFrame from '../components/frames/ScheduleFrame.vue'
-import Schedule from '../views/Schedule.vue'
+// import Schedule from '../views/Schedule.vue'
 
-import DeviceStatus from '../components/DeviceStatus.vue'
+// import DeviceStatus from '../components/DeviceStatus.vue'
 
 import ProblemFrame from '../components/frames/ProblemFrame.vue'
 import SolvedProblem from '../components/problem/SolvedProblem.vue'
@@ -86,20 +86,20 @@ const router = new Router({
               path: 'schedule',
               component: ScheduleFrame,
               children: [
-                {
-                  path: '',
-                  name: 'schedule',
-                  component: Schedule,
-                  meta: {title: route => i18n.messages[route.params.lang]['schedule']}
-                }
+                // {
+                //   path: '',
+                //   name: 'schedule',
+                //   component: Schedule,
+                //   meta: {title: route => i18n.messages[route.params.lang]['schedule']}
+                // }
               ]
             },
-            {
-              path: 'device-status',
-              name: 'device-status',
-              component: DeviceStatus,
+            // {
+            //   path: 'device-status',
+            //   name: 'device-status',
+            //   component: DeviceStatus,
                 
-            },
+            // },
           
             {
               path: 'problem',
