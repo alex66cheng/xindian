@@ -34,6 +34,8 @@ import 'vue-router-tab/dist/lib/vue-router-tab.css'
 
 
 import firebase from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/messaging'
 
 import VueChartkick from 'vue-chartkick'
 import 'chartkick/chart.js'
@@ -66,6 +68,7 @@ var firebaseConfig = {
   messagingSenderId: '227141088272',
   appId: '1:227141088272:web:91c3bed3aa609683068695'
 }
+
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig)
 
@@ -83,6 +86,27 @@ firebase.auth().onAuthStateChanged(user=>{
     }).$mount('#app')
   }
 })
+
+// Initialize Firebase Cloud Messaging and get a reference to the service
+const messaging = firebase.messaging();
+// Add the public key generated from the console here.
+// Get registration token. Initially this makes a network call, once retrieved
+// subsequent calls to getToken will return from cache.
+messaging.getToken({ vapidKey: 'BOrKMy0a7AnYTMBeUZjDjE3cIKgyhYWyByN_MQ6eFbOaOF7z3YTrtTvhgAcKJQqg2abLgpVEpVMo5tYog3OybqI' }).then((currentToken) => {
+  if (currentToken) {
+    // Send the token to your server and update the UI if necessary
+    // ...
+    console.log(currentToken)
+    store.commit('setMessageToken', currentToken)
+  } else {
+    // Show permission request UI
+    console.log('No registration token available. Request permission to generate one.');
+    // ...
+  }
+}).catch((err) => {
+  console.log('An error occurred while retrieving token. ', err);
+  // ...
+});
 
 /*new Vue({
   router,
