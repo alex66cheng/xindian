@@ -10,6 +10,7 @@
           <el-button style="margin-bottom: 20px;" type="primary" @click="onSubmit">Login</el-button>
         </form>
         <el-alert v-if="error" type="error" show-icon> {{error.message}} </el-alert>
+        <el-button @click="signInWithGoogle"> Google </el-button>
         <span>Need an account? Click here to <el-link type="primary" @click="$router.replace({name: 'register'})">Sign UP</el-link></span><br>
       </el-card>
   </div>
@@ -40,11 +41,35 @@ export default {
         })
       }
     },
-    
     goBack() {
       console.log('go back')
       window.location.href = '/'
-    }
+    },
+    signInWithGoogle(){
+      var provider = new firebase.auth.GoogleAuthProvider()
+      firebase.auth()
+      .signInWithPopup(provider)
+      .then((result) => {
+        /** @type {firebase.auth.OAuthCredential} */
+        var credential = result.credential
+
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        var token = credential.accessToken
+        // The signed-in user info.
+        var user = result.user
+        // ...
+        this.$router.replace({name: 'dashboard-table'})
+      }).catch((error) => {
+        // Handle Errors here.
+        var errorCode = error.code
+        var errorMessage = error.message
+        // The email of the user's account used.
+        var email = error.email
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential
+        // ...
+      })
+      }
   }
 }
 
