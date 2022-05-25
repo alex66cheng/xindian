@@ -5,12 +5,18 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state:{
-    config:{}
+    config:{},
+    messageToken: '',
   },
   getters:{
-    
+    getMessageToken: state => {
+      return state.messageToken
+    }
   },
   mutations: {
+    setMessageToken(state, token) {
+      state.messageToken = token
+    },
     addValue (state, payload){
       state.config.all.find(x => x.id === payload.interfaceId).param[payload.paramIndex]
       .value.push(payload.newValue)
