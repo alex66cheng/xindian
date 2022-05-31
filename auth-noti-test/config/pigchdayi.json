@@ -1,0 +1,67 @@
+{
+  "param" :[{
+    "id":"TEMP",
+    "name" : "temperature",
+    "min" : "0",
+    "max" : "100",
+    "unit" : "°C",
+    "scale" : "10"
+  },{
+    "id":"HUM",
+    "name" : "humidity",
+    "min" : "0",
+    "max" : "100",
+    "unit" : "%",
+    "scale" : "10"
+  },{
+    "id":"CO2",
+    "name" : "CO2",
+    "min" : "0",
+    "max" : "3000",
+    "unit" : "ppm",
+    "scale" : "1"
+  },{
+    "id":"NH3",
+    "name" : "Ammonia",
+    "min" : "0",
+    "max" : "3000",
+    "unit" : "ppm",
+    "scale" : "100"
+  },{ 
+    "id":"WDIR",
+    "name" : "wind direction",
+    "min" : "0",
+    "max" : "360",
+    "unit" : "°",
+    "scale" : "1"
+  },{
+    "id":"LOW",
+    "name" : "power low",
+    "min" : "0",
+    "max" : "1",
+    "unit" : " ",
+    "scale" : "1"
+  },{
+    "id":"OTEMP",
+    "name" : "out door temperature",
+    "min" : "0",
+    "max" : "100",
+    "unit" : "°C",
+    "scale" : "10"
+  },{
+    "id":"OHUM",
+    "name" : "out door humidity",
+    "min" : "0",
+    "max" : "100",
+    "unit" : "%",
+    "scale" : "1" 
+  },{
+      "id":"WIND",
+    "name" : "wind speed",
+    "min" : "0",
+    "max" : "100",
+    "unit" : "m/s",
+    "scale" : "7.299" 
+  }]
+}
+
