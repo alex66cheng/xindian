@@ -35,27 +35,11 @@
     
     name : 'monitor',
     created(){
-      // const messaging = firebase.messaging()
-      // // These registration tokens come from the client FCM SDKs.
-      // const registrationTokens = [
-      //   this.$store.getMessageToken
-      // ];
-
-      // console.log(messaging)
-      // console.log(registrationTokens)
-
-      // // Subscribe the devices corresponding to the registration tokens to the
-      // // topic.
-      // const topic = 'test'
-      // messaging.subscribeToTopic(registrationTokens, topic)
-      //   .then((response) => {
-      //     // See the MessagingTopicManagementResponse reference documentation
-      //     // for the contents of response.
-      //     console.log('Successfully subscribed to topic:', response);
-      //   })
-      //   .catch((error) => {
-      //     console.log('Error subscribing to topic:', error);
-      //   });
+      this.$messaging.onMessage(payload => {
+        console.log('Message receiver ', payload);
+        let notification = payload.notification;
+        console.log('Notification: ', notification);
+      });
     },
     data() {
       return {

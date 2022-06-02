@@ -1,0 +1,17 @@
+{
+    "short_name": "YOUR_PROJECT_SHORT_NAME",
+    "name": "YOUR_PROJECT_NAME",
+    "icons": [
+      {
+        "src": "/static/images/logo.png",
+        "type": "image/png",
+        "sizes": "192x192"
+      }
+    ],
+    "start_url": "/",
+    "background_color": "#ecf0f2",
+    "display": "fullscreen",
+    "theme_color": "#34aeab",
+    "gcm_sender_id": "227141088272"
+  }
+  

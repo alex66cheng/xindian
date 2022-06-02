@@ -87,26 +87,47 @@ firebase.auth().onAuthStateChanged(user=>{
   }
 })
 
-// Initialize Firebase Cloud Messaging and get a reference to the service
-const messaging = firebase.messaging();
-// Add the public key generated from the console here.
-// Get registration token. Initially this makes a network call, once retrieved
-// subsequent calls to getToken will return from cache.
-messaging.getToken({ vapidKey: 'BOrKMy0a7AnYTMBeUZjDjE3cIKgyhYWyByN_MQ6eFbOaOF7z3YTrtTvhgAcKJQqg2abLgpVEpVMo5tYog3OybqI' }).then((currentToken) => {
-  if (currentToken) {
-    // Send the token to your server and update the UI if necessary
-    // ...
-    console.log(currentToken)
-    store.commit('setMessageToken', currentToken)
-  } else {
-    // Show permission request UI
-    console.log('No registration token available. Request permission to generate one.');
-    // ...
-  }
-}).catch((err) => {
-  console.log('An error occurred while retrieving token. ', err);
-  // ...
-});
+/** this method is from firebase dicument */
+// // Initialize Firebase Cloud Messaging and get a reference to the service
+// const messaging = firebase.messaging();
+// // Add the public key generated from the console here.
+// // Get registration token. Initially this makes a network call, once retrieved
+// // subsequent calls to getToken will return from cache.
+// messaging.getToken({ vapidKey: 'BOrKMy0a7AnYTMBeUZjDjE3cIKgyhYWyByN_MQ6eFbOaOF7z3YTrtTvhgAcKJQqg2abLgpVEpVMo5tYog3OybqI' }).then((currentToken) => {
+//   if (currentToken) {
+//     // Send the token to your server and update the UI if necessary
+//     // ...
+//     console.log(currentToken)
+//     store.commit('setMessageToken', currentToken)
+//   } else {
+//     // Show permission request UI
+//     console.log('No registration token available. Request permission to generate one.');
+//     // ...
+//   }
+// }).catch((err) => {
+//   console.log('An error occurred while retrieving token. ', err);
+//   // ...
+// });
+
+/** this method is from https://soarlin.github.io/2018/06/02/Vue-%E4%BD%BF%E7%94%A8Firebase-Cloud-Messaging/ */
+Vue.prototype.$messaging = null
+console.log("im here: ", firebase.messaging.isSupported())
+if (firebase.messaging.isSupported()) {
+  // Retrieve Firebase Messaging object, assign to Vue Object
+  Vue.prototype.$messaging = firebase.messaging()
+  // Add the public key generated from the Firebase console
+  Vue.prototype.$messaging.usePublicVapidKey('BOrKMy0a7AnYTMBeUZjDjE3cIKgyhYWyByN_MQ6eFbOaOF7z3YTrtTvhgAcKJQqg2abLgpVEpVMo5tYog3OybqI')
+}
+
+// Change server-worker.js register path
+navigator.serviceWorker.register('/static/firebase-messaging-sw.js')
+  .then((registration) => {
+    Vue.prototype.$swRegistration = registration
+    Vue.prototype.$messaging.useServiceWorker(registration)
+  }).catch(err => {
+    console.log(err)
+  })
+
 
 /*new Vue({
   router,

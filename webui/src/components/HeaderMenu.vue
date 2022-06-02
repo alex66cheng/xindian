@@ -23,7 +23,7 @@
       
     </el-submenu>
     <el-menu-item index="3" disabled>Info</el-menu-item>
-    <el-menu-item index="4"><a href="https://www.ele.me" target="_blank">Orders</a></el-menu-item>
+    <el-menu-item @click="registeFCM">>Registe FCM</el-menu-item>
     
     
     <div style="float: right">
@@ -44,6 +44,7 @@
 <script>
 import firebase from 'firebase/app'
 import 'firebase/auth'
+import 'firebase/messaging'
 
 export default {
   
@@ -62,8 +63,8 @@ export default {
   methods: {
     handleCommand(command) {
       
-      if(command == 'login'){
-        console.log('login')
+      if(command == 'logout'){
+        console.log('logout')
         try{
            const data =  firebase.auth().signOut()
            console.log(data)
@@ -78,8 +79,47 @@ export default {
       this.$root.$i18n.locale = language
       this.$router.push({name: this.$router.currentRoute.name, params:{lang: language} })
       
+    },
+
+    /** FCM */
+    initFCM () {
+      this.$messaging.onTokenRefresh(() => {
+        this.$messaging.getToken().then((refreshedToken) => {
+          console.log('Token refreshed.')
+          this.setTokenSentToServer(false)
+          this.sendTokenToServer(refreshedToken)
+        })
+      })
+    },
+    registeFCM () {
+      this.$messaging.requestPermission().then(() => {
+        console.log('Notification permission granted.')
+        this.getToken()
+      }).catch((err) => {
+        console.log('Unable to get permission to notify.', err)
+      })
+    },
+    getToken () {
+      this.$messaging.getToken().then((currentToken) => {
+        if (currentToken) {
+          this.sendTokenToServer(currentToken)
+        } else {
+          console.log('No Instance ID token available. Request permission to generate one.')
+          // Show permission UI.
+          this.setTokenSentToServer(false)
+        }
+      }).catch((err) => {
+        console.log('An error occurred while retrieving token. ', err)
+        this.setTokenSentToServer(false)
+      })
+    },
+    sendTokenToServer (token) {
+      // TODO: Send Token To Your Server
+    },
+    setTokenSentToServer (type) {
+      if (type) return
+      // TODO: Delete Register Token From Your Server
     }
-    
     
   }
 }

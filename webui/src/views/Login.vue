@@ -20,12 +20,16 @@
 import firebase from 'firebase/app'
 import 'firebase/auth'
 
+
 export default {
   data(){
     return{
       email: '',
       password: '',
     }
+  },
+  created(){
+
   },
   methods: {
     async onSubmit(){
