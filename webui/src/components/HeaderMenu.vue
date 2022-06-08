@@ -31,7 +31,7 @@
         text-color="#fff" @command="handleCommand"> 
         <i class="el-icon-setting" style="margin: 15px; font-size: 30px; color: white"></i>
         <el-dropdown-menu slot="dropdown" :router="true">
-          <el-dropdown-item command="login">logout</el-dropdown-item>
+          <el-dropdown-item command="logout">logout</el-dropdown-item>
           <el-dropdown-item>Add</el-dropdown-item>
           <el-dropdown-item>Delete</el-dropdown-item>
         </el-dropdown-menu>
@@ -44,7 +44,6 @@
 <script>
 import firebase from 'firebase/app'
 import 'firebase/auth'
-import 'firebase/messaging'
 
 export default {
   
@@ -56,9 +55,21 @@ export default {
   created(){
     firebase.auth().onAuthStateChanged(user=>{
       
-      this.loggedIn = !!user
+      // this.loggedIn = !!user
       
     })
+
+    this.$messaging.onMessage(payload => {
+      console.log('Message receiver ', payload);
+      let notification = payload.notification;
+      console.log('Notification: ', notification);
+
+      this.$notify({
+          title: notification.title,
+          message: notification.body,
+          position: 'bottom-right'
+        });
+    });
   },
   methods: {
     handleCommand(command) {
@@ -115,6 +126,12 @@ export default {
     },
     sendTokenToServer (token) {
       // TODO: Send Token To Your Server
+      console.log('Sending token to server...')
+      console.log(token)
+      const api = 'http://localhost:8080'
+      const headers = this.$store.getters.getHeaders
+      const body = { registrationTokens: token, topic: 'test' }
+      this.$ajax.post(api + '/FCM/subscribeTopic', body, {headers: headers})
     },
     setTokenSentToServer (type) {
       if (type) return
