@@ -9,11 +9,12 @@ module.exports = function (admin) {
   }
 
   const validateFirebaseIdToken = async (req, res, next) =>{
-    
+    // console.log("req: ", req.headers)
     //console.log('varify')
     try{
       let IdToken = getIdToken(req);
-      const decodedIdToken = await admin.auth().verifyIdToken(idToken)
+      console.log("IdToken: ", IdToken)
+      const decodedIdToken = await admin.auth().verifyIdToken(IdToken)
       console.log('ID Token correctly decoded', decodedIdToken);
       req.user = decodedIdToken;
       next();
