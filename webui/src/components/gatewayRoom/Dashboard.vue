@@ -64,6 +64,8 @@ export default {
     //console.log('Dashboard gwid=' + this.gwid )
     
     //this.$router.push({ name: 'gateway603'})
+
+
   },
   beforeDestroy(){
     clearInterval( this.polling)
@@ -78,6 +80,7 @@ export default {
     getSensorsData() {
        this.$ajax({
          method: 'GET',
+         headers: this.$store.getters.getHeaders,
          url: 'http://54.65.68.13:8080/Pig/' + this.$route.params.id +'/#' // 理論上要加 Pig00001 之類的 id 去分別讀取不同 data
        })
        .then( res => {
