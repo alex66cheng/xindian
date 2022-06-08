@@ -36,27 +36,18 @@
     
     name : 'monitor',
     created(){
-      this.$messaging.onMessage(payload => {
-        console.log('Message receiver ', payload);
-        let notification = payload.notification;
-        console.log('Notification: ', notification);
-      });
-
       const fetchuser = async () => {
         const user = await firebase.auth().currentUser;
         console.log('user', user);
-        return user;
+        return user.getIdToken();
       }
 
-      fetchuser().then(() => {
-        this.userId = firebase.auth().currentUser.uid;
-        console.log("get uid: ", this.userId)
+      fetchuser().then((userId) => {
+        this.$store.commit('setUserId', userId);
+        console.log("get user Id Token: ", this.$store.getters.getUserId);
       })
     },
     data() {
-      return {
-        userId: '',
-      }
     },
     components: {
       AsideMenu,
