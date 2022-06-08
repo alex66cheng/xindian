@@ -26,7 +26,8 @@
 
 
 <script>
-  // import firebase from 'firebase'
+  import firebase from 'firebase'
+  import 'firebase/auth'
   // import 'firebase/messaging'
 
   import AsideMenu from '../components/AsideMenu.vue'
@@ -40,9 +41,21 @@
         let notification = payload.notification;
         console.log('Notification: ', notification);
       });
+
+      const fetchuser = async () => {
+        const user = await firebase.auth().currentUser;
+        console.log('user', user);
+        return user;
+      }
+
+      fetchuser().then(() => {
+        this.userId = firebase.auth().currentUser.uid;
+        console.log("get uid: ", this.userId)
+      })
     },
     data() {
       return {
+        userId: '',
       }
     },
     components: {
