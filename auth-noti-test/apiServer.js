@@ -78,13 +78,27 @@ app.get('/history', async (req, res, next) => {
   
 })
 
-app.post('FCM/subscribeTopic', async (req, res) => {
+app.post('/FCM/subscribeTopic', async (req, res) => {
   let {registrationTokens, topic} = JSON.parse(JSON.stringify(req.body))
+  console.log(registrationTokens, topic)
 
   try{
     let response = await admin.messaging().subscribeToTopic(registrationTokens, topic || 'test')
     res.json({success: true})
     console.log('Successfully subscribed to topic:', response);
+
+    // 直接秒send message
+    const message = {
+      notification: {
+        title: 'test notification',
+        body: 'this is test notification from server'
+      },
+      topic: 'test',
+    }
+    admin.messaging().send(message).then((resp)=>{
+      console.log(resp)
+      console.log('success')
+    })
   }
   catch(errer){
     res.json({success: false})
