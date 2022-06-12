@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-76ae3108"],{5921:function(t,n,e){},8565:function(t,n,e){"use strict";var a=e("5921"),u=e.n(a);u.a},"967b":function(t,n,e){"use strict";e.r(n);var a=function(){var t=this,n=t.$createElement,e=t._self._c||n;return e("router-tab",{staticStyle:{height:"100%"}})},u=[],r={data:function(){return{tabs:[]}},computed:{}},c=r,o=(e("8565"),e("2877")),i=Object(o["a"])(c,a,u,!1,null,null,null);i.options.__file="DashboardFrame.vue";n["default"]=i.exports}}]);
+//# sourceMappingURL=chunk-76ae3108.js.map
