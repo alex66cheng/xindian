@@ -1,6 +1,6 @@
 const query = require('./db/query.js')
 const utils = require('./utils.js')
-
+const path = require('path');
 
 // ===== mqtt =====
 var mqtt = require('mqtt');
@@ -48,7 +48,7 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
 });
 
-const validateFirebaseIdToken = require('./validateFirebaseIdToken.js')(admin)
+//const validateFirebaseIdToken = require('./validateFirebaseIdToken.js')(admin)
 
 
 var express = require('express');
@@ -61,7 +61,7 @@ app.use(cors({
   origin: ['http://localhost:7542', 'http://localhost:8081']
 }))
 
-app.use(validateFirebaseIdToken)
+//app.use(validateFirebaseIdToken)
 
 
 app.get('/Pig/Pig00001', (req, res, next) => {
@@ -93,6 +93,7 @@ app.post('FCM/subscribeTopic', async (req, res) => {
 
 })
 
+app.use('/web',express.static(path.join(__dirname, '../webui/dist')));
 
 
 app.listen(8080, function() {

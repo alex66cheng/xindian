@@ -26,6 +26,7 @@ message = {
 
 
 admin.messaging().send(message).then(()=>{
+  console.log(message)
   console.log('success')
 })
 
